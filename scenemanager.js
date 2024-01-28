@@ -778,6 +778,7 @@ class SceneManager {
         this.countDeath++;
         
 
+
        this.touch = false;
        this.characterDeath= false;
       //  this.loadMap();
@@ -793,8 +794,10 @@ class SceneManager {
 
           
        }); 
+
        this.dayNightManager.time = 17;
        this.game.addEntity(this.dayNightManager );
+
        this.loadMap();
        this.game.addEntity(new Portal(this.game, 310, 110));
       this.character = new MainCharacter(this.game,700, 700);    
@@ -806,6 +809,7 @@ class SceneManager {
        this.flag = true;
 
       }
+
 
 
     if (this.touch&&!this.clearEntitiesFlag) {
@@ -823,6 +827,7 @@ class SceneManager {
           });
           this.loadBoss();
         //   this.portalmap = new PortalMap(this.game,0,0);
+
 
         // this.game.addEntity(this.portalmap);
         //   this.boss2 = new Boss(this.game,600, 161, [{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]);
