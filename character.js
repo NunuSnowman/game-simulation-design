@@ -15,7 +15,7 @@ class MainCharacter{
         this.width = 48;
         this.game.character = this;
         this.radius = 30; //attack range
-        this.speed = 0.5;
+        this.speed = 5.5;
                 // spritesheet
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/villager1.png");
         this.spritesheetFishing = ASSET_MANAGER.getAsset("./sprites/fishing.png");
