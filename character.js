@@ -15,7 +15,7 @@ class MainCharacter{
         this.width = 48;
         this.game.character = this;
         this.radius = 30; //attack range
-        this.speed = 5.5;
+        this.speed = 0.5;
                 // spritesheet
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/villager1.png");
         this.spritesheetFishing = ASSET_MANAGER.getAsset("./sprites/fishing.png");
@@ -154,8 +154,8 @@ class MainCharacter{
         this.elapsedTimeForShuriken2+= this.game.clockTick;
 
         
-        if(this.game.keyG == true && Math.abs(this.x - this.game.camera.x - 1087) < 15 &&  Math.abs(this.y - 84  - this.game.camera.x) < 50 ) this.fishingMode = true;
-      if(this.game.keyG) {
+        if(this.game.keyE == true && Math.abs(this.x - this.game.camera.x - 1087) < 15 &&  Math.abs(this.y - 84  - this.game.camera.x) < 50 ) this.fishingMode = true;
+      if(this.game.keyE) {
         console.log((this.x  - this.game.camera.x) + "and"+(this.y  - this.game.camera.x));
 
       }

@@ -29,6 +29,7 @@ class GameEngine {
 
         this.mouseClick = false;
         this.keyG = false;
+        this.keyE = false;
 
         this.spaceKey = false;
         // Options and the Details
@@ -114,8 +115,8 @@ class GameEngine {
         
         const keyUpListener = (e)=>{
             switch (e.code) {
-                case "KeyG":
-                    this.keyG = false;
+                case "KeyE":
+                    this.keyE = false;
                     break;
                 case "KeyI":
                     ++PARAMS.DAYCOUNTER;
@@ -160,8 +161,8 @@ class GameEngine {
 
         const keyDownListener = (e)=>{
             switch (e.code) {
-                case "KeyG":
-                        this.keyG = true;
+                case "KeyE":
+                        this.keyE = true;
                         break;
                 case "KeyI":
                     this.testSleepCutScene = true;
