@@ -117,7 +117,7 @@ class SceneManager {
       this.game.addEntity(this.character);
     }
     loadMap() {
-      
+       this.listOfTrippleSoil = [];
 
         let houseX = 50;
         let houseY = 460;
