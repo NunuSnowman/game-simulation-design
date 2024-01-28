@@ -131,6 +131,7 @@ class SceneManager {
 
 
         this.game.addEntity(this.listOfLakeAndOtherSide);
+        this.normalBossesHouse.removeFromWorld = false;
         this.game.addEntity(this.normalBossesHouse);
 
 
@@ -534,6 +535,7 @@ class SceneManager {
 
         }
         this.dayNightManager.time = 17;
+        this.dayNightManager.removeFromWorld = false;
         this.game.addEntity(this.dayNightManager );
 
 
