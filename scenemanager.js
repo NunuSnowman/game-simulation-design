@@ -598,7 +598,9 @@ class SceneManager {
       
       this.game.ctx.fillText("DMG :" + this.character.baseDamage, 10,45 + 120);
       this.game.ctx.fillText("HP  :"+ this.character.hitpoints  +"/" + this.character.maxhitpoints, 10,45 + 140);
+      ctx.font = '8px "Press Start 2P"';
 
+      this.game.ctx.fillText("Fishing Here(E)", 64*22+40 - this.game.camera.x,370- this.game.camera.y);
 
 
 
@@ -606,6 +608,13 @@ class SceneManager {
 
       if (this.character.elapsedTime2 >= 8) this.game.ctx.drawImage(this.spritesheetFarmLand, 0, 989, 32, 32, 250, 5, 32, 32);
       else this.game.ctx.drawImage(this.spritesheetFarmLand, 0, 1027, 32, 32, 250, 5, 32, 32);
+
+      if (this.character.numberOfFish >= 1) this.game.ctx.drawImage(this.spritesheetFarmLand,0, 1063, 32, 32, 290, 5, 32, 32);
+      else this.game.ctx.drawImage(this.spritesheetFarmLand, 0, 1063 + 32, 32, 32, 290, 5, 32, 32);
+      ctx.font = '8px "Press Start 2P"';
+      this.game.ctx.fillStyle = "Black";
+
+      this.game.ctx.fillText(this.character.numberOfFish, 290,15);
 
 
   }

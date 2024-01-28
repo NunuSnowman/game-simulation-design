@@ -27,6 +27,7 @@ class MainCharacter{
         this.maxhitpoints = 100 ;
         this.baseDamage = 10 ;
         this.farmInventory = [];
+        this.numberOfFish = 1;
         // MainCharacter's state variables
         this.facing = 0; // 0 = right, 1 = left
         this.state = 0; // 0 = walking, 1 = attacking, 2, idling
@@ -155,10 +156,7 @@ class MainCharacter{
 
         
         if(this.game.keyE == true && Math.abs(this.x - this.game.camera.x - 1087) < 15 &&  Math.abs(this.y - 84  - this.game.camera.x) < 50 ) this.fishingMode = true;
-      if(this.game.keyE) {
-        console.log((this.x  - this.game.camera.x) + "and"+(this.y  - this.game.camera.x));
-
-      }
+   
       if(this.fishingMode && this.elapsedTime3 > 2 && this.elapsedTime3 < 3 ){
             console.log("up");
             this.fishingStatus = 0; 
@@ -171,19 +169,15 @@ class MainCharacter{
             this.elapsedTime = 0;
         }
         if(this.game.spaceKey && this.fishingMode == true  && this.elapsedTime <= 0.75 &&  this.getFish){
-            console.log("fish up T!");
            this.fishingStatus = 2; 
             this.elapsedTime = 0;
             this.elapsedTime3 = 0;
             this.getFish = false;
+            this.numberOfFish += 1;
         } else if(this.game.spaceKey && this.fishingMode == true && this.elapsedTime > 0.75){
-            console.log("fish up  F!");
              this.fishingStatus = 1;   
              this.elapsedTime3 = 0;
              this.getFish = false;
-
-
-
         }
      
 

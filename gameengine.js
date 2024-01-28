@@ -30,7 +30,7 @@ class GameEngine {
         this.mouseClick = false;
         this.keyG = false;
         this.keyE = false;
-
+        this.keyR = false;
         this.spaceKey = false;
         // Options and the Details
         this.options = options || {
@@ -115,6 +115,9 @@ class GameEngine {
         
         const keyUpListener = (e)=>{
             switch (e.code) {
+                case "KeyR":
+                    this.keyR = false;
+                    break;
                 case "KeyE":
                     this.keyE = false;
                     break;
@@ -161,6 +164,9 @@ class GameEngine {
 
         const keyDownListener = (e)=>{
             switch (e.code) {
+                case "KeyR":
+                    this.keyR = true;
+                    break;
                 case "KeyE":
                         this.keyE = true;
                         break;
