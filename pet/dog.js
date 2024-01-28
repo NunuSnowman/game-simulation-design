@@ -14,7 +14,7 @@ class Dog {
       this.speed = 0.5;
       this.width = 23;
       this.height = 63;
-
+      this.monsterMode = 1;
       this.damageBase = 10;
       this.radius = 40;
       this.faceleft = false;
@@ -23,8 +23,8 @@ class Dog {
       this.maxhitpoints = 599;
       this.condition = false;
       this.maxSpeed = 100;
+    
       
-
       this.visualRadius = 250;
 
 
@@ -43,6 +43,7 @@ class Dog {
       this.facing = 0; // 0 = up, clockwise
 
       this.elapsedTime = 0;
+      this.elapsedTimeMonster = 10;
       this.animations = [];
       
       this.directionFace = 3;
@@ -104,6 +105,23 @@ class Dog {
     // console.log(this.target);
     // console.log(this.attackTarget);
     // console.log(this.state);
+
+    if(this.monsterMode == 1 && this.game.keyR && this.game.character.numberOfFish >= 1) {
+        this.monsterMode = 1.5;
+        this.elapsedTimeMonster = 20;
+        this.game.character.numberOfFish -= 1;
+        this.damageBase *= this.monsterMode;
+        this.maxSpeed *= this.monsterMode;
+    }
+
+    if(this.elapsedTimeMonster >= 0) this.elapsedTimeMonster -= this.game.clockTick;
+    if(this.elapsedTimeMonster <= 0)      {
+           this.monsterMode = 1;
+           this.damageBase = 10;
+            this.maxSpeed  = 100;
+        }
+
+
     this.updateBB();
     this.elapsedTime += this.game.clockTick;
     var dist = distance(this, this.target);
@@ -217,8 +235,8 @@ class Dog {
     //this.animations[2][3].drawFrame(this.game.clockTick,ctx,this.x - this.game.camera.x- this.width/2,this.y - this.game.camera.y- this.height/2,PARAMS.SCALE);
 
    // this.animations[this.state][this.facing].drawFrame(this.game.clockTick,ctx,this.x - this.game.camera.x - (this.width),this.y - this.game.camera.y - (this.height) ,PARAMS.SCALE);
-    if(this.facing == DirectionDog.DOWN ||this.facing == DirectionDog.UP ) this.animations[this.state][this.facing].drawFrame(this.game.clockTick,ctx,this.x - this.game.camera.x - (this.width)/2,this.y - this.game.camera.y - (this.height)/2 ,PARAMS.SCALE)
-   else this.animations[this.state][this.facing].drawFrame(this.game.clockTick,ctx,this.x - this.game.camera.x - (this.height)/2,this.y - this.game.camera.y - (this.width)/2 ,PARAMS.SCALE)
+    if(this.facing == DirectionDog.DOWN ||this.facing == DirectionDog.UP ) this.animations[this.state][this.facing].drawFrame(this.game.clockTick,ctx,this.x - this.game.camera.x - (this.width)/2,this.y - this.game.camera.y - (this.height)/2 ,this.monsterMode*PARAMS.SCALE)
+   else this.animations[this.state][this.facing].drawFrame(this.game.clockTick,ctx,this.x - this.game.camera.x - (this.height)/2,this.y - this.game.camera.y - (this.width)/2 ,this.monsterMode*PARAMS.SCALE)
 
 
 
