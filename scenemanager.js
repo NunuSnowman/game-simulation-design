@@ -537,7 +537,6 @@ class SceneManager {
         this.game.addEntity(this.dayNightManager );
 
 
-
     }
     draw(ctx) {
   
@@ -825,6 +824,7 @@ class SceneManager {
         // this.game.addEntity(this.character);
     }
 
+
     else{
         this.game.entities.forEach((entity) =>{  
          
@@ -856,6 +856,7 @@ class SceneManager {
 
         if(this.startCounting) this.elapsed += this.game.clockTick;;
 
+
        if(this.startCounting) this.elapsed += this.game.clockTick;;
         let midpointX = PARAMS.CANVAS_WIDTH/2 ;
         let midpointY = PARAMS.CANVAS_HEIGHT/2 ;
@@ -884,10 +885,6 @@ class SceneManager {
             this.y = this.character.y - midpointY;
 
         }
-
-        
-
-
 
         const newDay = PARAMS.DAYCOUNTER;
         PARAMS.DEBUG = document.getElementById("debug").checked;
