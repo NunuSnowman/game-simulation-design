@@ -28,9 +28,7 @@ class GameEngine {
         this.testSleepCutScene = false;
 
         this.mouseClick = false;
-        this.keyG = false;
-        this.keyE = false;
-        this.keyR = false;
+
         this.spaceKey = false;
         // Options and the Details
         this.options = options || {
@@ -93,8 +91,6 @@ class GameEngine {
                 console.log("CLICK", getXandY(e));
             }
             this.click = getXandY(e);
-            console.log("CLICK", getXandY(e));
-
         });
 
         this.ctx.canvas.addEventListener("wheel", e => {
@@ -115,12 +111,6 @@ class GameEngine {
         
         const keyUpListener = (e)=>{
             switch (e.code) {
-                case "KeyR":
-                    this.keyR = false;
-                    break;
-                case "KeyE":
-                    this.keyE = false;
-                    break;
                 case "KeyI":
                     ++PARAMS.DAYCOUNTER;
                   //  this.game.dayNightManager.time = 6;
@@ -164,12 +154,7 @@ class GameEngine {
 
         const keyDownListener = (e)=>{
             switch (e.code) {
-                case "KeyR":
-                    this.keyR = true;
-                    break;
-                case "KeyE":
-                        this.keyE = true;
-                        break;
+
                 case "KeyI":
                     this.testSleepCutScene = true;
                     break;
