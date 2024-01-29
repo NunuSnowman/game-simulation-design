@@ -9,8 +9,8 @@ class MainCharacter{
         Object.assign(this, { game, x, y });
         this.x = x;
         this.y = y;
-        this.spawnX = 400;
-        this.spawnY = 400;
+        this.spawnX = 700;
+        this.spawnY = 700;
         this.height = 48;
         this.width = 48;
         this.game.character = this;
