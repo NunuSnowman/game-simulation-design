@@ -778,10 +778,10 @@ class SceneManager {
         this.countDeath++;
 
         this.characterDeath= false;
-     
-      
+        const tempCharacterInfor = {...this.character};
+
         this.character = new MainCharacter(this.game,700, 700);    
-            
+        this.character.loadCharacterInfor(tempCharacterInfor);
         this.game.addEntity(this.character);
       }
 
