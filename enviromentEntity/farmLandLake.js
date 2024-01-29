@@ -16,6 +16,8 @@ class LakeAndOtherSide{
         this.bigWaterFallAnimation = new Animator(this.spritesheet, 360, 352, 80, 97, 3, 0.5, 16, false, true);
         this.campFireAnimation  = new Animator(this.spritesheet, 288, 107, 32, 50, 5, 0.2, 0, false, true);
         this.verticalRightWaterAnimation  = new Animator(this.spritesheet, 187, 366, 14, 53, 3, 5, 0, false, true);
+        this.fishSwimming = new Animator(this.spritesheet, 0, 538-48, 48*2, 48, 3, 1, 0, false, true);
+
         this.updateBB();
        
     }; 
@@ -272,9 +274,13 @@ class LakeAndOtherSide{
         for(let i = 0; i < 3; i++){
             this.addWoodBridge(ctx,1750 ,135 + 40*i);
         }
+        this.fishSwimming.drawFrame
+        (this.game.clockTick,ctx,64*23 - 53  - this.game.camera.x, 420 -15 - this.game.camera.y,PARAMS.SCALE);
         for(let i = 0; i < 3; i++){
             this.addHorizontalWoodBridge(ctx, 1330+ 34*i, 410 );
         }
+
+        
 
         if (PARAMS.DEBUG) {
              ctx.strokeStyle = 'red';
@@ -283,6 +289,9 @@ class LakeAndOtherSide{
  
  
          }
+
+
+
         
     }
  
