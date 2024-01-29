@@ -139,6 +139,7 @@ class Boar {
                      this.elapsedTime = 0;
                      if( ent.hitpoints<=0){
                         //ent.removeFromWorld = true;
+                        this.game.countDeath += 1;
                         ent.isDead();
                      }
                  }

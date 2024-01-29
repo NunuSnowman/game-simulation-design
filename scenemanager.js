@@ -106,15 +106,19 @@ class SceneManager {
 
         }
     };
-    loadBoss(){
+    loadBoss(tempCharacterInfor){
       this.portalmap = new PortalMap(this.game,0,0);
 
       this.game.addEntity(this.portalmap);
         this.boss2 = new Boss(this.game,600, 161, [{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]);
 
         this.game.addEntity(this.boss2);
-      this.character = new MainCharacter(this.game,800, 525);        
+      this.character = new MainCharacter(this.game,800, 525); 
+
+      this.character.loadCharacterInfor(tempCharacterInfor);
       this.game.addEntity(this.character);
+      this.game.addEntity(new Dog(this.game, 850, 525, [{ x: 800, y: 525 }]));
+
     }
     loadMap() {
        this.listOfTrippleSoil = [];
@@ -598,7 +602,8 @@ class SceneManager {
     };
 
     update(){
-
+    //  console.log(this.game.camera);
+      //console.log(this.game.camera.y);
 
         if (PARAMS.Mute == true) {
     
@@ -787,35 +792,40 @@ class SceneManager {
        this.touch = false;
        this.characterDeath= false;
       //  this.loadMap();
+
+      const tempCharacterInfor = {...this.character};
         this.game.entities.forEach((entity) => {
           if(entity instanceof Boss || entity instanceof Skeleton || entity instanceof DemonSlime ||entity instanceof PortalMap ){
+          
             entity.removeFromWorld = true;
        
-          }
-         
-        else {
+          } else {
           entity.removeFromWorld = true;
           }
 
           
        }); 
+       this.character = new MainCharacter(this.game,700, 700); 
+       this.character.loadCharacterInfor(tempCharacterInfor);
        this.loadMap();
        this.game.addEntity(new Portal(this.game, 310, 110));
-      this.character = new MainCharacter(this.game,700, 700);    
+  
+
+     
       this.game.addEntity(new Wizard2(this.game, 400, 2050, [{ x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: 0, y: 0 }]));
       this.game.addEntity(new Wizard(this.game, 330, 2050, [{ x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: 0, y: 0 }]))
       this.game.addEntity(new WizardSpawn(this.game, 110, 110));
-      
-      this.game.addEntity(this.character);
-       this.flag = true;
+      this.flag = true;
 
       }
 
 
+    //Character Step into the portal !!!
     if (this.touch&&!this.clearEntitiesFlag) {
         this.dieAtMap1 = false;
          this.flag = false;
           this.clearEntitiesFlag = true; 
+          const tempCharacterInfor = {...this.character};
           this.game.entities.forEach((entity) =>{  
 
    
@@ -825,7 +835,7 @@ class SceneManager {
     
          
           });
-          this.loadBoss();
+          this.loadBoss(tempCharacterInfor);
         //   this.portalmap = new PortalMap(this.game,0,0);
 
         // this.game.addEntity(this.portalmap);
@@ -835,9 +845,8 @@ class SceneManager {
         // this.character = new MainCharacter(this.game,800, 525);        
         // this.game.addEntity(this.character);
     }
-
-
     else{
+
         this.game.entities.forEach((entity) =>{  
          
           if(entity instanceof Boss){
@@ -851,22 +860,25 @@ class SceneManager {
           }
 
           if(entity instanceof MainCharacter){
-            if(entity.hitpoints <50){
-              this.characterDeath = true;
-            }
-          
-           else{
-              this.characterDeath = false;
-             
-            }
-          }
+
+              if(entity.hitpoints <= 50){
+                this.characterDeath = true;
+
+              }
+            
+            else{
+                this.characterDeath = false;
+              
+              }
+           }
      
           
            });
       }
 
 
-        if(this.startCounting) this.elapsed += this.game.clockTick;;
+
+
 
 
        if(this.startCounting) this.elapsed += this.game.clockTick;;
@@ -903,7 +915,6 @@ class SceneManager {
 
         PARAMS.Mute = document.getElementById("mute").checked;
 
-        console.log(this.listOfTrippleSoil.length);
 
     }
 
