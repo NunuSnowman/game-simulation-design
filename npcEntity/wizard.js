@@ -95,7 +95,10 @@ class Wizard {
                     if (this.elapsedTime > 0.8) {
                         var damage = 7 + randomInt(4);
                         ent.hitpoints -= damage;
-                       
+                        if( ent.hitpoints<=0){
+                 
+                            ent.isDead();
+                         }
                   
                         this.elapsedTime = 0;
                     }
