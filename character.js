@@ -9,8 +9,8 @@ class MainCharacter{
         Object.assign(this, { game, x, y });
         this.x = x;
         this.y = y;
-        this.spawnX = x;
-        this.spawnY = y;
+        this.spawnX = 400;
+        this.spawnY = 400;
         this.height = 48;
         this.width = 48;
         this.game.character = this;
@@ -68,13 +68,28 @@ class MainCharacter{
         this.fishingMode = false;
         this.fishingStatus = 0;
         this.getFish = false;
+        
+
 
     };
+
+    loadCharacterInfor(oldCharacter){
+        this.level = oldCharacter.level;
+        this.maxhitpoints = oldCharacter.maxhitpoints;
+        this.hitpoints = oldCharacter.maxhitpoints;
+        this.baseDamage = oldCharacter.baseDamage;
+        this.farmInventory  = oldCharacter.farmInventory;
+        this.numberOfFish = oldCharacter.numberOfFish; 
+    }
     
     isDead(){
+        console.log("character is dead");
         this.x = this.spawnX;
         this.y = this.spawnY;
         this.hitpoints = this.maxhitpoints;
+        // this.game.camera.x = 0;
+        // this.game.camera.y = 329;
+
 
     }
 
