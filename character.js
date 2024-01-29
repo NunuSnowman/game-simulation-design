@@ -9,8 +9,8 @@ class MainCharacter{
         Object.assign(this, { game, x, y });
         this.x = x;
         this.y = y;
-        this.spawnX = 400;
-        this.spawnY = 400;
+        this.spawnX = 700;
+        this.spawnY = 700;
         this.height = 48;
         this.width = 48;
         this.game.character = this;
@@ -87,6 +87,7 @@ class MainCharacter{
         this.x = this.spawnX;
         this.y = this.spawnY;
         this.hitpoints = this.maxhitpoints;
+        this.game.camera.countDeath += 1;
         // this.game.camera.x = 0;
         // this.game.camera.y = 329;
 
@@ -528,14 +529,14 @@ class MainCharacter{
             }
     }
         }
-        if(this.hitpoints<50){
-            this.removeFromWorld = true;
+        // if(this.hitpoints<50){
+        //     this.removeFromWorld = true;
           
-        }
-        if(this.hitpoints>0){
-            this.characterDeath = false;
-        }
-       // this.updateLastBB();
+        // }
+        // if(this.hitpoints>0){
+        //     this.characterDeath = false;
+        // }
+      
         this.updateBB();
         this.updateBBforDashingHorizontal();
         this.updateBBforDashingVertical();

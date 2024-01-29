@@ -86,7 +86,7 @@ class Boar {
     update() {
         // console.log(this.state);
        // console.log(this.target);
-        // console.log(this.velocity);
+        // console.log(this.game.countDeath);
 
         this.updateBB();
     
