@@ -604,7 +604,7 @@ class SceneManager {
     };
 
     update(){
-      console.log(this.countDeath);
+      //console.log(this.countDeath);
       //console.log(this.game.camera.y);
 
         if (PARAMS.Mute == true) {
