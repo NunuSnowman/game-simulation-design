@@ -13,6 +13,7 @@ class SceneManager {
         this.spritesheetFarmLand = ASSET_MANAGER.getAsset("./sprites/farmland.png");
         this.dayNightManager = new DayNightCycle(this.game, 0);
 
+        this.countDeath =0;
 
         this.character = new MainCharacter(this.game, 800, 525);
 
@@ -32,7 +33,7 @@ class SceneManager {
 
             this.dieAtMap1 =true;
             this.flag = false;
-            this.countDeath =0;
+            this.insidePortal = false;
 
 
         this.listOfSlime = [];
@@ -107,6 +108,7 @@ class SceneManager {
         }
     };
     loadBoss(tempCharacterInfor){
+      this.insidePortal = true;
       this.portalmap = new PortalMap(this.game,0,0);
 
       this.game.addEntity(this.portalmap);
@@ -602,7 +604,7 @@ class SceneManager {
     };
 
     update(){
-    //  console.log(this.game.camera);
+      console.log(this.countDeath);
       //console.log(this.game.camera.y);
 
         if (PARAMS.Mute == true) {
@@ -807,6 +809,7 @@ class SceneManager {
        }); 
        this.character = new MainCharacter(this.game,700, 700); 
        this.character.loadCharacterInfor(tempCharacterInfor);
+       this.insidePortal = false;
        this.loadMap();
        this.game.addEntity(new Portal(this.game, 310, 110));
   
@@ -845,7 +848,7 @@ class SceneManager {
         // this.character = new MainCharacter(this.game,800, 525);        
         // this.game.addEntity(this.character);
     }
-    else{
+    else if(this.insidePortal){
 
         this.game.entities.forEach((entity) =>{  
          
@@ -861,7 +864,7 @@ class SceneManager {
 
           if(entity instanceof MainCharacter){
 
-              if(entity.hitpoints <= 50){
+              if(entity.hitpoints <= 0){
                 this.characterDeath = true;
 
               }
