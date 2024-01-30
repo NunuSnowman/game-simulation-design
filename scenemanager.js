@@ -34,6 +34,7 @@ class SceneManager {
             this.dieAtMap1 =true;
             this.flag = false;
             this.insidePortal = false;
+            this.inPortal = false;
 
 
         this.listOfSlime = [];
@@ -74,8 +75,8 @@ class SceneManager {
 
         this.normalGrass = new FarmLandNormalGrass(this.game, 0, 0);
         this.dog = new Dog(this.game, 500, 400, [{ x: 500, y: 500 },{ x: 800, y: 800 }, { x: 700, y: 1200 }]);
-        this.wiz = new Wizard(this.game, 330, 2050, [{ x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: 0, y: 0 }]);
-        this.wiz2 = new Wizard2(this.game, 400, 2050, [{ x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: 0, y: 0 }]);
+      //  this.wiz = new Wizard(this.game, 330, 2050,  [ { x: 1720, y: 1322 }]);
+       // this.wiz2 = new Wizard2(this.game, 400, 2050, [{ x: randomInt(3000), y: randomInt(0) }, { x: randomInt(1000), y: randomInt(0) }, { x: randomInt(3800), y: randomInt(0) }, { x: 0, y: 0 }]);
 
         this.bor = new  Boar(this.game, 600, 1200, [ { x: 1720, y: 1322 }]);
         this.gob = new Goblin(this.game, 700, 1400, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
@@ -177,8 +178,8 @@ class SceneManager {
         this.game.addEntity(this.wizardspawn2)
 
         this.game.addEntity(this.camp)
-        this.game.addEntity(this.wiz);
-        this.game.addEntity(this.wiz2);
+       // this.game.addEntity(this.wiz);
+     //   this.game.addEntity(this.wiz2);
         this.game.addEntity(this.portal);
 
         this.bor.removeFromWorld = false;
@@ -551,10 +552,12 @@ class SceneManager {
 
     }
     draw(ctx) {
-  
-        if(this.start&&this.countDeath!=3&&!this.bossDeath){
+      if(!this.start){
+        PARAMS.DAYCOUNTER=0;
+      }
+        if(this.start&&this.countDeath!=3&&!this.bossDeath&&!this.inPortal){
         const requiredPlants = this.character.getListOfRequiredForNextLevel();
-
+     
 
         //HUB
        
@@ -619,7 +622,7 @@ class SceneManager {
             if(entity instanceof MainCharacter){
               this.dieAtMap1 = entity.dieAtMap1;
                     this.touch = entity.touch;
-
+                    this.inPortal = entity.inPortal
                 this.clearEntitiesFlag = entity.clearEntitiesFlag;
 
             }
@@ -719,9 +722,16 @@ class SceneManager {
                 entity.removeFromWorld = true;
                
              });
+          
              
              this.loadMap();
-           
+             this.game.entities.forEach((entity) =>{  
+             if(entity instanceof MainCharacter){
+              entity.removeFromWorld = true
+             }
+             
+           });
+
              this.game.addEntity(new Portal(this.game, 310, 110));
              this.game.addEntity(new WizardSpawn(this.game, 110, 110));
              this.game.addEntity(new WizardSpawn2(this.game, 650, 110))
@@ -730,8 +740,18 @@ class SceneManager {
              this.game.addEntity(new Campfire(this.game, 650, 110));
 
              this.game.addEntity(new Wizard2(this.game, 950, 2050, [{ x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: 0, y: 0 }]));
-             this.game.addEntity(new Wizard(this.game, 850, 2050, [{ x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: 0, y: 0 }]))
-               }
+             this.game.addEntity(new Wizard2(this.game, 450, 2050, [{ x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: 0, y: 0 }]));
+
+             this.game.addEntity(new Wizard(this.game, 330, 2050,  [ { x: 1720, y: 1322 }]))
+             this.game.addEntity(new Bee(this.game,400, 1030, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]));
+
+       
+             //     this.game.addEntity(new Wizard(this.game, 630, 2050,  [ { x: 1720, y: 1322 }]))
+
+             this.character = new MainCharacter(this.game,700, 700);    
+       
+             this.game.addEntity(this.character);
+            }
                if(this.about ||this.credit){
                 if(this.about){
                 this.game.entities.forEach((entity) =>{  

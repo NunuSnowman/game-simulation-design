@@ -422,6 +422,15 @@ class MainCharacter{
              
                 if(entity instanceof Portal){
                       
+                    that.inPortal = true;
+                    if(that.level<=1){
+                        that.game.addEntity(new BossZone(that.game,500,500))
+                        setTimeout(() => {
+                            that.inPortal = false;
+                            this.x = 480;
+                        }, 500);
+                    }
+                    else{
                     that.game.addEntity(new LoadingScreen(that.game,500,500))
                     setTimeout(() => {
                         that.x = 300;
@@ -431,8 +440,9 @@ class MainCharacter{
                   
 
        //                 // this.x = 500;
-       //                 // this.y =
+                       // this.y =
                   }, 300);
+                }
                 }
 
               else  if(entity instanceof FarmLandBigTree || entity instanceof LakeAndOtherSide ||entity instanceof InvisibleLakeBlocker

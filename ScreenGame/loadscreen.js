@@ -21,6 +21,29 @@ class LoadingScreen {
     }
 }
 
+class BossZone {
+    constructor(game, x, y) {
+        this.game = game;
+       // this.BB = new BoundingBox(x, y, 1, 1);
+    }
+
+    update() {
+        this.removeFromWorld = true;    
+    }
+
+    draw(ctx) {
+        ctx.font = '25px "Press Start 2P"'
+        ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+        ctx.fillRect(0, 0, 1500, 1500);
+         ctx.fillStyle = 'White';
+
+        ctx.fillText("Requirement for this final boss is lv 30...", 340 , 500 * 0.75);
+        ctx.fillStyle = "purple";
+        ctx.fillRect(500, 400, 500, 50);
+    }
+}
+
+
 class GameOver {
     constructor(game, x, y) {
         this.game = game;
