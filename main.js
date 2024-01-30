@@ -9,6 +9,8 @@ ASSET_MANAGER.queueDownload("./sprites/farmAsset.png");
 ASSET_MANAGER.queueDownload("./sprites/forest.png");
 ASSET_MANAGER.queueDownload("./sprites/farmHouses.png");
 ASSET_MANAGER.queueDownload("./sprites/enemy/wizardRun.png");
+ASSET_MANAGER.queueDownload("./sprites/enemy/wizardidle.png");
+
 ASSET_MANAGER.queueDownload("./sprites/enemy/wizardAttack1.png");
 ASSET_MANAGER.queueDownload("./sprites/enemy/wizardattack2.png");
 
@@ -40,7 +42,8 @@ ASSET_MANAGER.queueDownload("./sprites/slash.png")
 ASSET_MANAGER.queueDownload("./music/chill.mp3");
 
 ASSET_MANAGER.queueDownload("./sprites/fishing.png");
-
+ASSET_MANAGER.queueDownload("./sprites/Bee_Idle.png");
+ASSET_MANAGER.queueDownload("./sprites/Bee_Walk.png");
 
 
 ASSET_MANAGER.downloadAll(() => {

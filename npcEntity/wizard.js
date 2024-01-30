@@ -4,24 +4,27 @@ class Wizard {
         //   this.x = -700;
         this.radius = 10;
         this.faceleft = false;
-
+        this.counter=0;
         this.healthbar= new HealthBar(this);
         this.hitpoints = 100;
         this.maxhitpoints = 100;
 
-        this.visualRadius = 350;
-
+        this.visualRadius = 200;
+        this.condition = false;
+        this.chase = false;
+        this.timer =4000;
         this.initialPoint = { x, y };
 
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemy/wizardRun.png");
         this.spritesheet2 = ASSET_MANAGER.getAsset("./sprites/enemy/wizardAttack1.png");
+
         this.targetID = 0;
         if (this.path && this.path[this.targetID]) this.target = this.path[this.targetID];
 
         var dist = distance(this, this.target);
        
 
-        this.maxSpeed = 90; // pixels per second
+        this.maxSpeed = 50; // pixels per second
         //speed invovle in x, y this case since there are different direciton
         this.velocity = { x: (this.target.x - this.x) / dist * this.maxSpeed, y: (this.target.y - this.y) / dist * this.maxSpeed };
         this.state = 0; 
@@ -62,6 +65,8 @@ class Wizard {
 
     // };
     update() {
+      this.counter +=this.game.clockTick
+      console.log("COUTNER  " + this.counter)
         //    this.x+=1;
         this.elapsedTime += this.game.clockTick;
         var dist = distance(this, this.target);
@@ -69,8 +74,47 @@ class Wizard {
       
         for (var i = 0; i < this.game.entities.length; i++) {
             var ent = this.game.entities[i];
-            if (ent instanceof MainCharacter && canSee(this, ent)) {
+        //     if ( ent instanceof MainCharacter && !canSee(this, ent) && !this.condition &&!this.chase ) {
+            
+        //       this.maxSpeed = 50;
+        //       console.log(this.x)
+        //       setTimeout(() => {
+        //        this.condition = true;
+        //     }, this.timer);
+        //   }
+        //  if(ent instanceof MainCharacter && !canSee(this, ent) && this.condition &&!this.chase){
+        //     this.maxSpeed = -50;
+
+        //     setTimeout(() => {
+        //       this.condition = false;
+        //    }, this.timer);
+        //   }
+      
+
+          if (ent instanceof MainCharacter && !canSee(this, ent)) {
+            this.state =0;
+            this.chase =false;
+           }
+       
+            if(!this.chase){
+            
+              if(this.counter>10){
+                  this.maxSpeed= 50;
+                  this.counter =0;
+              }
+              
+            }
+           else if(!this.chase){
+             
+              if(this.counter>5){
+                  this.maxSpeed= -50;
+               
+              }
+            }
+
+       if (ent instanceof MainCharacter && canSee(this, ent)) {
                 this.target = ent;
+                this.chase = true;
                 //character
 
                 if(this.x > this.target.x){
@@ -86,20 +130,23 @@ class Wizard {
             }
             if (ent instanceof MainCharacter && collide(this, ent)) {
              console.log("facelft " + this.faceleft)
-              
           
 
 
-                      
+               
                     this.state = 1;
+                      
                     if (this.elapsedTime > 0.8) {
                         var damage = 7 + randomInt(4);
                         ent.hitpoints -= damage;
                         if( ent.hitpoints<=0){
                  
                             ent.isDead();
+                            this.state =0;
                          }
-                  
+                         else{
+                        //this.state = 1;
+                         }
                         this.elapsedTime = 0;
                     }
              
@@ -111,45 +158,8 @@ class Wizard {
                 
         
             }
-
- if (ent instanceof Boar && canSee(this, ent)) {
-                this.target = ent;
-                
-
-                if(this.x > this.target.x){
-                   this.state =3;
-                   this.faceleft = true;
-                }
-                else if(this.x <this.target.x){
-                        this.state =0;
-                        this.faceleft = false;
-                }
-             
-              
-            }
-            if (ent instanceof Boar && collide(this, ent)) {
-             console.log("facelft " + this.faceleft)
-              
           
 
-
-                      
-                    this.state = 1;
-                    if (this.elapsedTime > 0.8) {
-                        var damage = 7 + randomInt(4);
-                        ent.hitpoints -= damage;
-                      
-                        this.elapsedTime = 0;
-                    }
-             
-               if(this.state ===3){
-                this.state = 1;
-                this.elapsedTime = 0;
-          
-              }
-                
-        
-            }
 
 
         }
@@ -158,9 +168,14 @@ class Wizard {
             dist = distance(this, this.target);
             this.velocity = { x: (this.target.x - this.x) / dist * this.maxSpeed, y: (this.target.y - this.y) / dist * this.maxSpeed };
             //this help me move
-            //  this.x += this.velocity.x * this.game.clockTick;
-        
-            // this.y += this.velocity.y * this.game.clockTick;
+            if(this.chase){
+         
+             this.x += this.velocity.x * this.game.clockTick;
+   
+         this.y += this.velocity.y * this.game.clockTick;
+        }
+        else
+        this.x += this.velocity.x * this.game.clockTick;
        }
 
         this.facing = getFacing(this.velocity);
@@ -252,6 +267,8 @@ class Wizard2 {
   
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemy/wizardRun.png");
         this.spritesheet2 = ASSET_MANAGER.getAsset("./sprites/enemy/wizardattack2.png");
+        this.spritesheet3 = ASSET_MANAGER.getAsset("./sprites/enemy/wizardidle.png");
+
         this.targetID = 0;
         if (this.path && this.path[this.targetID]) this.target = this.path[this.targetID];
   
@@ -281,10 +298,10 @@ class Wizard2 {
         this.animations = [];
         this.animations.push([]);
                                                                     //48 bc of one them with sword has that size, check the one largest width and height size
-        this.animations[0].push(new Animator( this.spritesheet, // Assuming spritesheet is a property of the Wizard class
+        this.animations[0].push(new Animator(this.spritesheet, // Assuming spritesheet is a property of the Wizard class
         0,
         0,
-        251,
+        250,
         169,
         8,
         0.2,
@@ -308,7 +325,17 @@ class Wizard2 {
         false,
         true));
   
-  
+        this.animations.push([]);
+        this.animations[2].push(new Animator( this.spritesheet3, // Assuming spritesheet is a property of the Wizard class
+        0,
+        0,
+        250,
+        169,
+        8,
+        0.2,
+        0,
+        false,
+        true));
   
         //     this.animator = new Animator(
         //     this.spritesheet, // Assuming spritesheet is a property of the Wizard class
@@ -358,6 +385,10 @@ class Wizard2 {
   
         for (var i = 0; i < this.game.entities.length; i++) {
             var ent = this.game.entities[i];
+            // if (ent instanceof MainCharacter && !canSee(this, ent)){
+            //     this.state = 2;
+            // }
+
             if (ent instanceof MainCharacter && canSee(this, ent) && this.elapsedTime > this.fireRate) {
                 this.target = ent;
                 //character
@@ -396,7 +427,7 @@ class Wizard2 {
               //   this.elapsedTime = 0;
           
               // }
-              this.state = 0;
+              this.state = 2;
         
             }
   
@@ -464,7 +495,15 @@ class Wizard2 {
         //  ctx.save();
         //   ctx.scale(-1,1)
     //    this.animator.drawFrame(this.game.clockTick, ctx, this.x-330-this.game.camera.x , this.y-190-this.game.camera.y, 1); // Scale set to 1 for no scaling
-  
+  if(this.state ==2){
+    ctx.save();
+    ctx.scale(-1, 1);
+    this.animations[this.state][0].drawFrame(this.game.clockTick, ctx, -this.x - 120 + this.game.camera.x, this.y - 140 - this.game.camera.y, 1);
+    ctx.restore();
+  }
+
+
+
   if(this.state==0 ){
     //velocity is helpful when face left or right on not targeting anyone
     if (this.velocity.x < 0) {  // Check if x velocity is negative (moving left)
