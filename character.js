@@ -22,10 +22,10 @@ class MainCharacter{
 
         //healthbar information
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 100;
+        this.hitpoints = 1000;
         this.level = 1;
-        this.maxhitpoints = 100 ;
-        this.baseDamage = 10 ;
+        this.maxhitpoints = 1000 ;
+        this.baseDamage = 50 ;
         this.farmInventory = [];
         this.numberOfFish = 1;
         // MainCharacter's state variables
@@ -294,7 +294,7 @@ class MainCharacter{
                     }
                     for (var i = 0; i < this.game.entities.length; i++){
                         var entity = this.game.entities[i];
-                        if ((entity instanceof Slime || entity instanceof Boar) && collide(this,  entity)) {
+                        if ((entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin) && collide(this,  entity)) {
                                 if (this.elapsedTime > 0.001) {
                                 var damage = this.baseDamage/2 + randomInt(4);
                                 if(entity.hitpoints - damage < 0) {
@@ -485,7 +485,7 @@ class MainCharacter{
             
 
  
-            if ((entity instanceof Slime || entity instanceof Boar) && collide(this,  entity)) {
+            if ((entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin) && collide(this,  entity)) {
                         if(this.state === 1){
                         if (this.elapsedTime > 0.2) {
                             var damage = this.baseDamage + randomInt(4);
