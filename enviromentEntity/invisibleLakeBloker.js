@@ -20,7 +20,7 @@ class InvisibleLakeBlocker {
 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'red';
-            ctx.strokeRect(64 * 21 - this.game.camera.x, 300 - this.game.camera.y + 140, 700, 60 * 10 + 140);
+            ctx.strokeRect(64 * 21 - this.game.camera.x, 300 - this.game.camera.y + 140, 700, 60 * 10 - 140);
 
 
         }
