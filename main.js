@@ -19,8 +19,8 @@ ASSET_MANAGER.queueDownload("./sprites/enemy/boarThrust.png");
 ASSET_MANAGER.queueDownload("./sprites/enemy/boarIdle.png");
 ASSET_MANAGER.queueDownload("./sprites/enemy/goblinattack.png");
 ASSET_MANAGER.queueDownload("./sprites/enemy/goblinrun.png");
-ASSET_MANAGER.queueDownload("./sprites/enemy/greengoblin.png");
-ASSET_MANAGER.queueDownload("./sprites/enemy/greengoblin_attack.png");
+ASSET_MANAGER.queueDownload("./sprites/enemy/4dgoblin.png");
+
 ASSET_MANAGER.queueDownload("./sprites/enemy/wormattack.png");
 ASSET_MANAGER.queueDownload("./sprites/enemy/wormwalk.png");
 ASSET_MANAGER.queueDownload("./sprites/watereffect.png");

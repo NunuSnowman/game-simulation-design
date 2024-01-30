@@ -137,7 +137,8 @@ class Dog {
     for (var i = 0; i < this.game.entities.length; i++) {
         var ent = this.game.entities[i];
 
-        if (ent instanceof Slime && canSee(this, ent) || ent instanceof Boar && canSee(this, ent)) {
+        if (ent instanceof Slime && canSee(this, ent) || ent instanceof Boar && canSee(this, ent)
+                || ent instanceof GreenGoblin && canSee(this, ent)) {
             this.target = ent;
             this.attackTarget = ent;
             if(this.state === 2) this.state = 3;

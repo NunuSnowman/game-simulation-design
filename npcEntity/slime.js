@@ -6,7 +6,7 @@ class Slime{
         this.y = y;
         this.width = 48;
         this.height = 48;
-
+        this.damageBase = 5;
         //walking to the target information
         this.radius = 48/2;
         this.visualRadius = 400;
@@ -156,7 +156,7 @@ class Slime{
            if(this.x + this.velocity.x * this.game.clockTick +  this.width/2 < 2000 && this.x + this.velocity.x * this.game.clockTick - this.width/2 > 0) this.x += this.velocity.x * this.game.clockTick;
             this.y += this.velocity.y * this.game.clockTick;
         }
-        this.facing = this.getFacingForBoarOnly(this.velocity);
+        this.facing = this.getFacingForSlimeOnly(this.velocity);
         if (this.attackTarget && this.attackTarget instanceof HorizontalSoil) {
        
             if (collide(this, this.attackTarget)) {
@@ -184,24 +184,41 @@ class Slime{
                     
                 }
             }
-        }else if(this.attackTarget != null) {
+        }
+        else if(this.attackTarget != null) {
             if (collide(this, this.attackTarget)) {
-                if (this.state === 0 ) {
+            
                     this.state = 1;
-                    this.elapsedTime = 0;
-                }
-                if (this.elapsedTime > 0.5) {
-                //var damage = this.damageBase + randomInt(4);
-                //this.attackTarget.hitpoints -= damage;
-               // this.game.addEntity(new Score(this.game, this.attackTarget.x - this.game.camera.x, this.attackTarget.y - this.game.camera.y, damage));
-                this.elapsedTime = 0;
+                    if (this.attackTarget && this.attackTarget instanceof MainCharacter  ){
+                        console.log("this");
+                   
+            
+                        if (this.elapsedTime > 0.8 ) {
+                            var damage = this.damageBase + randomInt(4);
+                            this.attackTarget.hitpoints -= damage;
+                              this.game.addEntity(new Score(this.game, this.attackTarget.x, this.attackTarget.y, damage));
+                              if( this.attackTarget.hitpoints<=0){
+                                  //ent.removeFromWorld = true;
+                                  //this.game.countDeath += 1;
+                                  this.attackTarget.isDead();
+                              }
+                              this.elapsedTime = 0;
 
-                if (this.attackTarget.hitpoints <= 0) {
-                    this.attackTarget.removeFromWorld = true;
-                    this.attackTarget = null; // Reset attack target after defeating the Slime
-                    this.state = 0; // Return to walking state
-                }
-            }
+                        }
+                    }
+                
+            //     if (this.elapsedTime > 0.5) {
+            //     //var damage = this.damageBase + randomInt(4);
+            //     //this.attackTarget.hitpoints -= damage;
+            //    // this.game.addEntity(new Score(this.game, this.attackTarget.x - this.game.camera.x, this.attackTarget.y - this.game.camera.y, damage));
+            //     this.elapsedTime = 0;
+
+            //     if (this.attackTarget.hitpoints <= 0) {
+            //         this.attackTarget.removeFromWorld = true;
+            //         this.attackTarget = null; // Reset attack target after defeating the Slime
+            //         this.state = 0; // Return to walking state
+            //     }
+            // }
             
         }else if(this.attackTarget){
             if( !collide(this, this.target)) this.state = 0;
@@ -213,11 +230,12 @@ class Slime{
               
             };
         }
+        
     }
         
 
     }
-    getFacingForBoarOnly(velocity) {
+    getFacingForSlimeOnly(velocity) {
         if (velocity.x === 0 && velocity.y === 0) return DirectionDog.RIGHT; // Default to right if no movement
     
         // Determine the facing direction based on velocity components
