@@ -9,8 +9,8 @@ class Boss {
         this.characterTouchBoss= false;
         this.summonedGoblinFlag = false
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 1000;
-        this.maxhitpoints = 1000;
+        this.hitpoints = 100;
+        this.maxhitpoints = 100;
         this.bossDeath = false;
         this.firstsummon = true;
         this.visualRadius = 200;
