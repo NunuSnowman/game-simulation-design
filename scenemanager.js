@@ -71,16 +71,24 @@ class SceneManager {
         this.listOfInvisibleBlocker = [];
         this.listOfBossTowers = [];
 
+        //added list of normal here please 
+        this.listofNormallBosses = [];
+        //first in first out in the game. 
+        this.listofNormallBosses.push(new  Boar(this.game, 600, 1200, [ { x: 1720, y: 1322 }]));
+        this.listofNormallBosses.push(new  GreenGoblin(this.game, 600, 1200, [ { x: 1720, y: 1322 }]));
+        //added list of normal 
+        this.normalBossesIndexEntity; //keep track of the index where normal should be loaded to entities List
+
 
         this.normalGrass = new FarmLandNormalGrass(this.game, 0, 0);
         this.dog = new Dog(this.game, 500, 400, [{ x: 500, y: 500 },{ x: 800, y: 800 }, { x: 700, y: 1200 }]);
         this.wiz = new Wizard(this.game, 330, 2050, [{ x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: 0, y: 0 }]);
         this.wiz2 = new Wizard2(this.game, 400, 2050, [{ x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: randomInt(3800), y: randomInt(3800) }, { x: 0, y: 0 }]);
+       // this.bor = new  Boar(this.game, 600, 1200, [ { x: 1720, y: 1322 }]);
 
-        this.bor = new  Boar(this.game, 600, 1200, [ { x: 1720, y: 1322 }]);
-        this.gob = new Goblin(this.game, 700, 1400, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
-        this.greenG = new GreenGoblin(this.game, 400, 1550, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
-        this.worm = new FireWorm(this.game, 100, 1500, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
+       // this.gob = new  GreenGoblin(this.game, 600, 1200, [ { x: 1720, y: 1322 }]);
+       // this.greenG = new GreenGoblin(this.game, 400, 1550, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
+      //  this.worm = new FireWorm(this.game, 100, 1500, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
         this.wizardspawn = new WizardSpawn(this.game, 110, 110);
         this.wizardspawn2 = new WizardSpawn2(this.game, 510, 110);
 
@@ -160,19 +168,7 @@ class SceneManager {
 
         this.character.removeFromWorld = false;
 
-      //  this.game.addEntity(this.character);
-      
-        // this.game.addEntity(this.bor);
-        // this.game.addEntity(this.wizardspawn)
-        // this.game.addEntity(this.camp)
-        //  this.game.addEntity(this.wiz);
-        //  this.game.addEntity(this.wiz2);
-       // this.bor.removeFromWorld = false;
-       // this.game.addEntity(this.bor);
 
-        //  this.game.addEntity(this.character);
-        // this.game.addEntity(this.dog);
-        this.game.addEntity(this.bor);
         this.game.addEntity(this.wizardspawn)
         this.game.addEntity(this.wizardspawn2)
 
@@ -181,7 +177,6 @@ class SceneManager {
         this.game.addEntity(this.wiz2);
         this.game.addEntity(this.portal);
 
-        this.bor.removeFromWorld = false;
 
 
 
@@ -391,26 +386,28 @@ class SceneManager {
 
 
         this.normalGrass.removeFromWorld = false;
-      //  this.game.addEntity(this.normalGrass);
-        // this.listOfSlime.push(new Slime(this.game, 200,550, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 110, y: 0 }]));
 
-        // this.listOfSlime.push(new Slime(this.game, 333,333, [{ x: -50, y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 110, y: 0 }]));
-        // this.listOfSlime.push(new Slime(this.game, 666,1100, [{ x: 3000, y: 900 }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, {x: 110, y: 0 }]));
-
-        // for (let i = 0; i < this.listOfSlime.length; i++) {
-        //     this.listOfSlime[i].removeFromWorld = false;
-        //     this.game.addEntity(this.listOfSlime[i]);
-
-        // }
+      //  this.game.addEntity(this.gob);
         this.loadSlime();
-       // this.game.addEntity(this.bor);
+        this.normalBossesIndexEntity = this.game.entities.length;
+        console.log(this.normalBossesIndexEntity);
+        // this.normalBossesIndexEntity[0].removeFromWorld = false;
+        // this.game.addEntity(this.normalBossesIndexEntity[0]);
+
+      //   for (let i = 0; i < this.listofNormallBosses.length; i++) {
+      //     this.listofNormallBosses[i].removeFromWorld = false;
+      //  }
+       if(this.listofNormallBosses.length >= 1){
+        this.game.addEntity(this.listofNormallBosses[0]);
+       }
+       console.log(this.listofNormallBosses);
 
         //DO NOT BLOCK THE CHARACTER
         /////////////////////////////////////
         this.game.addEntity(this.character);
         //////////////////////////////////////
         this.game.addEntity(this.dog);
-        this.dog.removeFromWorld = false;
+      //  this.dog.removeFromWorld = false;
         // BLOCK THE CHARACTER
 
         //House
@@ -896,6 +893,10 @@ class SceneManager {
         if(this.elapsed > 3.5){
             this.dayNightManager.time = 6;
             this.loadSlime();
+            if(this.listofNormallBosses[0].removeFromWorld) {
+              this.listofNormallBosses.shift();
+              if(this.listofNormallBosses.length > 0) this.game.addEntityAtIndex(this.normalBossesIndexEntity,this.listofNormallBosses[0]);
+            }
             this.elapsed = 0;
             this.startCounting = false;
 
