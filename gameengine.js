@@ -229,6 +229,9 @@ class GameEngine {
     addEntityFirst(entity) {
         this.entities.unshift(entity);
     };
+    addEntityAtIndex(index, entity){
+        this.entities.splice(index,0,entity);
+    };
 
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
