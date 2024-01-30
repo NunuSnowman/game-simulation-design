@@ -45,7 +45,7 @@ class Boar {
         this.directionFace = 0;
         
         this.attackTarget = null;
-
+        this.removeFromWorld = false;
         this.updateBB();
     };
 
