@@ -1,9 +1,11 @@
 class Start {
     constructor(game, x, y) {
         this.game = game;
-        this.startBB = new BoundingBox(550, 250, 300, 50);
-        this.aboutBB = new BoundingBox(550, 350, 300, 50);
-        this.creditBB = new BoundingBox(550, 450, 300, 50);
+
+        // Adjusted bounding box positions based on PARAMS.CANVAS_WIDTH and PARAMS.CANVAS_HEIGHT
+        this.startBB = new BoundingBox(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 - 75, 300, 50);
+        this.aboutBB = new BoundingBox(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 25, 300, 50);
+        this.creditBB = new BoundingBox(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 125, 300, 50);
 
         this.clickOnStart = false;
         this.clickOnAbout = false;
@@ -12,17 +14,22 @@ class Start {
 
     update() {
         if (this.game.click) {
-            const mouseBB = new BoundingBox(this.game.click.x, this.game.click.y, 1, 1);
-
-            if (mouseBB.collide(this.startBB)) {
+                const mouseBB = new BoundingBox(this.game.click.x, this.game.click.y, 1, 1);
+            console.log(this.game.click);
+            if (mouseBB.collide(this.startBB) && !this.clickOnStart) {
+                this.game.camera.loadMap();
                 this.clickOnStart = true;
-                console.log("MOUSE CLICK ON START");
-            } else if (mouseBB.collide(this.aboutBB)) {
+                this.removeFromWorld = true;
+            } else if (mouseBB.collide(this.aboutBB) && !this.clickOnAbout) {
+                this.game.addEntity(new About(this.game));
                 this.clickOnAbout = true;
                 console.log("MOUSE CLICK ON ABOUT");
-            } else if (mouseBB.collide(this.creditBB)) {
+                this.removeFromWorld = true;
+            } else if (mouseBB.collide(this.creditBB) && !this.clickOnCredit) {
+                this.game.addEntity(new Credit(this.game));
                 this.clickOnCredit = true;
                 console.log("MOUSE CLICK ON CREDIT");
+                this.removeFromWorld = true;
             }
 
             // Reset click
@@ -33,59 +40,57 @@ class Start {
     draw(ctx) {
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'red';
-            ctx.strokeRect(350, 250, 300, 50);
-            ctx.strokeRect(350, 350, 300, 50);
-            ctx.strokeRect(350, 450, 300, 50);
+            ctx.strokeRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 - 75, 300, 50);
+            ctx.strokeRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 25, 300, 50);
+            ctx.strokeRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 125, 300, 50);
         }
 
-    
-        ctx.font = '25px "Press Start 2P"'
+        ctx.font = '25px "Press Start 2P"';
         ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-        ctx.fillRect(0, 0, 1500, 1500);
+        ctx.fillRect(0, 0, PARAMS.CANVAS_WIDTH, PARAMS.CANVAS_HEIGHT);
 
         ctx.fillStyle = 'white';
-        ctx.fillRect(548, 248, 304, 54);
-        ctx.fillRect(548, 348, 304, 54);
-        ctx.fillRect(548, 448, 304, 54);
-
-      
+        ctx.fillRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 - 75, 300, 50);
+        ctx.fillRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 25, 300, 50);
+        ctx.fillRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 125, 300, 50);
 
         ctx.fillStyle = "green";
-        ctx.fillRect(550, 250, 300, 50);
+        ctx.fillRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 - 75, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("Start", 650, 390 * 0.75);
+        ctx.fillText("Start", PARAMS.CANVAS_WIDTH / 2 - 300/4, PARAMS.CANVAS_HEIGHT / 2 - 45 + 7);
 
         ctx.fillStyle = "green";
-        ctx.fillRect(550, 350, 300, 50);
+        ctx.fillRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 25, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("About", 650, 525 * 0.75);
+        ctx.fillText("About", PARAMS.CANVAS_WIDTH / 2 - 300/4, PARAMS.CANVAS_HEIGHT / 2 + 55+ 7);
 
         ctx.fillStyle = "green";
-        ctx.fillRect(550, 450, 300, 50);
+        ctx.fillRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 125, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("Credit", 650, 660 * 0.75);
-
-        
-
+        ctx.fillText("Credit", PARAMS.CANVAS_WIDTH / 2 -300/4, PARAMS.CANVAS_HEIGHT / 2 + 155 + 7);
     }
 }
-
 
 class About {
     constructor(game, x, y) {
         this.game = game;
-        this.exit = false;
-        this.exitBB = new BoundingBox(470, 680, 100, 40);
+
+        // Updated exitBB to bottom right
+        this.exitBB = new BoundingBox(PARAMS.CANVAS_WIDTH - 190, PARAMS.CANVAS_HEIGHT - 80, 140, 60);
+        this.clickOnExit = false;
     }
 
     update() {
+        console.log(this.game.camera.enities);
         if (this.game.click) {
             const mouseBB = new BoundingBox(this.game.click.x, this.game.click.y, 1, 1);
 
-            if (mouseBB.collide(this.exitBB)) {
-                this.exit = true;
-                console.log("MOUSE CLICK ON EXIT");
-            } 
+            if (mouseBB.collide(this.exitBB) && !this.clickOnExit) {
+                 this.clickOnExit = true;
+                this.game.addEntity(new Start(this.game));
+                this.removeFromWorld = true;
+                console.log("click exit");
+            }
 
             // Reset click
             this.game.click = null;
@@ -93,48 +98,47 @@ class About {
     }
 
     draw(ctx) {
-     
-
-        ctx.font = '25px "Press Start 2P"'
+        ctx.font = '25px "Press Start 2P"';
         ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-        ctx.fillRect(0, 0, 1500, 1500);
+        ctx.fillRect(0, 0, PARAMS.CANVAS_WIDTH, PARAMS.CANVAS_HEIGHT);
 
-        // ctx.fillStyle = 'white';
-        // ctx.fillRect(348, 248, 304, 54);
-        // ctx.fillRect(348, 348, 304, 54);
-        // ctx.fillRect(348, 448, 304, 54);
+        // Draw Information Text
+        ctx.fillStyle = 'white';
+         // Centered text
+         ctx.fillText("The character is a CS graduate who cannot find a job", PARAMS.CANVAS_WIDTH / 2 - ctx.measureText("The character is a CS graduate who cannot find a job").width / 2, 350 * 0.75);
+         ctx.fillText("So, he decides to return and help his family's farm", PARAMS.CANVAS_WIDTH / 2 - ctx.measureText("So, he decides to return and help his family's farm").width / 2, 450 * 0.75);
+        ctx.fillText("However, they don't tell him what happens to the farm at night.", PARAMS.CANVAS_WIDTH / 2 - ctx.measureText("However, they don't tell him what happens to the farm at night.").width / 2, 550 * 0.75);
 
-      
+        // Draw Exit Box at bottom right (moved 50px to the left)
+        ctx.fillStyle = "green";
+        ctx.fillRect(PARAMS.CANVAS_WIDTH - 190, PARAMS.CANVAS_HEIGHT - 80, 140, 60);
+        ctx.fillStyle = 'white';
 
-        // ctx.fillStyle = "green";
-        // ctx.fillRect(350, 250, 300, 50);
-       ctx.fillStyle = 'white';
-        ctx.fillText("Anything about the Game", 50, 390 * 0.75);
+        // Centering text within the box
+        const exitText = "Exit";
+        const exitTextWidth = ctx.measureText(exitText).width;
+        const exitTextHeight = 25; // Assuming the font size is 25px
+        ctx.fillText(exitText, PARAMS.CANVAS_WIDTH - 190 + (140 - exitTextWidth) / 2, PARAMS.CANVAS_HEIGHT - 80 + (60 + exitTextHeight) / 2);
 
-        ctx.fillText("Skills for the game", 50, 490 * 0.75);
-
-        ctx.fillText("Key to use the skills", 50, 590 * 0.75);
-
-        ctx.fillText("......", 50, 690 * 0.75);
-
-     
-
-        ctx.fillText("Back", 470, 950 * 0.75);
-
+        // Debug Rectangle
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'red';
-            ctx.strokeRect(470, 680, 100, 40);
-           
-            
+            ctx.strokeRect(PARAMS.CANVAS_WIDTH - 190, PARAMS.CANVAS_HEIGHT - 80, 140, 60);
         }
     }
 }
+
+
+
+
+
 
 class Credit {
     constructor(game, x, y) {
         this.game = game;
         this.exit = false;
-        this.exitBB = new BoundingBox(470, 680, 100, 40);
+        this.exitBB = new BoundingBox(PARAMS.CANVAS_WIDTH - 190, PARAMS.CANVAS_HEIGHT - 80, 140, 60);
+
     }
 
     update() {
@@ -142,7 +146,9 @@ class Credit {
             const mouseBB = new BoundingBox(this.game.click.x, this.game.click.y, 1, 1);
 
             if (mouseBB.collide(this.exitBB)) {
-                this.exit = true;
+                this.clickOnExit = true;
+                this.game.addEntity(new Start(this.game));
+                this.removeFromWorld = true;
                 console.log("MOUSE CLICK ON EXIT");
             } 
 
@@ -156,29 +162,31 @@ class Credit {
 
         ctx.font = '25px "Press Start 2P"'
         ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-        ctx.fillRect(0, 0, 1500, 1500);
+        ctx.fillRect(0, 0, PARAMS.CANVAS_WIDTH, PARAMS.CANVAS_HEIGHT);
 
-        // ctx.fillStyle = 'white';
-        // ctx.fillRect(348, 248, 304, 54);
-        // ctx.fillRect(348, 348, 304, 54);
-        // ctx.fillRect(348, 448, 304, 54);
-
-      
-
-        // ctx.fillStyle = "green";
-        // ctx.fillRect(350, 250, 300, 50);
+   
        ctx.fillStyle = 'white';
-        ctx.fillText("This game is created By:", 250, 390 * 0.75);
+          // Centered text
+          ctx.fillText("This game is created By:", PARAMS.CANVAS_WIDTH / 2 - ctx.measureText("This game is created By:").width / 2, 390 * 0.75);
+          ctx.fillText("Tin Phu, Thinh Le, Lixin Wang", PARAMS.CANVAS_WIDTH / 2 - ctx.measureText("Tin Phu, Thinh Le, Lixin Wang").width / 2, 490 * 0.75);
+     // Draw Exit Box at bottom right (moved 50px to the left)
+     ctx.fillStyle = "green";
+     ctx.fillRect(PARAMS.CANVAS_WIDTH - 190, PARAMS.CANVAS_HEIGHT - 80, 140, 60);
+     ctx.fillStyle = 'white';
 
-        ctx.fillText("Tin, Thinh, Lixin ", 340, 490 * 0.75);
-
-        ctx.fillText("Back", 470, 950 * 0.75);
-
+     // Centering text within the box
+     const exitText = "Exit";
+     const exitTextWidth = ctx.measureText(exitText).width;
+     const exitTextHeight = 25; // Assuming the font size is 25px
+     ctx.fillText(exitText, PARAMS.CANVAS_WIDTH - 190 + (140 - exitTextWidth) / 2, PARAMS.CANVAS_HEIGHT - 80 + (60 + exitTextHeight) / 2);
+   
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'red';
-            ctx.strokeRect(470, 680, 100, 40);
+            ctx.strokeRect(PARAMS.CANVAS_WIDTH - 190, PARAMS.CANVAS_HEIGHT - 80, 140, 60);
            
             
         }
     }
+
+
 }

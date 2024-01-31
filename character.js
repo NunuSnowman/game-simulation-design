@@ -22,9 +22,9 @@ class MainCharacter{
 
         //healthbar information
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 1000;
+        this.hitpoints = 10;
         this.level = 1;
-        this.maxhitpoints = 1000 ;
+        this.maxhitpoints = 10 ;
         this.baseDamage = 10 ;
         this.farmInventory = [];
         this.numberOfFish = 1;
@@ -68,6 +68,9 @@ class MainCharacter{
         this.fishingMode = false;
         this.fishingStatus = 0;
         this.getFish = false;
+
+        //Final Boss information
+        this.levelToEnter = 0;
         
 
 
@@ -401,48 +404,24 @@ class MainCharacter{
             var entity = this.game.entities[i];
             
             if (entity.BB && this.BB.collide(entity.BB)) {
-                // if (entity instanceof Slime) {
-                //     if(this.state === 1){
-                //         if (this.elapsedTime > 0.2) {
-                //             var damage = 7 + randomInt(4);
-                //             if(entity.hitpoints - damage < 0) entity.removeFromWorld = true;
-                //             entity.hitpoints -= damage;
-
-                //             this.game.addEntityFirst(new Score(this.game, entity.x, entity.y, damage));
-                //             this.elapsedTime = 0;
-                            
-                //         }
-                       
-                //     }
-                //    console.log("collided with Smile");
-                // }else 
-                if(entity instanceof WizardSpawn){
-                    that.dieAtMap1 = true;
-                }
-             
+              //  console.log(this.elapsedTime);
                 if(entity instanceof Portal){
-                      
-                    that.inPortal = true;
-                    if(that.level<=1){
-                        that.game.addEntity(new BossZone(that.game,500,500))
-                        setTimeout(() => {
-                            that.inPortal = false;
-                            this.x = 480;
-                        }, 500);
-                    }
-                    else{
-                    that.game.addEntity(new LoadingScreen(that.game,500,500))
-                    setTimeout(() => {
-                        that.x = 300;
-                        that.y = 100;                    
-                     that.touch = true;
-
+                    if(this.elapsedTime >= 3){
+                        if(this.level >= this.levelToEnter && this.y <= 2200 ){
+                            console.log(this.game.camera.y) ;
+                            this.y += 1000;
+                          
+                        } else if( this.y >= 2200){
+                            this.y  -= 1000;
+                            this.game.camera.y = 1478;
+                        }
+                        this.elapsedTime = 0;
                   
-
-       //                 // this.x = 500;
-                       // this.y =
-                  }, 300);
-                }
+                    }
+                
+                    
+                 
+                    
                 }
 
               else  if(entity instanceof FarmLandBigTree || entity instanceof LakeAndOtherSide ||entity instanceof InvisibleLakeBlocker

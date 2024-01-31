@@ -66,7 +66,7 @@ class Wizard {
     // };
     update() {
       this.counter +=this.game.clockTick
-      console.log("COUTNER  " + this.counter)
+    //  console.log("COUTNER  " + this.counter)
         //    this.x+=1;
         this.elapsedTime += this.game.clockTick;
         var dist = distance(this, this.target);
