@@ -84,6 +84,14 @@ class NormalBossesHome{
 
             }
         }
+
+        for(let i = 0; i < 32;i++){
+            for(let j = 0; j < 63; j++){
+                this.drawType1Floor(ctx,0 + 32*j, 2200 + 32*i );
+                if(j == 0 || j == 62   || (i == 0) || i == 31)     ctx.drawImage(this.spritesheet,32,32, 32,32, 0  - this.game.camera.x + 32*j , 2200 - this.game.camera.y + 32*i ,  32,32);
+                if(j == 5 && i == 5 || j == 10 && i == 2|| j == 15 && i == 12 || j == 9 && i == 12|| j == 7 && i == 16)        this.smallSpririt.drawFrame(this.game.clockTick,ctx,0 - this.game.camera.x + 32*j,2200 - this.game.camera.y + 32*i - 5 ,PARAMS.SCALE);
+            }
+        }
  
     
         for(let i = 0; i < 7; i++){
