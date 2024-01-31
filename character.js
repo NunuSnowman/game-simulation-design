@@ -73,6 +73,7 @@ class MainCharacter{
         this.levelToEnter = 0;
         
 
+        this.tempCameraY = 0;
 
     };
 
@@ -168,6 +169,7 @@ class MainCharacter{
     //     this.lastBB = this.BB;
     // };
     update(){
+        console.log(this.game.camera.y);
         let canDash = true;
 
         this.elapsedTimeForShuriken+= this.game.clockTick;
@@ -408,12 +410,13 @@ class MainCharacter{
                 if(entity instanceof Portal){
                     if(this.elapsedTime >= 3){
                         if(this.level >= this.levelToEnter && this.y <= 2200 ){
+                            this.tempCameraY = this.game.camera.y;
                             console.log(this.game.camera.y) ;
                             this.y += 1000;
                           
                         } else if( this.y >= 2200){
                             this.y  -= 1000;
-                            this.game.camera.y = 1478;
+                            this.game.camera.y =  this.tempCameraY;
                         }
                         this.elapsedTime = 0;
                   
