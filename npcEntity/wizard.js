@@ -23,7 +23,7 @@ class Wizard {
 
         var dist = distance(this, this.target);
        
-
+        this.speed = 0.5;
         this.maxSpeed = 50; // pixels per second
         //speed invovle in x, y this case since there are different direciton
         this.velocity = { x: (this.target.x - this.x) / dist * this.maxSpeed, y: (this.target.y - this.y) / dist * this.maxSpeed };
@@ -89,6 +89,7 @@ class Wizard {
         //       this.condition = false;
         //    }, this.timer);
         //   }
+        
       
 
           if (ent instanceof MainCharacter && !canSee(this, ent)) {
@@ -389,7 +390,7 @@ class Wizard2 {
             //     this.state = 2;
             // }
 
-            if (ent instanceof MainCharacter && canSee(this, ent) && this.elapsedTime > this.fireRate) {
+            if (ent instanceof MainCharacter && canSee(this, ent) && this.elapsedTime > this.fireRate &&  ent.y < 2200) {
                 this.target = ent;
                 //character
                 this.elapsedTime = 0;
