@@ -119,9 +119,9 @@ class SceneManager {
   loadMap() {
     //Loading Bosses
     this.listofNormallBosses = [];
-    this.listofNormallBosses.push(
-      new Boar(this.game, 600, 1200, [{ x: 1720, y: 1322 }])
-    );
+    // this.listofNormallBosses.push(
+    //   new Boar(this.game, 600, 1200, [{ x: 1720, y: 1322 }])
+    // );
     this.listofNormallBosses.push(
       new GreenGoblin(this.game, 600, 1200, [{ x: 1720, y: 1322 }])
     );
@@ -564,7 +564,7 @@ class SceneManager {
     /////////////////////////////////////
     this.game.addEntity(this.character);
     //////////////////////////////////////
-   // this.game.addEntity(this.dog);
+    this.game.addEntity(this.dog);
     //  this.dog.removeFromWorld = false;
     // BLOCK THE CHARACTER
 
@@ -709,6 +709,9 @@ class SceneManager {
     this.listOfBossTowers.push(new ObeLisk(this.game, 1350, 1520));
     this.listOfBossTowers.push(new ObeLisk(this.game, 1800, 850));
     this.listOfBossTowers.push(new ObeLisk(this.game, 1350, 850));
+
+    this.game.addEntity(new PlantKiller(this.game,550, 400))
+
     for (let i = 0; i < this.listOfBossTowers.length; i++) {
       this.game.addEntity(this.listOfBossTowers[i]);
     }
@@ -913,17 +916,17 @@ class SceneManager {
       0 < this.character.x - midpointX &&
       this.character.x + midpointX < 2000
     ) {
-      this.x = this.character.x - midpointX;
+      this.x = Math.floor(this.character.x - midpointX);
     }
 
 
     if ((0 < this.character.y - midpointY)
       && (this.character.y + midpointY < 2200  )
     ) {
-      this.y = this.character.y - midpointY;
+      this.y = Math.floor(this.character.y - midpointY);
     }else if( (this.character.y > 2400) && 2200 < this.character.y - midpointY ){
       console.log(this.character.y + midpointY);
-      this.y = this.character.y - midpointY;
+      this.y = Math.floor(this.character.y - midpointY);
     }
     this.onetime = this.character.oneTime;
 
