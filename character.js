@@ -15,16 +15,16 @@ class MainCharacter{
         this.width = 48;
         this.game.character = this;
         this.radius = 30; //attack range
-        this.speed = 5.5;
+        this.speed = 1.5;
                 // spritesheet
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/villager1.png");
         this.spritesheetFishing = ASSET_MANAGER.getAsset("./sprites/fishing.png");
 
         //healthbar information
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 100;
+        this.hitpoints = 1000;
         this.level = 1;
-        this.maxhitpoints = 100 ;
+        this.maxhitpoints = 1000 ;
         this.baseDamage = 10 ;
         this.farmInventory = [];
         this.numberOfFish = 1;
@@ -87,7 +87,7 @@ class MainCharacter{
     }
     
     isDead(){
-        console.log("character is dead");
+       // console.log("character is dead");
         this.x = this.spawnX;
         this.y = this.spawnY;
         this.hitpoints = this.maxhitpoints;
@@ -169,8 +169,6 @@ class MainCharacter{
     //     this.lastBB = this.BB;
     // };
     update(){
-        console.log("This y " + this.y)
-        console.log("THIS X " + this.x)
         //RESET CHARACTER and his stuffs
         if( this.game.camera.countDeath==2){
            
@@ -197,10 +195,10 @@ class MainCharacter{
         this.elapsedTimeForShuriken2+= this.game.clockTick;
 
         
-        if(this.game.keyE == true && Math.abs(this.x - this.game.camera.x - 1087) < 15 &&  Math.abs(this.y - 84  - this.game.camera.x) < 50 ) this.fishingMode = true;
+        if(this.game.keyE == true && Math.abs(this.x  - 1420) < 25 &&  Math.abs(this.y - 409) < 50 ) this.fishingMode = true;
    
       if(this.fishingMode && this.elapsedTime3 > 2 && this.elapsedTime3 < 3 ){
-            console.log("up");
+         //   console.log("up");
             this.fishingStatus = 0; 
         }
         if(this.fishingMode == true && this.elapsedTime > 5){
@@ -448,7 +446,7 @@ class MainCharacter{
                         if(this.level >= this.levelToEnter && this.y <= 2200 ){
 
                             this.tempCameraY = this.game.camera.y;
-                            console.log(this.game.camera.y) ;
+                          //  console.log(this.game.camera.y) ;
                             this.x -= 150;
                             this.y += 1000;
                           
