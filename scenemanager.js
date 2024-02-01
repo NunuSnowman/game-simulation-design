@@ -2,10 +2,10 @@ class SceneManager {
   constructor(game) {
     //********************************* */
     //THE FINAL BOSS MAP START AT Y = 2200;
+    //normalBossesHome.js line 87 for Final Boss Floor.
     //********************************* */
     //GO TO line 606 for The Final Map Bound
     //InvisibleFenceBlocker is used !!!
-    
     //Add the current gameEngine as its property.
     this.game = game;
     //Injecting This SceneManager object with its properites back to GameEngine.
