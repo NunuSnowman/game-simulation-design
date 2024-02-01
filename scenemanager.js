@@ -3,6 +3,9 @@ class SceneManager {
     //********************************* */
     //THE FINAL BOSS MAP START AT Y = 2200;
     //********************************* */
+    //GO TO line 606 for The Final Map Bound
+    //InvisibleFenceBlocker is used !!!
+    
     //Add the current gameEngine as its property.
     this.game = game;
     //Injecting This SceneManager object with its properites back to GameEngine.
@@ -21,10 +24,6 @@ class SceneManager {
     this.character = new MainCharacter(this.game, 800, 525);
 
     this.nextNextCutScene = false;
-
-   
-  
-
 
     this.listOfSlime = [];
 
@@ -62,12 +61,7 @@ class SceneManager {
     //added list of normal here please
     this.listofNormallBosses = [];
     //first in first out in the game.
-    this.listofNormallBosses.push(
-      new Boar(this.game, 600, 1200, [{ x: 1720, y: 1322 }])
-    );
-    this.listofNormallBosses.push(
-      new GreenGoblin(this.game, 600, 1200, [{ x: 1720, y: 1322 }])
-    );
+    
     //added list of normal
     this.normalBossesIndexEntity; //keep track of the index where normal should be loaded to entities List
 
@@ -104,17 +98,17 @@ class SceneManager {
   loadSlime() {
     this.listOfSlime = [];
     this.listOfSlime.push(
-      new Slime(this.game, 850, 850, [{ x: 1055, y: 555 }])
+      new Slime(this.game, 1050, 1250, [{ x: 1055, y: 555 }])
     );
     this.listOfSlime.push(
-      new Slime(this.game, 800, 800, [{ x: 1055, y: 555 }])
+      new Slime(this.game, 1300, 1200, [{ x: 1055, y: 555 }])
     );
 
     this.listOfSlime.push(
-      new Slime(this.game, 800, 800, [{ x: 1055, y: 555 }])
+      new Slime(this.game, 1200, 1200, [{ x: 1055, y: 555 }])
     );
     this.listOfSlime.push(
-      new Slime(this.game, 666, 1100, [{ x: 1055, y: 555 }])
+      new Slime(this.game, 966, 1200, [{ x: 1055, y: 555 }])
     );
 
     for (let i = 0; i < this.listOfSlime.length; i++) {
@@ -122,26 +116,16 @@ class SceneManager {
       this.game.addEntity(this.listOfSlime[i]);
     }
   }
-  // loadBoss(tempCharacterInfor) {
-  //   this.insidePortal = true;
-  //   this.portalmap = new PortalMap(this.game, 0, 0);
-
-  //   this.game.addEntity(this.portalmap);
-  //   this.boss2 = new Boss(this.game, 600, 161, [
-  //     { x: randomInt(0), y: randomInt(0) },
-  //     { x: randomInt(0), y: randomInt(0) },
-  //     { x: randomInt(0), y: randomInt(0) },
-  //     { x: 0, y: 0 },
-  //   ]);
-
-  //   this.game.addEntity(this.boss2);
-  //   this.character = new MainCharacter(this.game, 800, 525);
-
-  //   this.character.loadCharacterInfor(tempCharacterInfor);
-  //   this.game.addEntity(this.character);
-  //   this.game.addEntity(new Dog(this.game, 850, 525, [{ x: 800, y: 525 }]));
-  // }
   loadMap() {
+    //Loading Bosses
+    this.listofNormallBosses = [];
+    this.listofNormallBosses.push(
+      new Boar(this.game, 600, 1200, [{ x: 1720, y: 1322 }])
+    );
+    this.listofNormallBosses.push(
+      new GreenGoblin(this.game, 600, 1200, [{ x: 1720, y: 1322 }])
+    );
+    //Reset for new gameplay.
     this.listOfTrippleSoil = [];
 
     let houseX = 50;
@@ -620,15 +604,21 @@ class SceneManager {
     this.listOfBuildingsBlOCKCharacter.push(
       new InvisibleFenceBlocker(this.game, 64 * 22 + 40, 370, 500, 80)
     );
+
+    //Final boss map bounds.
+    //top
     this.listOfBuildingsBlOCKCharacter.push(
       new InvisibleFenceBlocker(this.game, 0, 2200, 2000, 10)
     );
-    this.listOfBuildingsBlOCKCharacter.push(
-      new InvisibleFenceBlocker(this.game, 0, 2200 + 1000, 2000, 100)
-    );
+    //bottom.  just right side left side accroding to Bottom
+    // this.listOfBuildingsBlOCKCharacter.push(
+    //   new InvisibleFenceBlocker(this.game, 0, 2200 + 1000, 2000, 100)
+    // );
+    //right side
     this.listOfBuildingsBlOCKCharacter.push(
       new InvisibleFenceBlocker(this.game, 0, 2200, 20, 1000)
     );
+     //left side
     this.listOfBuildingsBlOCKCharacter.push(
       new InvisibleFenceBlocker(this.game, 2000 - 20 ,2200, 20, 1000)
     );
