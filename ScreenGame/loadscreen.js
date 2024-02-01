@@ -11,7 +11,7 @@ class LoadingScreen {
     draw(ctx) {
         ctx.font = '25px "Press Start 2P"'
         ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-        ctx.fillRect(0, 0, 1500, 1500);
+        ctx.fillRect(0, 0, 2500, 2500);
          ctx.fillStyle = 'White';
 
         ctx.fillText("Entering Portal...", 540 , 500 * 0.75);
@@ -34,7 +34,7 @@ class BossZone {
     draw(ctx) {
         ctx.font = '25px "Press Start 2P"'
         ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-        ctx.fillRect(0, 0, 1500, 1500);
+        ctx.fillRect(0, 0, 2500, 2500);
          ctx.fillStyle = 'White';
 
         ctx.fillText("Requirement for this final boss is lv 30...", 340 , 500 * 0.75);
@@ -59,6 +59,8 @@ class GameOver {
 
             if (mouseBB.collide(this.exitBB)) {
                 this.back = true;
+                this.game.addEntity(new Start(this.game));
+                this.removeFromWorld = true;
                 console.log("MOUSE CLICK ON BACK");
             } 
 

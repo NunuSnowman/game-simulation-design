@@ -16,7 +16,8 @@ class SceneManager {
     this.dayNightManager = new DayNightCycle(this.game, 0);
 
     this.countDeath = 0;
-
+    this.notInGameYet = false;
+    this.onetime =false;
     this.character = new MainCharacter(this.game, 800, 525);
 
     this.nextNextCutScene = false;
@@ -95,6 +96,8 @@ class SceneManager {
 
     this.camp = new Campfire(this.game, 110, 110);
     this.game.addEntity(new Start(this.game));
+    
+  
     //this.loadMap();
     this.elapsed = 0;
   }
@@ -724,6 +727,7 @@ class SceneManager {
       this.listOfTree[i].removeFromWorld = false;
       this.game.addEntity(this.listOfTree[i]);
     }
+    this.game.addEntity(new Boss(this.game,1600, 2700, [{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]))
     this.dayNightManager.time = 6;
     this.dayNightManager.removeFromWorld = false;
     this.game.addEntity(this.dayNightManager);
@@ -737,10 +741,12 @@ class SceneManager {
 
       ctx.font = '15px "Press Start 2P"';
       // ctx.strokeStyle = "White";
+      if(!this.notInGameYet&&!this.onetime&&this.game.camera.countDeath!=2){
       this.game.ctx.fillStyle = "White";
       this.game.ctx.fillText("Day  " + PARAMS.DAYCOUNTER, 10, 20);
       this.game.ctx.fillText("Level " + this.character.level, 10, 40);
       ctx.font = '15px "Press Start 2P"';
+      
       this.game.ctx.drawImage(
         this.spritesheetFarmLand,
         0,
@@ -863,7 +869,7 @@ class SceneManager {
           32,
           32
         );
-    
+        }
   }
   updateAudio() {
     var mute = document.getElementById("mute").checked;
@@ -872,9 +878,20 @@ class SceneManager {
   }
 
   update() {
-    //console.log(this.countDeath);
-    //console.log(this.game.camera.y);
+    // console.log("Death " +this.character.countDeath);
+    // if(this.character.countDeath==2){
+    //   this.game.entities.forEach((entity) =>{  
+    //    entity.removeFromWorld = true;
+    //   });
 
+    
+    //   this.loadMap()
+    // }
+    if (PARAMS.Mute == true) {
+    
+      ASSET_MANAGER.playAsset("./music/chill.mp3");
+  }
+  this.updateAudio();
     
 
     if (this.startCounting) this.elapsed += this.game.clockTick;
@@ -918,6 +935,21 @@ class SceneManager {
       console.log(this.character.y + midpointY);
       this.y = this.character.y - midpointY;
     }
+    this.onetime = this.character.oneTime;
+
+    this.game.entities.forEach((entity) =>{  
+      if(entity instanceof MainCharacter){
+     
+      }
+
+      if(entity instanceof Start||entity instanceof Credit || entity instanceof About){
+      this.notInGameYet = true;
+    }
+  
+    else{
+      this.notInGameYet = false;
+    }}
+  );
 
     const newDay = PARAMS.DAYCOUNTER;
     PARAMS.DEBUG = document.getElementById("debug").checked;

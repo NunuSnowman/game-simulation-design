@@ -84,7 +84,7 @@ class NormalBossesHome{
 
             }
         }
-
+//boss home
         for(let i = 0; i < 32;i++){
             for(let j = 0; j < 63; j++){
                 this.drawType1Floor(ctx,0 + 32*j, 2200 + 32*i );

@@ -3,9 +3,10 @@ class Start {
         this.game = game;
 
         // Adjusted bounding box positions based on PARAMS.CANVAS_WIDTH and PARAMS.CANVAS_HEIGHT
-        this.startBB = new BoundingBox(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 - 75, 300, 50);
-        this.aboutBB = new BoundingBox(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 25, 300, 50);
-        this.creditBB = new BoundingBox(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 125, 300, 50);
+        this.startBB = new BoundingBox(548, 248, 304, 54);
+        this.aboutBB = new BoundingBox(548, 348, 304, 54);
+        this.creditBB = new BoundingBox(548, 448, 304, 54);
+        this.mouseBB = new BoundingBox(0, 0, 1, 1);
 
         this.clickOnStart = false;
         this.clickOnAbout = false;
@@ -14,6 +15,7 @@ class Start {
 
     update() {
         if (this.game.click) {
+            this.game.camera.countDeath =0;
                 const mouseBB = new BoundingBox(this.game.click.x, this.game.click.y, 1, 1);
             console.log(this.game.click);
             if (mouseBB.collide(this.startBB) && !this.clickOnStart) {
@@ -38,37 +40,87 @@ class Start {
     }
 
     draw(ctx) {
+         
+        ctx.font = '25px "Press Start 2P"'
+       ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+        ctx.fillRect(0, 0, 1500, 1500);
+
+        ctx.fillStyle = 'white';
+        ctx.fillRect(548, 248, 304, 54);
+        ctx.fillRect(548, 348, 304, 54);
+        ctx.fillRect(548, 448, 304, 54);
+        
+        ctx.fillStyle = "green";
+        ctx.fillRect(550, 250, 300, 50);
+        ctx.fillStyle = 'white';
+        ctx.fillText("Start", 650, 390 * 0.75);
+
+        ctx.fillStyle = "green";
+        ctx.fillRect(550, 350, 300, 50);
+        ctx.fillStyle = 'white';
+        ctx.fillText("About", 650, 525 * 0.75);
+
+        ctx.fillStyle = "green";
+        ctx.fillRect(550, 450, 300, 50);
+        ctx.fillStyle = 'white';
+        ctx.fillText("Credit", 650, 650 * 0.75);
+
+       
+
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'red';
-            ctx.strokeRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 - 75, 300, 50);
-            ctx.strokeRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 25, 300, 50);
-            ctx.strokeRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 125, 300, 50);
+            ctx.strokeRect(548, 248, 304, 54);
+            ctx.strokeRect(548, 348, 304, 54);
+            ctx.strokeRect(548, 448, 304, 54);
         }
-
-        ctx.font = '25px "Press Start 2P"';
-        ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-        ctx.fillRect(0, 0, PARAMS.CANVAS_WIDTH, PARAMS.CANVAS_HEIGHT);
-
+     
+        if (this.game.mouse) {
+            const getMouseHover = this.game.mouse;
+            this.mouseBB = new BoundingBox(getMouseHover.x, getMouseHover.y, 1, 1);
+    
+         
+            if (this.mouseBB.collide(this.startBB) || this.mouseBB.collide(this.creditBB)||this.mouseBB.collide(this.aboutBB) ) {
+            
+             if(  this.mouseBB.collide(this.startBB)){
+                ctx.fillStyle = "Blue";
+                ctx.fillRect(550, 250, 300, 50);
+                ctx.fillStyle = 'white';
+                ctx.fillText("Start", 650, 390 * 0.75);
+                }
+                if(this.mouseBB.collide(this.aboutBB)){
+                    ctx.fillStyle = "Blue";
+        ctx.fillRect(550, 350, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 - 75, 300, 50);
-        ctx.fillRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 25, 300, 50);
-        ctx.fillRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 125, 300, 50);
+        ctx.fillText("About", 650, 525 * 0.75);
+                    }
+
+                if(  this.mouseBB.collide(this.creditBB)){
+                    ctx.fillStyle = "Blue";
+                    ctx.fillRect(550, 450, 300, 50);
+                    ctx.fillStyle = 'white';
+                    ctx.fillText("Credit", 650, 650 * 0.75);
+                    }
+
+            } else {
+                ctx.fillStyle = 'white'; // Reset fill style to original color
+                ctx.fillStyle = "green";
+        ctx.fillRect(550, 250, 300, 50);
+        ctx.fillStyle = 'white';
+        ctx.fillText("Start", 650, 390 * 0.75);
 
         ctx.fillStyle = "green";
-        ctx.fillRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 - 75, 300, 50);
+        ctx.fillRect(550, 450, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("Start", PARAMS.CANVAS_WIDTH / 2 - 300/4, PARAMS.CANVAS_HEIGHT / 2 - 45 + 7);
+        ctx.fillText("Credit", 650, 650 * 0.75);
 
         ctx.fillStyle = "green";
-        ctx.fillRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 25, 300, 50);
+        ctx.fillRect(550, 350, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("About", PARAMS.CANVAS_WIDTH / 2 - 300/4, PARAMS.CANVAS_HEIGHT / 2 + 55+ 7);
+        ctx.fillText("About", 650, 525 * 0.75);
+            }
 
-        ctx.fillStyle = "green";
-        ctx.fillRect(PARAMS.CANVAS_WIDTH / 2 - 150, PARAMS.CANVAS_HEIGHT / 2 + 125, 300, 50);
-        ctx.fillStyle = 'white';
-        ctx.fillText("Credit", PARAMS.CANVAS_WIDTH / 2 -300/4, PARAMS.CANVAS_HEIGHT / 2 + 155 + 7);
-    }
+   
+        }}
 }
 
 class About {

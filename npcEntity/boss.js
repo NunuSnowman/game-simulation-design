@@ -140,9 +140,9 @@ class Boss {
             //     this.summonedGoblin = new GreenGoblin2(this.game,600, -20, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
 
        // this.game.addEntity(this.summonedGoblin);
-       this.skeleton = new Skeleton(this.game,600, 200, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
-       this.skeleton2 = new Skeleton(this.game,400, 200, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
-       this.skeleton3 = new Skeleton(this.game,500, 200, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
+       this.skeleton = new Skeleton(this.game,1300, 2700, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
+       this.skeleton2 = new Skeleton(this.game,1400, 2700, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
+       this.skeleton3 = new Skeleton(this.game,1500, 2700, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
       // this.demonslime = new DemonSlime(this.game,900, -300, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
 
          
@@ -281,8 +281,23 @@ class Boss {
                 this.elapsedTime = 0;
           
               }
-                
-        
+              if(ent.hitpoints<=0){
+              ent.isDead();
+              this.game.entities.forEach((entity) =>{ 
+                  if(entity instanceof Boss){
+                      entity.removeFromWorld = true;
+                  }
+                  if(entity instanceof Skeleton){
+                    entity.removeFromWorld = true;
+                }
+                if(entity instanceof DemonSlime){
+                  entity.removeFromWorld = true;
+              }
+
+              })
+              this.game.addEntity(new Boss(this.game,1600, 2700, [{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]))
+
+              }
             }
        }
 
@@ -317,7 +332,7 @@ if(this.hitpoints<100 &&this.hitpoints>80){
            this.elapsedTime4 =0;
            this.elapsedTime3 =0;
 
-                this.demonslime = new DemonSlime(this.game,700, 250, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
+                this.demonslime = new DemonSlime(this.game,1600, 2800, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]);
          
              
                 setTimeout(() => {

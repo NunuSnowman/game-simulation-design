@@ -22,9 +22,9 @@ class MainCharacter{
 
         //healthbar information
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 10;
+        this.hitpoints = 100;
         this.level = 1;
-        this.maxhitpoints = 10 ;
+        this.maxhitpoints = 100 ;
         this.baseDamage = 10 ;
         this.farmInventory = [];
         this.numberOfFish = 1;
@@ -32,7 +32,7 @@ class MainCharacter{
         this.facing = 0; // 0 = right, 1 = left
         this.state = 0; // 0 = walking, 1 = attacking, 2, idling
         this.directionFace  = Direction.DOWN;
-
+        this.oneTime =false;
         this.dead = false;
 
         // fire mario's state variables
@@ -59,7 +59,7 @@ class MainCharacter{
         this.counterForShuriken=0;
         this.characterDeath = false;
         this.dieAtMap1 = false;
-
+     
         //Character Stats
 
         this.fishingAnimation = [];
@@ -70,7 +70,7 @@ class MainCharacter{
         this.getFish = false;
 
         //Final Boss information
-        this.levelToEnter = 0;
+        this.levelToEnter = 2;
         
 
         this.tempCameraY = 0;
@@ -169,7 +169,28 @@ class MainCharacter{
     //     this.lastBB = this.BB;
     // };
     update(){
-        console.log(this.game.camera.y);
+        console.log("This y " + this.y)
+        console.log("THIS X " + this.x)
+        //RESET CHARACTER and his stuffs
+        if( this.game.camera.countDeath==2){
+           
+            this.hitpoints =100;
+            this.baseDamage= 10;
+            this.maxhitpoints =100;
+            this.farmInventory[PLANTNAMES.CORN] = 0;
+            this.farmInventory[PLANTNAMES.STRAWBERRY] = 0;
+            this.farmInventory[PLANTNAMES.RICE] = 0;          
+            PARAMS.DAYCOUNTER =0;
+         
+            this.level=1;
+          
+            this.game.entities.forEach((entity) =>{  
+                        entity.removeFromWorld = true;
+            });
+           // this.game.addEntity(new Start(this.game,300,400) )
+           this.game.addEntity(new GameOver(this.game,500,500))
+        }
+
         let canDash = true;
 
         this.elapsedTimeForShuriken+= this.game.clockTick;
@@ -404,26 +425,48 @@ class MainCharacter{
             var that = this;
         for (var i = 0; i < this.game.entities.length; i++){
             var entity = this.game.entities[i];
-            
+          
             if (entity.BB && this.BB.collide(entity.BB)) {
               //  console.log(this.elapsedTime);
                 if(entity instanceof Portal){
+                  
+                 
+
+               if(this.elapsedTime<=1){
+             
+               that.oneTime = true;
+                   that.game.addEntity(new BossZone(that.game,0,0))
+                   setTimeout(() => {
+                    that.oneTime = false;
+
+                }, 500);
+
+
+               }
                     if(this.elapsedTime >= 3){
+                       
                         if(this.level >= this.levelToEnter && this.y <= 2200 ){
+
                             this.tempCameraY = this.game.camera.y;
                             console.log(this.game.camera.y) ;
+                            this.x -= 150;
                             this.y += 1000;
                           
-                        } else if( this.y >= 2200){
+                        } 
+                        
+                        else if( this.y >= 2200){
+                           
+                                this.x-=150;
                             this.y  -= 1000;
                             this.game.camera.y =  this.tempCameraY;
-                        }
-                        this.elapsedTime = 0;
-                  
-                    }
-                
+                     
+                    }                          
+                        this.elapsedTime=0;
+                       
                     
-                 
+
+                }
+                
                     
                 }
 
@@ -443,6 +486,11 @@ class MainCharacter{
                 
                     
                 } 
+                if(entity instanceof WizardSpawn){
+               
+                }
+
+
                 if(entity instanceof WizardSpawn2){
                    const collisionDirection = this.BB.checkCollisionSides(entity.BB);
                    if(collisionDirection.left){
@@ -520,6 +568,7 @@ class MainCharacter{
                
             }
     }
+              
         }
         // if(this.hitpoints<50){
         //     this.removeFromWorld = true;
@@ -619,9 +668,9 @@ class MainCharacter{
         const baseRiceThreshold = 2;  
 
         const cornThreshold = baseCornThreshold + (this.level * 5);
-        const strawberryThreshold = baseStrawberryThreshold + (this.level * 5);
-        const riceThreshold = baseRiceThreshold + (this.level * 5);
-        
+      const strawberryThreshold = baseStrawberryThreshold + (this.level * 5);
+       const riceThreshold = baseRiceThreshold + (this.level * 5);
+       
         return [cornThreshold,strawberryThreshold,riceThreshold];
     }
 
