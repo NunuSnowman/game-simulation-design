@@ -130,7 +130,7 @@ class Slime{
                 }
             }
             //size of FarmLandBigTree: 99,12       
-            if(ent instanceof LakeAndOtherSide ||ent instanceof InvisibleLakeBlocker ){
+            if(ent instanceof LakeAndOtherSide ||ent instanceof InvisibleLakeBlocker || ent instanceof InvisibleFenceBlocker ){
                 const collisionDirection = this.BB.checkCollisionSides(ent.BB);
                 if(collisionDirection.left){
                     this.x -= this.speed;
