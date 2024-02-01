@@ -36,6 +36,8 @@ class GreenGoblin {
       this.facing = 0; // 0 = up, clockwise
 
       this.elapsedTime = 0;
+      this.elapsedTime1 = 0;
+
       this.animations = [];
       this.animations = [];
       this.loadAnimations();
@@ -71,10 +73,10 @@ class GreenGoblin {
       this.animations[2][DirectionBoar.RIGHT]= new Animator(this.spritesheet, 176, 58*2, 44, 58, 4, 0.15, 0, false, true);
       this.animations[2][DirectionBoar.UP]= new Animator(this.spritesheet, 176, 58*3, 44, 58, 4, 0.15, 0, false, true);
       //Casting Spell
-       this.animations[3][DirectionBoar.DOWN]= new Animator(this.spritesheet, 528, 0, 44, 58, 4, 0.15, 0, false, true);
-       this.animations[3][DirectionBoar.LEFT]= new Animator(this.spritesheet, 528, 58, 44, 58, 4, 0.15, 0, false, true);
-       this.animations[3][DirectionBoar.RIGHT]= new Animator(this.spritesheet, 528, 58*2, 44, 58, 4, 0.15, 0, false, true);
-       this.animations[3][DirectionBoar.UP]= new Animator(this.spritesheet, 528, 58*3, 44, 58, 4, 0.15, 0, false, true);
+       this.animations[3][DirectionBoar.DOWN]= new Animator(this.spritesheet, 528, 0, 44, 58, 4, 0.3, 0, false, true);
+       this.animations[3][DirectionBoar.LEFT]= new Animator(this.spritesheet, 528, 58, 44, 58, 4, 0.3, 0, false, true);
+       this.animations[3][DirectionBoar.RIGHT]= new Animator(this.spritesheet, 528, 58*2, 44, 58, 4, 0.3, 0, false, true);
+       this.animations[3][DirectionBoar.UP]= new Animator(this.spritesheet, 528, 58*3, 44, 58, 4, 0.3, 0, false, true);
 
 
   }
@@ -88,8 +90,9 @@ class GreenGoblin {
   update() {
         this.updateBB();
             
-        this.elapsedTime += this.game.clockTick;
+        if(this.elapsedTime <= 5) this.elapsedTime += this.game.clockTick;
 
+        if(this.elapsedTime1 <= 5)  this.elapsedTime1 += this.game.clockTick;
 
 
         var dist = distance(this, this.target);
@@ -103,6 +106,11 @@ class GreenGoblin {
             var ent = this.game.entities[i];
 
             if (ent instanceof MainCharacter && canSee(this, ent) || ent instanceof Dog && canSee(this, ent)) {
+                if(this.elapsedTime1 >= 4 + Math.floor(Math.random() * 6) ){
+                    this.state = 3;
+                    this.game.addEntity(new PlantKiller(this.game, ent.x,ent.y));
+                    this.elapsedTime1 = 0;
+                }
                 this.target = ent;
                 this.attackTarget = ent;
 
@@ -133,11 +141,10 @@ class GreenGoblin {
               if (this.elapsedTime > 0.8) {
                   var damage = this.damageBase + randomInt(4);
                   ent.hitpoints -= damage;
-                    this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
-                    this.elapsedTime = 0;
+                  this.game.addEntity(new CharacterGetDamageScore(this.game, ent.x - this.game.camera.x +  Math.floor(Math.random() * (31 - 20) + 20),   ent.y - this.game.camera.y -  Math.floor(Math.random() * (31 - 20) + 20) , damage));
+                  this.elapsedTime = 0;
                     if( ent.hitpoints<=0){
                         //ent.removeFromWorld = true;
-                        this.game.countDeath += 1;
                         ent.isDead();
                     }
               }
@@ -189,7 +196,9 @@ class GreenGoblin {
   };
 
   draw(ctx) {
-      this.animations[this.state][this.facing].drawFrame(this.game.clockTick,ctx,this.x - this.game.camera.x - (this.width/2),this.y - this.game.camera.y - (this.height/2) ,2*PARAMS.SCALE);
+        if(this.elapsedTime1 <= 0.5)       this.animations[3][this.facing].drawFrame(this.game.clockTick,ctx,this.x - this.game.camera.x - (this.width/2),this.y - this.game.camera.y - (this.height/2) ,1.5*PARAMS.SCALE);
+        else
+      this.animations[this.state][this.facing].drawFrame(this.game.clockTick,ctx,this.x - this.game.camera.x - (this.width/2),this.y - this.game.camera.y - (this.height/2) ,1.5*PARAMS.SCALE);
 
  
 

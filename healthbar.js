@@ -43,6 +43,30 @@ class Score {
         
     };
 };
+class CharacterGetDamageScore {
+    constructor(game, x, y, score) {
+        Object.assign(this, { game, x, y, score });
+        this.velocity = -32;
+        this.elapsed = 0;
+    };
+
+    update() {
+        this.elapsed += this.game.clockTick;
+        if (this.elapsed > 1) this.removeFromWorld = true;
+       
+        this.y += this.game.clockTick * this.velocity;
+    };
+
+    draw(ctx) {
+        var offset = this.score < 10 ? 6 : 12;
+        ctx.font = '12px "Press Start 2P"';
+        ctx.strokeStyle = "black";
+        this.game.ctx.fillStyle = "red";
+        ctx.fillText(this.score, this.x - offset + 1, this.y + 1);
+  
+        
+    };
+};
 
 class LevelUp{
     constructor(game, x, y) {

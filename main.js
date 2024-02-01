@@ -28,6 +28,8 @@ ASSET_MANAGER.queueDownload("./sprites/fireball (2).png");
 ASSET_MANAGER.queueDownload("./sprites/wizardspawn.png");
 ASSET_MANAGER.queueDownload("./sprites/house.png");
 ASSET_MANAGER.queueDownload("./sprites/enemyhouse.png");
+ASSET_MANAGER.queueDownload("./sprites/plantkiller.png");
+
  
 ASSET_MANAGER.queueDownload("./sprites/wolfsheet1.png");
 ASSET_MANAGER.queueDownload("./sprites/towers.png");

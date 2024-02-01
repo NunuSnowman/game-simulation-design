@@ -178,7 +178,7 @@ class Slime{
                     }
                     //var damage = this.damageBase + randomInt(4);
                     //this.attackTarget.hitpoints -= damage;
-                   // this.game.addEntity(new Score(this.game, this.attackTarget.x - this.game.camera.x, this.attackTarget.y - this.game.camera.y, damage));
+                   // this.game.addEntity(new CharacterGetDamageScore(this.game, this.game.character.x - this.game.camera.x, this.game.character.y - this.game.camera.y, damage));
                     this.elapsedTime = 0;
     
                     
@@ -196,8 +196,8 @@ class Slime{
                         if (this.elapsedTime > 0.8 ) {
                             var damage = this.damageBase + randomInt(4);
                             this.attackTarget.hitpoints -= damage;
-                              this.game.addEntity(new Score(this.game, this.attackTarget.x, this.attackTarget.y, damage));
-                              if( this.attackTarget.hitpoints<=0){
+                            this.game.addEntity(new CharacterGetDamageScore(this.game, this.game.character.x - this.game.camera.x +  Math.floor(Math.random() * (31 - 20) + 20),   this.game.character.y - this.game.camera.y -  Math.floor(Math.random() * (31 - 20) + 20) , damage));
+                            if( this.attackTarget.hitpoints<=0){
                                   //ent.removeFromWorld = true;
                                   //this.game.countDeath += 1;
                                   this.attackTarget.isDead();
