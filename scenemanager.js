@@ -523,7 +523,7 @@ class SceneManager {
 
     //////////////////////////////////
      this.game.addEntity(new Portal(this.game, 1800, 2000));
-     this.game.addEntity(new Portal(this.game, 1800, 3000));
+     this.game.addEntity(new Portal(this.game, 1800, 3000 + 1100));
 
     this.game.addEntity(new WizardSpawn(this.game, 110, 110));
     this.game.addEntity(new WizardSpawn2(this.game, 650, 110));
@@ -608,19 +608,19 @@ class SceneManager {
     //Final boss map bounds.
     //top
     this.listOfBuildingsBlOCKCharacter.push(
-      new InvisibleFenceBlocker(this.game, 0, 2200, 2000, 10)
+      new InvisibleFenceBlocker(this.game, 0, 2200 + 1100, 2000, 10)
     );
     //bottom.  just right side left side accroding to Bottom
-    // this.listOfBuildingsBlOCKCharacter.push(
-    //   new InvisibleFenceBlocker(this.game, 0, 2200 + 1000, 2000, 100)
-    // );
+    this.listOfBuildingsBlOCKCharacter.push(
+      new InvisibleFenceBlocker(this.game, 0, 2200 + 1000 + 1100, 2000, 100)
+    );
     //right side
     this.listOfBuildingsBlOCKCharacter.push(
-      new InvisibleFenceBlocker(this.game, 0, 2200, 20, 1000)
+      new InvisibleFenceBlocker(this.game, 0, 2200, 20, 1000 + 1100)
     );
      //left side
     this.listOfBuildingsBlOCKCharacter.push(
-      new InvisibleFenceBlocker(this.game, 2000 - 20 ,2200, 20, 1000)
+      new InvisibleFenceBlocker(this.game, 2000 - 20 ,2200, 20, 1000 + 1100)
     );
     this.listOfBuildingsBlOCKCharacter.push(
       new InvisibleMonsterBlocker(this.game, 300, 840, 55, 20)
@@ -921,10 +921,11 @@ class SceneManager {
 
 
     if ((0 < this.character.y - midpointY)
-      && (this.character.y + midpointY < 2200  )
+       && (this.character.y + midpointY < 2200 + 1100 ) 
     ) {
       this.y = Math.floor(this.character.y - midpointY);
-    }else if( (this.character.y > 2400) && 2200 < this.character.y - midpointY ){
+    }
+    else if( (this.character.y > 2400 + 1100) && 2200 < this.character.y - midpointY ){
       console.log(this.character.y + midpointY);
       this.y = Math.floor(this.character.y - midpointY);
     }
