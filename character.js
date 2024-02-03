@@ -23,7 +23,7 @@ class MainCharacter{
         //healthbar information
         this.healthbar= new HealthBar(this);
         this.hitpoints = 1000;
-        this.level = 1;
+        this.level = 2;
         this.maxhitpoints = 1000 ;
         this.baseDamage = 10 ;
         this.farmInventory = [];
@@ -448,14 +448,14 @@ class MainCharacter{
                             this.tempCameraY = this.game.camera.y;
                           //  console.log(this.game.camera.y) ;
                             this.x -= 150;
-                            this.y += 1000;
+                            this.y += (1000 + 1100);
                           
                         } 
                         
-                        else if( this.y >= 2200){
+                        else if( this.y >= 2200 + 1100){
                            
                                 this.x-=150;
-                            this.y  -= 1000;
+                            this.y  -= (1000 + 1100);
                             this.game.camera.y =  this.tempCameraY;
                      
                     }                          
