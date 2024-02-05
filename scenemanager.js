@@ -119,9 +119,12 @@ class SceneManager {
   loadMap() {
     //Loading Bosses
     this.listofNormallBosses = [];
-    // this.listofNormallBosses.push(
-    //   new Boar(this.game, 600, 1200, [{ x: 1720, y: 1322 }])
-    // );
+    this.listofNormallBosses.push(
+      new BoarSkill(this.game, 700, 1200, [{ x: 1720, y: 1322 }])
+    );
+    this.listofNormallBosses.push(
+      new Boar(this.game, 600, 1200, [{ x: 1720, y: 1322 }])
+    );
     this.listofNormallBosses.push(
       new GreenGoblin(this.game, 600, 1200, [{ x: 1720, y: 1322 }])
     );
