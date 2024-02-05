@@ -46,6 +46,7 @@ class Boar {
         
         this.attackTarget = null;
         this.removeFromWorld = false;
+        this.activeSkillYet = true;
         this.updateBB();
     };
 
@@ -89,6 +90,13 @@ class Boar {
         // console.log(this.game.countDeath);
 
         this.updateBB();
+
+        if(this.activeSkillYet && this.hitpoints < this.maxhitpoints){
+            this.game.addEntityAtIndex(this.game.camera.normalBossesIndexEntity, new BoarSkill(this.game, 800, 1200, [{ x: 1720, y: 1300 }]) );
+            this.game.addEntityAtIndex(this.game.camera.normalBossesIndexEntity, new BoarSkill(this.game, 800, 1250, [{ x: 1720, y: 1350 }]) );
+            this.game.addEntityAtIndex(this.game.camera.normalBossesIndexEntity, new BoarSkill(this.game, 800, 1300, [{ x: 1720, y: 1400 }]) );
+            this.activeSkillYet = false;
+        }
     
         this.elapsedTime += this.game.clockTick;
 
