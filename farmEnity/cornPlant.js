@@ -10,14 +10,20 @@ class CornPlant{
         this.isHarvestable = false; // take 4 date
         this.state = 0; // there are 3 states.
         this.startDay = dayCounter;
-        
+        this.dayofBugs = new Set();
         // spritesheet
        this.spritesheet = ASSET_MANAGER.getAsset("./sprites/farmland.png");
     }; 
 
+    getPercentOfCrop(){
+        console.log((1 - this.dayofBugs.size/this.duration)*100);
 
-    update(dayCounter){
-
+        if(1 - this.dayofBugs.size/this.duration <= 0.2) return 0.2; 
+        return 1 - this.dayofBugs.size/this.duration;
+    }
+    update(dayCounter, hasBug){
+        if(hasBug) this.dayofBugs.add(dayCounter);
+        else this.dayofBugs.delete(dayCounter);
         switch (dayCounter - this.startDay) {
             case 0:
                 this.state = 0;
