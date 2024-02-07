@@ -49,7 +49,7 @@ class NextDayCutScene{
 
         ctx.font = '50px "Press Start 2P"';
         ctx.fillStyle = "white";
-        ctx.fillText( "Day  "+ PARAMS.DAYCOUNTER, midpointX - midpointX*0.15 ,midpointY- midpointY*0.15);
+        ctx.fillText( "Day  "+ (PARAMS.DAYCOUNTER + 1), midpointX - midpointX*0.15 ,midpointY- midpointY*0.15);
 
     }
 

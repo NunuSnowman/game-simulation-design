@@ -602,7 +602,7 @@ class SceneManager {
       new InvisibleFenceBlocker(this.game, 40, 540, 365, 15)
     );
     this.listOfBuildingsBlOCKCharacter.push(
-      new InvisibleFenceBlocker(this.game, 64 * 21, 300, 700, 80)
+      new InvisibleFenceBlocker(this.game, 64 * 21, 300, 700, 65)
     );
     this.listOfBuildingsBlOCKCharacter.push(
       new InvisibleFenceBlocker(this.game, 64 * 22 + 40, 370, 500, 80)
@@ -802,12 +802,32 @@ class SceneManager {
         10 + 25,
         65 + 30 + 30
       );
+      
+      this.game.ctx.drawImage(
+        this.spritesheetFarmLand,
+        0,
+        696,
+        16,
+        16,
+        10,
+        45 + 60 + 25,
+        14 * 1.5,
+        14 * 1.5
+      );
+      this.game.ctx.fillText(
+        ":" +
+          this.character.numberOfFish + "(Q)",
+        10 + 25,
+        65 + 30 + 30 + 25
+      );
 
-      this.game.ctx.fillText("DMG :" + this.character.baseDamage, 10, 45 + 120);
+
+
+      this.game.ctx.fillText("DMG :" + this.character.baseDamage, 10, 45 + 120 +10);
       this.game.ctx.fillText(
         "HP  :" + this.character.hitpoints + "/" + this.character.maxhitpoints,
         10,
-        45 + 140
+        45 + 140+10
       );
 
       if (this.character.numberOfFish >= 1)
@@ -865,7 +885,41 @@ class SceneManager {
           32,
           32
         );
+
+
+
+        if (this.character.counterForShuriken < 6 || this.character.elapsedTimeForShuriken2 >=15 )
+        this.game.ctx.drawImage(
+          this.spritesheetFarmLand,
+          0,
+          1135,
+          32,
+          32,
+          290 + 40,
+          5,
+          32,
+          32
+        );
+      else
+        this.game.ctx.drawImage(
+          this.spritesheetFarmLand,
+          0,
+          1167,
+          32,
+          32,
+          290 + 40,
+          5,
+          32,
+          32
+        );
         }
+        ctx.font = '8px "Press Start 2P"';
+        this.game.ctx.fillStyle = "Black";
+        this.game.ctx.fillText(6 - this.character.counterForShuriken, 290 + 41, 15);
+ 
+      
+        
+
   }
   updateAudio() {
     var mute = document.getElementById("mute").checked;
@@ -893,10 +947,24 @@ class SceneManager {
     if (this.startCounting) this.elapsed += this.game.clockTick;
     let midpointX = PARAMS.CANVAS_WIDTH / 2;
     let midpointY = PARAMS.CANVAS_HEIGHT / 2;
-    if (this.game.testSleepCutScene) {
-      this.game.addEntity(new NextDayCutScene(this.game));
-      this.startCounting = true;
-      this.elapsed = 0;
+    if (this.game.testSleepCutScene ) {
+      
+        this.game.addEntity(new NextDayCutScene(this.game));
+        this.startCounting = true;
+        this.elapsed = 0;
+        this.character.hitpoints = this.character.maxhitpoints;
+      // if(Math.abs(this.character.x-600-this.game.camera.x) < 50 && Math.abs(this.character.y - 700 -this.game.camera.x) < 50 && this.dayNightManager.time >= 12){
+      //   this.game.addEntity(new NextDayCutScene(this.game));
+      //   this.startCounting = true;
+      //   this.elapsed = 0;
+      // }else if(this.dayNightManager.time < 16){
+      //   console.log("Can not sleep, its too early!");
+      //   this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"Can not sleep, its too early!"));
+      // } else if(this.dayNightManager.time >= 16){
+      //   this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"You are not home!"));
+
+      // }
+      
     }
     if (this.elapsed > 3.5) {
       this.dayNightManager.time = 6;
@@ -909,8 +977,14 @@ class SceneManager {
             this.listofNormallBosses[0]
           );
       }
+      ++PARAMS.DAYCOUNTER;
       this.elapsed = 0;
       this.startCounting = false;
+      this.listOfTrippleSoil.forEach((each)=>{
+        each.generateListOfBugs();
+        console.log(each);
+      })
+
 
       console.log("loaded slime");
     }

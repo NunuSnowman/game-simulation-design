@@ -143,7 +143,7 @@ class Boar {
                if (this.elapsedTime > 0.8) {
                    var damage = this.damageBase + randomInt(4);
                    ent.hitpoints -= damage;
-                     this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
+                   this.game.addEntity(new CharacterGetDamageScore(this.game, ent.x - this.game.camera.x +  Math.floor(Math.random() * (31 - 20) + 20),   ent.y - this.game.camera.y -  Math.floor(Math.random() * (31 - 20) + 20) , damage));
                      this.elapsedTime = 0;
                      if( ent.hitpoints<=0){
                         //ent.removeFromWorld = true;
