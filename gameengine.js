@@ -31,6 +31,8 @@ class GameEngine {
         this.keyG = false;
         this.keyE = false;
         this.keyR = false;
+        this.keyQ = false;
+
         this.spaceKey = false;
         // Options and the Details
         this.options = options || {
@@ -115,6 +117,9 @@ class GameEngine {
         
         const keyUpListener = (e)=>{
             switch (e.code) {
+                case "KeyQ":
+                    this.keyQ = false;
+                    break;
                 case "KeyR":
                     this.keyR = false;
                     break;
@@ -122,7 +127,7 @@ class GameEngine {
                     this.keyE = false;
                     break;
                 case "KeyI":
-                    ++PARAMS.DAYCOUNTER;
+                   // ++PARAMS.DAYCOUNTER;
                   //  this.game.dayNightManager.time = 6;
                     this.testSleepCutScene = false;
                     break;
@@ -164,6 +169,9 @@ class GameEngine {
 
         const keyDownListener = (e)=>{
             switch (e.code) {
+                case "KeyQ":
+                    this.keyQ = true;
+                    break;
                 case "KeyR":
                     this.keyR = true;
                     break;

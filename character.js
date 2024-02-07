@@ -27,7 +27,7 @@ class MainCharacter{
         this.maxhitpoints = 1000 ;
         this.baseDamage = 10 ;
         this.farmInventory = [];
-        this.numberOfFish = 1;
+        this.numberOfFish = 5;
         // MainCharacter's state variables
         this.facing = 0; // 0 = right, 1 = left
         this.state = 0; // 0 = walking, 1 = attacking, 2, idling
@@ -192,7 +192,20 @@ class MainCharacter{
         let canDash = true;
 
         this.elapsedTimeForShuriken+= this.game.clockTick;
-        this.elapsedTimeForShuriken2+= this.game.clockTick;
+
+        if(this.elapsedTimeForShuriken2 <= 20) {
+            this.elapsedTimeForShuriken2+= this.game.clockTick
+            if(this.elapsedTimeForShuriken2 > 15) this.counterForShuriken = 0;
+        };
+
+        if(this.game.keyQ == true && this.numberOfFish > 0 && this.elapsedTime3 > 1){
+            if(this.hitpoints + this.maxhitpoints*0.25 >= this.maxhitpoints ) this.hitpoints = this.maxhitpoints;
+            else this.hitpoints += this.maxhitpoints*0.25;
+            this.numberOfFish -= 1;
+            this.elapsedTime3 = 0;
+        }
+
+
 
         
         if(this.game.keyE == true && Math.abs(this.x  - 1420) < 25 &&  Math.abs(this.y - 409) < 50 ) this.fishingMode = true;
@@ -223,7 +236,7 @@ class MainCharacter{
 
        // console.log(this.fishingMode);
     // console.log(this.elapsedTime);
-       if(this.elapsedTime3 <= 3 && this.fishingMode)this.elapsedTime3 += this.game.clockTick;
+       if(this.elapsedTime3 <= 3)this.elapsedTime3 += this.game.clockTick;
         if(this.elapsedTime <= 10)this.elapsedTime += this.game.clockTick;
         if(this.elapsedTime2 <= 9) this.elapsedTime2 += this.game.clockTick;
         if (this.game.left && this.game.up  && this.x -  this.width/2 > 0 && this.x +  this.width/2 < 2000 ) {
@@ -484,6 +497,12 @@ class MainCharacter{
                 
                     
                 } 
+                if(entity instanceof HorizontalSoil){
+                   if( this.BB.collide(entity.BB) && this.state === 1){
+                    entity.listOfBugs = [0,0,0];
+                   }
+                }
+
                 if(entity instanceof WizardSpawn){
                
                 }

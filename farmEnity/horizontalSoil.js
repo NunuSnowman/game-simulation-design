@@ -18,7 +18,7 @@ class HorizontalSoil{
         this.width = 92;
         this.height = 27;
         this.plants = [];
-        this.radius = 5;
+        this.radius = 10;
         this.visualRadius = 50;
 
         this.plants.push(new StrawberryPlant(this.game,this.x + (92/3)*0,this.y, PARAMS.DAYCOUNTER));
@@ -35,11 +35,26 @@ class HorizontalSoil{
         this.menuPlantShow = false;
         this.menuSelect  = null;
         this.previousLandPartsClick = null;
-
-
+        this.listOfBugs = [0,0,0];
+        this.generateListOfBugs();
        this.menuOffsetY = 35;
        this.updateBB();
     }; 
+    generateListOfBugs() {
+        const listOfBugs = [0, 0, 0]; 
+        const indexWithBug = Math.floor(Math.random() * 3); 
+        const typeOfBug =   Math.floor(Math.random() * 2) + 1;
+        this.listOfBugs[indexWithBug] = typeOfBug; 
+       
+    }
+    drawLadyBug(ctx,x,y){
+        const scale = 0.8;
+        ctx.drawImage(this.spritesheet,0,378, 18,25, x  - this.game.camera.x , y - this.game.camera.y,  18*scale,18*scale);
+    }
+    drawWorm(ctx,x,y){
+        const scale = 0.8;
+        ctx.drawImage(this.spritesheet,0,362, 28,15, x  - this.game.camera.x , y - this.game.camera.y,  28*scale,15*scale);
+    }
     updateBB(){
         this.BB = new BoundingBox(this.x   - this.game.camera.x , this.y   - this.game.camera.y , this.width, this.height);
       //  console.log(this.BB);
@@ -52,10 +67,24 @@ class HorizontalSoil{
         // {
         //     console.log("click in the Land");
         // }
-        this.plants.forEach((thePlant)=>{
-            if(thePlant != null)
-            thePlant.update(PARAMS.DAYCOUNTER);
-        })
+
+        // this.plants.forEach((thePlant)=>{
+        //     if(thePlant != null)
+        //     thePlant.update(PARAMS.DAYCOUNTER);
+        // })
+        const currentDay = PARAMS.DAYCOUNTER;
+        if(currentDay < PARAMS.DAYCOUNTER){
+            console.log("passdinfg day");
+        }
+
+        for(let i = 0; i < 3; i++){
+            if(this.listOfBugs[i] == 0 && this.plants[i] != null) {
+                this.plants[i].update(PARAMS.DAYCOUNTER, false);
+            } else if(this.listOfBugs[i] !== 0 && this.plants[i] != null)
+                this.plants[i].update(PARAMS.DAYCOUNTER, true);
+            
+
+        }
         if(this.game.mouse){
         if(this.game.mouse.x > this.x - this.game.camera.x 
             && this.game.mouse.x < this.x + 92 - this.game.camera.x 
@@ -98,11 +127,11 @@ class HorizontalSoil{
                     if(this.plants[clickedPart] && this.plants[clickedPart].isHarvestable){
 
                         if(this.plants[clickedPart] instanceof CornPlant ) 
-                            this.game.character.farmInventory[PLANTNAMES.CORN] += (Math.floor(Math.random() * 3) + 1);
+                            this.game.character.farmInventory[PLANTNAMES.CORN] += Math.floor((Math.floor(Math.random() * 3) + 2)*this.plants[clickedPart].getPercentOfCrop());
                         else if(this.plants[clickedPart] instanceof StrawberryPlant ) 
-                            this.game.character.farmInventory[PLANTNAMES.STRAWBERRY] += (Math.floor(Math.random() * 3) + 2);
+                            this.game.character.farmInventory[PLANTNAMES.STRAWBERRY] += Math.floor((Math.floor(Math.random() * 3) + 3)*this.plants[clickedPart].getPercentOfCrop());
                         else if(this.plants[clickedPart] instanceof RicePlant)
-                            this.game.character.farmInventory[PLANTNAMES.RICE] += (Math.floor(Math.random() * 3) + 3);
+                            this.game.character.farmInventory[PLANTNAMES.RICE] += Math.floor((Math.floor(Math.random() * 3) + 4)*this.plants[clickedPart].getPercentOfCrop());
 
 
 
@@ -218,6 +247,14 @@ class HorizontalSoil{
                 if(thePlant != null)
                 thePlant.draw(ctx);
             })
+        }
+      
+        for(let i = 0; i < 3; i++){
+            if(this.listOfBugs[i] !=0) {
+                if(this.listOfBugs[i] === 1)  this.drawWorm(ctx, this.x +(92/3)*i,this.y+ 10 );
+                else   this.drawLadyBug(ctx, this.x +(92/3)*i,this.y+ 10);
+            }
+
         }
         
         if(this.menuPlantShow){
