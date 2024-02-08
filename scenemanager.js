@@ -510,7 +510,6 @@ class SceneManager {
     this.normalGrass.removeFromWorld = false;
 
     //  this.game.addEntity(this.gob);
-    this.loadSlime();
     this.normalBossesIndexEntity = this.game.entities.length;
     console.log(this.normalBossesIndexEntity);
     // this.normalBossesIndexEntity[0].removeFromWorld = false;
@@ -525,14 +524,18 @@ class SceneManager {
     console.log(this.listofNormallBosses);
 
     //////////////////////////////////
+    this.game.addEntity(new SnowMap(this.game, 0, 0));
+    this.game.addEntity(new SnowMap2(this.game, 0, 0));
      this.game.addEntity(new Portal(this.game, 1800, 2000));
      this.game.addEntity(new Portal(this.game, 1800, 3000 + 1100));
-
+     this.game.addEntity(new Skele(this.game,530, 2650, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]));
+     this.game.addEntity(new Guardian(this.game,1200, 3170, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]));
     this.game.addEntity(new WizardSpawn(this.game, 110, 110));
     this.game.addEntity(new WizardSpawn2(this.game, 650, 110));
     this.game.addEntity(new WizardSpawn2(this.game, 110, 110));
     this.game.addEntity(new Campfire(this.game, 110, 110));
     this.game.addEntity(new Campfire(this.game, 650, 110));
+    this.loadSlime();
 
     this.game.addEntity(
       new Wizard2(this.game, 950, 2050, [
@@ -723,7 +726,7 @@ class SceneManager {
       this.listOfTree[i].removeFromWorld = false;
       this.game.addEntity(this.listOfTree[i]);
     }
-    this.game.addEntity(new Boss(this.game,1600, 2700, [{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]))
+    this.game.addEntity(new Boss(this.game,1600, 3700, [{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]))
     this.dayNightManager.time = 6;
     this.dayNightManager.removeFromWorld = false;
     this.game.addEntity(this.dayNightManager);
@@ -737,8 +740,8 @@ class SceneManager {
 
       ctx.font = '15px "Press Start 2P"';
       // ctx.strokeStyle = "White";
-      if(!this.notInGameYet&&!this.onetime&&this.game.camera.countDeath!=2){
-      this.game.ctx.fillStyle = "White";
+      if(!this.notInGameYet&&!this.onetime&&this.game.camera.countDeath!=2&&!this.endgame){
+        this.game.ctx.fillStyle = "black";
       this.game.ctx.fillText("Day  " + PARAMS.DAYCOUNTER, 10, 20);
       this.game.ctx.fillText("Level " + this.character.level, 10, 40);
       ctx.font = '15px "Press Start 2P"';
@@ -969,6 +972,7 @@ class SceneManager {
     if (this.elapsed > 3.5) {
       this.dayNightManager.time = 6;
       this.loadSlime();
+      
       if (this.listofNormallBosses[0].removeFromWorld) {
         this.listofNormallBosses.shift();
         if (this.listofNormallBosses.length > 0)
@@ -996,28 +1000,35 @@ class SceneManager {
       this.x = Math.floor(this.character.x - midpointX);
     }
 
-
+      //top to bottom
     if ((0 < this.character.y - midpointY)
        && (this.character.y + midpointY < 2200 + 1100 ) 
     ) {
       this.y = Math.floor(this.character.y - midpointY);
     }
-    else if( (this.character.y > 2400 + 1100) && 2200 < this.character.y - midpointY ){
+                 //adj character camera bottom to top
+    else if( (this.character.y > 2400 + 1350) && 2200 < this.character.y - midpointY ){
       console.log(this.character.y + midpointY);
       this.y = Math.floor(this.character.y - midpointY);
     }
     this.onetime = this.character.oneTime;
+    this.endgame = this.character.endgame;
 
     this.game.entities.forEach((entity) =>{  
       if(entity instanceof MainCharacter){
      
       }
 
-      if(entity instanceof Start||entity instanceof Credit || entity instanceof About){
+
+
+      if(entity instanceof Start||entity instanceof Credit || entity instanceof About||  entity instanceof EndGame||entity instanceof NextDayCutScene){
+    
       this.notInGameYet = true;
-    }
-  
+    
+  }
+   
     else{
+      this.endgame  = false;
       this.notInGameYet = false;
     }}
   );

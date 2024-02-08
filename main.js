@@ -48,6 +48,21 @@ ASSET_MANAGER.queueDownload("./sprites/fishing.png");
 ASSET_MANAGER.queueDownload("./sprites/Bee_Idle.png");
 ASSET_MANAGER.queueDownload("./sprites/Bee_Walk.png");
 
+ASSET_MANAGER.queueDownload("./sprites/enemy/skeletondownattack.png");
+ ASSET_MANAGER.queueDownload("./sprites/enemy/skeletonhitright.png");
+ ASSET_MANAGER.queueDownload("./sprites/enemy/skeletonleftattack.png");
+ASSET_MANAGER.queueDownload("./sprites/enemy/skeletonupattack.png");
+ ASSET_MANAGER.queueDownload("./sprites/enemy/skeletonwalkdown.png");
+ ASSET_MANAGER.queueDownload("./sprites/enemy/skeletonwalkleft.png");
+ASSET_MANAGER.queueDownload("./sprites/enemy/skeletonwalkright.png");
+ASSET_MANAGER.queueDownload("./sprites/enemy/skeletonwalkup.png");
+ASSET_MANAGER.queueDownload("./sprites/snowm.png");
+ASSET_MANAGER.queueDownload("./sprites/snowtree.png");
+ASSET_MANAGER.queueDownload("./sprites/snowhouse.png");
+ASSET_MANAGER.queueDownload("./sprites/tornado.png");
+ASSET_MANAGER.queueDownload("./sprites/turretshadow.png");
+ASSET_MANAGER.queueDownload("./sprites/guardian.png");
+ASSET_MANAGER.queueDownload("./sprites/props.png");
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");

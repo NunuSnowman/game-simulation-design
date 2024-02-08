@@ -3,9 +3,9 @@ class Start {
         this.game = game;
 
         // Adjusted bounding box positions based on PARAMS.CANVAS_WIDTH and PARAMS.CANVAS_HEIGHT
-        this.startBB = new BoundingBox(548, 248, 304, 54);
-        this.aboutBB = new BoundingBox(548, 348, 304, 54);
-        this.creditBB = new BoundingBox(548, 448, 304, 54);
+        this.startBB = new BoundingBox(548+200, 248, 304, 54);
+        this.aboutBB = new BoundingBox(548+200, 348, 304, 54);
+        this.creditBB = new BoundingBox(548+200, 448, 304, 54);
         this.mouseBB = new BoundingBox(0, 0, 1, 1);
 
         this.clickOnStart = false;
@@ -43,35 +43,36 @@ class Start {
          
         ctx.font = '25px "Press Start 2P"'
        ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-        ctx.fillRect(0, 0, 1500, 1500);
+       ctx.fillRect(0, 0, PARAMS.CANVAS_WIDTH, PARAMS.CANVAS_HEIGHT);
+
 
         ctx.fillStyle = 'white';
-        ctx.fillRect(548, 248, 304, 54);
-        ctx.fillRect(548, 348, 304, 54);
-        ctx.fillRect(548, 448, 304, 54);
+        ctx.fillRect(548+200, 248, 304, 54);
+        ctx.fillRect(548+200, 348, 304, 54);
+        ctx.fillRect(548+200, 448, 304, 54);
         
         ctx.fillStyle = "green";
-        ctx.fillRect(550, 250, 300, 50);
+        ctx.fillRect(550+200, 250, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("Start", 650, 390 * 0.75);
+        ctx.fillText("Start", 650+200, 390 * 0.75);
 
         ctx.fillStyle = "green";
-        ctx.fillRect(550, 350, 300, 50);
+        ctx.fillRect(550+200, 350, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("About", 650, 525 * 0.75);
+        ctx.fillText("About", 650+200, 525 * 0.75);
 
         ctx.fillStyle = "green";
-        ctx.fillRect(550, 450, 300, 50);
+        ctx.fillRect(550+200, 450, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("Credit", 650, 650 * 0.75);
+        ctx.fillText("Credit", 650+200, 650 * 0.75);
 
        
 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'red';
-            ctx.strokeRect(548, 248, 304, 54);
-            ctx.strokeRect(548, 348, 304, 54);
-            ctx.strokeRect(548, 448, 304, 54);
+            ctx.strokeRect(548+200, 248, 304, 54);
+            ctx.strokeRect(548+200, 348, 304, 54);
+            ctx.strokeRect(548+200, 448, 304, 54);
         }
      
         if (this.game.mouse) {
@@ -83,40 +84,40 @@ class Start {
             
              if(  this.mouseBB.collide(this.startBB)){
                 ctx.fillStyle = "Blue";
-                ctx.fillRect(550, 250, 300, 50);
+                ctx.fillRect(550+200, 250, 300, 50);
                 ctx.fillStyle = 'white';
-                ctx.fillText("Start", 650, 390 * 0.75);
+                ctx.fillText("Start", 650+200, 390 * 0.75);
                 }
                 if(this.mouseBB.collide(this.aboutBB)){
                     ctx.fillStyle = "Blue";
-        ctx.fillRect(550, 350, 300, 50);
+        ctx.fillRect(550+200, 350, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("About", 650, 525 * 0.75);
+        ctx.fillText("About", 650+200, 525 * 0.75);
                     }
 
                 if(  this.mouseBB.collide(this.creditBB)){
                     ctx.fillStyle = "Blue";
-                    ctx.fillRect(550, 450, 300, 50);
+                    ctx.fillRect(550+200, 450, 300, 50);
                     ctx.fillStyle = 'white';
-                    ctx.fillText("Credit", 650, 650 * 0.75);
+                    ctx.fillText("Credit", 650+200, 650 * 0.75);
                     }
 
             } else {
                 ctx.fillStyle = 'white'; // Reset fill style to original color
                 ctx.fillStyle = "green";
-        ctx.fillRect(550, 250, 300, 50);
+        ctx.fillRect(550+200, 250, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("Start", 650, 390 * 0.75);
+        ctx.fillText("Start", 650+200, 390 * 0.75);
 
         ctx.fillStyle = "green";
-        ctx.fillRect(550, 450, 300, 50);
+        ctx.fillRect(550+200, 450, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("Credit", 650, 650 * 0.75);
+        ctx.fillText("Credit", 650+200, 650 * 0.75);
 
         ctx.fillStyle = "green";
-        ctx.fillRect(550, 350, 300, 50);
+        ctx.fillRect(550+200, 350, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("About", 650, 525 * 0.75);
+        ctx.fillText("About", 650+200, 525 * 0.75);
             }
 
    

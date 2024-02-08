@@ -15,16 +15,16 @@ class MainCharacter{
         this.width = 48;
         this.game.character = this;
         this.radius = 30; //attack range
-        this.speed = 1.5;
+        this.speed = 5.5;
                 // spritesheet
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/villager1.png");
         this.spritesheetFishing = ASSET_MANAGER.getAsset("./sprites/fishing.png");
 
         //healthbar information
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 1000;
-        this.level = 2;
-        this.maxhitpoints = 1000 ;
+        this.hitpoints = 100;
+        this.level = 1;
+        this.maxhitpoints = 100 ;
         this.baseDamage = 10 ;
         this.farmInventory = [];
         this.numberOfFish = 5;
@@ -522,7 +522,29 @@ class MainCharacter{
                 
                     
                 } 
-           
+                if(entity instanceof SnowMap||entity instanceof SnowMap2 ||entity instanceof SnowMap3 ||entity instanceof GraveYard|| entity instanceof Column){
+                    const collisionDirection = this.BB.checkCollisionSides(entity.BB);
+                    if(collisionDirection.left){
+                        this.x -= this.speed;
+                    }else if(collisionDirection.right) {
+                        this.x += this.speed;
+                    }else if(collisionDirection.top) {
+                        this.y -= this.speed;
+                    }else if(collisionDirection.bottom) {
+                        this.y += this.speed;
+                    }
+                 
+                     
+                } 
+                if(entity instanceof Chest){
+                    console.log("CHEST")
+
+                    entity.removeFromWorld = true;
+                    this.baseDamage +=1;
+                    this.maxhitpoints+=5;
+                    this.game.addEntity(new PlusDMG(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y))
+                 this.game.addEntity(new PlusHP(this.game, this.x + - this.game.camera.x, this.y+20- this.game.camera.y))
+                }
 
                 if((entity instanceof HPBottle)){
                     this.maxhitpoints += 5;
@@ -585,7 +607,32 @@ class MainCharacter{
                
             }
     }
-              
+            
+    if(entity instanceof Boss){
+        if(entity.hitpoints<=0){
+            that.endgame = true;
+            this.isDead();
+            this.hitpoints =100;
+            this.baseDamage= 10;
+            this.maxhitpoints =100;
+            this.farmInventory[PLANTNAMES.CORN] = 0;
+            this.farmInventory[PLANTNAMES.STRAWBERRY] = 0;
+            this.farmInventory[PLANTNAMES.RICE] = 0;          
+            PARAMS.DAYCOUNTER =0;
+         
+            this.level=1;
+          
+            this.game.entities.forEach((entity) =>{  
+                        entity.removeFromWorld = true;
+            });
+            this.game.addEntity(new EndGame(this.game,500,500))
+        }
+
+    }
+
+
+
+
         }
         // if(this.hitpoints<50){
         //     this.removeFromWorld = true;
