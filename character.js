@@ -22,9 +22,9 @@ class MainCharacter{
 
         //healthbar information
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 100;
+        this.hitpoints = 1000;
         this.level = 1;
-        this.maxhitpoints = 100 ;
+        this.maxhitpoints = 1000 ;
         this.baseDamage = 10 ;
         this.farmInventory = [];
         this.numberOfFish = 5;
