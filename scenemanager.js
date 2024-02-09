@@ -740,9 +740,24 @@ class SceneManager {
 
       ctx.font = '15px "Press Start 2P"';
       // ctx.strokeStyle = "White";
-      if(!this.notInGameYet&&!this.onetime&&this.game.camera.countDeath!=2&&!this.endgame){
-        this.game.ctx.fillStyle = "black";
+      if(!this.notInGameYet&&!this.onetime&&this.game.camera.countDeath!=3&&!this.endgame){
+        if(this.character.y >= 2200 && this.character.y <= 3300 ) this.game.ctx.fillStyle = "Black";
+        else  this.game.ctx.fillStyle = "White";
       this.game.ctx.fillText("Day  " + PARAMS.DAYCOUNTER, 10, 20);
+      for(let i = 0; i < (3-this.countDeath); i++){
+        this.game.ctx.drawImage(
+          this.spritesheetFarmLand,
+          0,
+          717,
+          16,
+          16,
+          160 + 20*i,
+          5,
+          16,
+          16
+        );
+      }
+      
       this.game.ctx.fillText("Level " + this.character.level, 10, 40);
       ctx.font = '15px "Press Start 2P"';
       
@@ -858,7 +873,7 @@ class SceneManager {
           32
         );
       ctx.font = '8px "Press Start 2P"';
-      this.game.ctx.fillStyle = "Black";
+      
 
       this.game.ctx.fillText(this.character.numberOfFish, 290, 15);
 
@@ -915,10 +930,12 @@ class SceneManager {
           32,
           32
         );
-        }
+        
         ctx.font = '8px "Press Start 2P"';
-        this.game.ctx.fillStyle = "Black";
         this.game.ctx.fillText(6 - this.character.counterForShuriken, 290 + 41, 15);
+
+        }
+        
  
       
         
