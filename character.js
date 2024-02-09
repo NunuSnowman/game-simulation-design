@@ -92,8 +92,8 @@ class MainCharacter{
         this.y = this.spawnY;
         this.hitpoints = this.maxhitpoints;
         this.game.camera.countDeath += 1;
-        // this.game.camera.x = 0;
-        // this.game.camera.y = 329;
+        this.game.camera.x = 0;
+        this.game.camera.y = 329;
 
 
     }
@@ -170,7 +170,7 @@ class MainCharacter{
     // };
     update(){
         //RESET CHARACTER and his stuffs
-        if( this.game.camera.countDeath==2){
+        if( this.game.camera.countDeath==3){
            
             this.hitpoints =100;
             this.baseDamage= 10;
@@ -200,7 +200,7 @@ class MainCharacter{
 
         if(this.game.keyQ == true && this.numberOfFish > 0 && this.elapsedTime3 > 1){
             if(this.hitpoints + this.maxhitpoints*0.25 >= this.maxhitpoints ) this.hitpoints = this.maxhitpoints;
-            else this.hitpoints += this.maxhitpoints*0.25;
+            else this.hitpoints += Math.floor(this.maxhitpoints*0.25);
             this.numberOfFish -= 1;
             this.elapsedTime3 = 0;
         }

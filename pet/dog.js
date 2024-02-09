@@ -154,7 +154,8 @@ class Dog {
     }
     for (var i = 0; i < this.game.entities.length; i++) {
         var ent = this.game.entities[i];
-        if(ent instanceof FarmLandBigTree || ent instanceof LakeAndOtherSide ||ent instanceof InvisibleLakeBlocker ){
+        if( ent instanceof LakeAndOtherSide ||ent instanceof InvisibleLakeBlocker
+            || ent instanceof InvisibleFenceBlocker ){
           const collisionDirection = this.BB.checkCollisionSides(ent.BB);
           if(collisionDirection.left){
               this.x -= this.speed;
