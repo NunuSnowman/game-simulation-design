@@ -57,6 +57,6 @@ const PARAMS = {
     SCALE: 1,
     BITWIDTH: 16,
     DAYCOUNTER:0,
-    Mute: false,
+    Mute: true,
 
 };

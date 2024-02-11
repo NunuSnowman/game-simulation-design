@@ -66,7 +66,7 @@ class Shuriken {
         //         // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
           this.removeFromWorld = true;
              }
-             if ( (ent instanceof Wizard) && collide(this, ent)) {
+             if ( (ent instanceof Wizard|| ent instanceof Wizard2|| ent instanceof Skele || ent instanceof Guardian ||ent instanceof Skeleton || ent instanceof DemonSlime) && collide(this, ent)) {
                 var damage = 10 + randomInt(6);
                 ent.hitpoints -= damage;
         //         // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));

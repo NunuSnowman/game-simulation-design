@@ -22,9 +22,9 @@ class MainCharacter{
 
         //healthbar information
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 1000;
+        this.hitpoints = 100;
         this.level = 1;
-        this.maxhitpoints = 1000 ;
+        this.maxhitpoints = 100 ;
         this.baseDamage = 10 ;
         this.farmInventory = [];
         this.numberOfFish = 5;
@@ -95,6 +95,7 @@ class MainCharacter{
         this.game.camera.x = 0;
         this.game.camera.y = 329;
 
+        ASSET_MANAGER.pauseBackgroundMusic();
 
     }
 
@@ -169,6 +170,29 @@ class MainCharacter{
     //     this.lastBB = this.BB;
     // };
     update(){
+
+        //audio for key moving
+        if(!this.game.right&&!this.game.left&&!this.game.up&&!this.game.down){
+            ASSET_MANAGER.playAsset("./audio/walk1.mp3");
+
+            setTimeout(() => {
+        ASSET_MANAGER.autoRepeat("./audio/walk1.mp3");
+    }, 1000); 
+        }
+
+        //audio for key attacking
+        if(!this.game.spaceKey){
+         
+               
+            ASSET_MANAGER.playAsset("./audio/slsh2.mp3");
+                ASSET_MANAGER.autoRepeat("./audio/slsh2.mp3");
+        
+            
+           
+        }
+
+
+
         //RESET CHARACTER and his stuffs
         if( this.game.camera.countDeath==3){
            
@@ -441,7 +465,6 @@ class MainCharacter{
               //  console.log(this.elapsedTime);
                 if(entity instanceof Portal){
                   
-                 
 
                if(this.elapsedTime<=1){
              
@@ -457,16 +480,17 @@ class MainCharacter{
                     if(this.elapsedTime >= 3){
                        
                         if(this.level >= this.levelToEnter && this.y <= 2200 ){
-
+                          ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
                             this.tempCameraY = this.game.camera.y;
                           //  console.log(this.game.camera.y) ;
                             this.x -= 150;
                             this.y += (1000 + 1100);
-                          
+
                         } 
                         
                         else if( this.y >= 2200 + 1100){
-                           
+                           ASSET_MANAGER.pauseBackgroundMusic();
+
                                 this.x-=150;
                             this.y  -= (1000 + 1100);
                             this.game.camera.y =  this.tempCameraY;
@@ -504,7 +528,7 @@ class MainCharacter{
                 }
 
                 if(entity instanceof WizardSpawn){
-               
+
                 }
 
 
@@ -523,6 +547,7 @@ class MainCharacter{
                     
                 } 
                 if(entity instanceof SnowMap||entity instanceof SnowMap2 ||entity instanceof SnowMap3 ||entity instanceof GraveYard|| entity instanceof Column){
+
                     const collisionDirection = this.BB.checkCollisionSides(entity.BB);
                     if(collisionDirection.left){
                         this.x -= this.speed;
@@ -564,7 +589,9 @@ class MainCharacter{
             
 
  
-            if ((entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin ||entity instanceof BoarSkill) && collide(this,  entity)) {
+            if ((entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin ||entity instanceof BoarSkill|| 
+                entity instanceof Wizard|| entity instanceof Wizard2|| entity instanceof Skele || entity instanceof Guardian ||
+                entity instanceof Skeleton || entity instanceof DemonSlime) && collide(this,  entity)) {
                         if(this.state === 1){
                         if (this.elapsedTime > 0.2) {
                             var damage = this.baseDamage + randomInt(4);

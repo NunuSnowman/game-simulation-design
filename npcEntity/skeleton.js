@@ -128,7 +128,8 @@ class Skeleton {
                   if (this.elapsedTime > 0.9) {
                       var damage = 7 + randomInt(4);
                       ent.hitpoints -= damage;
-                     
+                      this.game.addEntity(new CharacterGetDamageScore(this.game, ent.x - this.game.camera.x +  Math.floor(Math.random() * (31 - 20) + 20),   ent.y - this.game.camera.y -  Math.floor(Math.random() * (31 - 20) + 20) , damage));
+
                       // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
                       this.elapsedTime = 0;
                   }

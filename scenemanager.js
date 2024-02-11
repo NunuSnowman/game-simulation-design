@@ -943,8 +943,10 @@ class SceneManager {
   }
   updateAudio() {
     var mute = document.getElementById("mute").checked;
+    var volume = document.getElementById("volume").value;
 
     ASSET_MANAGER.muteAudio(mute);
+   ASSET_MANAGER.adjustVolume(volume);
   }
 
   update() {
@@ -957,10 +959,7 @@ class SceneManager {
     
     //   this.loadMap()
     // }
-    if (PARAMS.Mute == true) {
-    
-      ASSET_MANAGER.playAsset("./music/chill.mp3");
-  }
+
   this.updateAudio();
     
 
@@ -1050,9 +1049,10 @@ class SceneManager {
     }}
   );
 
-    const newDay = PARAMS.DAYCOUNTER;
-    PARAMS.DEBUG = document.getElementById("debug").checked;
+  const newDay = PARAMS.DAYCOUNTER;
+  PARAMS.DEBUG = document.getElementById("debug").checked;
 
-    PARAMS.Mute = document.getElementById("mute").checked;
+  PARAMS.Mute = document.getElementById("mute").checked;
+  PARAMS.Volume = document.getElementById("volume").checked;
   }
 }

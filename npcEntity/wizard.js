@@ -11,12 +11,13 @@ class Wizard {
 
         this.visualRadius = 200;
         this.condition = false;
-        this.chase = false;
+        this.chase = true;
         this.timer =4000;
         this.initialPoint = { x, y };
 
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/enemy/wizardRun.png");
         this.spritesheet2 = ASSET_MANAGER.getAsset("./sprites/enemy/wizardAttack1.png");
+        this.spritesheet3 = ASSET_MANAGER.getAsset("./sprites/enemy/wizardidle.png");
 
         this.targetID = 0;
         if (this.path && this.path[this.targetID]) this.target = this.path[this.targetID];
@@ -57,8 +58,19 @@ class Wizard {
         0.1,
         0,
         false,
+        true));       
+         this.animations.push([]);
+
+        this.animations[2].push(new Animator( this.spritesheet3, // Assuming spritesheet is a property of the Wizard class
+        0,
+        0,
+        250,
+        169,
+        8,
+        0.2,
+        0,
+        false,
         true));
-;
     };
 
 
@@ -74,44 +86,16 @@ class Wizard {
       
         for (var i = 0; i < this.game.entities.length; i++) {
             var ent = this.game.entities[i];
-        //     if ( ent instanceof MainCharacter && !canSee(this, ent) && !this.condition &&!this.chase ) {
-            
-        //       this.maxSpeed = 50;
-        //       console.log(this.x)
-        //       setTimeout(() => {
-        //        this.condition = true;
-        //     }, this.timer);
-        //   }
-        //  if(ent instanceof MainCharacter && !canSee(this, ent) && this.condition &&!this.chase){
-        //     this.maxSpeed = -50;
-
-        //     setTimeout(() => {
-        //       this.condition = false;
-        //    }, this.timer);
-        //   }
+ 
         
       
 
           if (ent instanceof MainCharacter && !canSee(this, ent)) {
             this.state =0;
             this.chase =false;
-           }
+          }
        
-            if(!this.chase){
-            
-              if(this.counter>10){
-                  this.maxSpeed= 50;
-                  this.counter =0;
-              }
-              
-            }
-           else if(!this.chase){
-             
-              if(this.counter>5){
-                  this.maxSpeed= -50;
-               
-              }
-            }
+      
 
        if (ent instanceof MainCharacter && canSee(this, ent)) {
                 this.target = ent;
@@ -165,20 +149,30 @@ class Wizard {
 
         }
     
+        console.log("Y " + this.y)
         if (this.state !== 1) {
             dist = distance(this, this.target);
             this.velocity = { x: (this.target.x - this.x) / dist * this.maxSpeed, y: (this.target.y - this.y) / dist * this.maxSpeed };
-            //this help me move
-            if(this.chase){
-         
-             this.x += this.velocity.x * this.game.clockTick;
+  if(!this.chase&& this.x<860 && this.y>2000){
+    this.state =0;
+console.log(this.velocity.x)
+    this.x += 0.2;
+  }
+  if(!this.chase && this.x>=860){
+    this.state = 2
+  }
+  if(!this.chase&&this.y>2055){
+    this.y-=0.2
+}
+if(!this.chase&&this.y<2055){
+  this.y+=0.2;
+}   
+        else if(this.chase){
+          this.x += this.velocity.x * this.game.clockTick;
    
-         this.y += this.velocity.y * this.game.clockTick;
-        }
-        else
-        this.x += this.velocity.x * this.game.clockTick;
+          this.y += this.velocity.y * this.game.clockTick;
        }
-
+      }
         this.facing = getFacing(this.velocity);
      
     };
@@ -189,7 +183,12 @@ class Wizard {
         var yOffset = 30;
         var width = this.state ? 64 : 48;
        
-  
+        if(this.state ==2){
+          ctx.save();
+          ctx.scale(-1, 1);
+          this.animations[this.state][0].drawFrame(this.game.clockTick, ctx, -this.x - 120 + this.game.camera.x, this.y - 140 - this.game.camera.y, 1);
+          ctx.restore();
+        }
   if(this.state==0 ){
   
     if (this.velocity.x < 0) { 
@@ -214,6 +213,7 @@ ctx.restore();
     this.animations[this.state][0].drawFrame(this.game.clockTick, ctx, this.x - 120 - this.game.camera.x, this.y - 140 - this.game.camera.y, 1);
 
   }
+  //face left
     else if (this.state === 3) { 
         ctx.save();
         ctx.scale(-1, 1);

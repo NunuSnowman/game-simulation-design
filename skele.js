@@ -139,17 +139,44 @@ class Skele {
 
 //     };
 
-
+this.updateBB()
 
      };
+
+     updateBB() {
+      
+        this.BB = new BoundingBox(this.x -40- this.game.camera.x, this.y -40- this.game.camera.y, 90,90);
+      
+      };
+     
     update() {
   //  this.x+=0.5;
+  this.updateBB()
+
         this.elapsedTime += this.game.clockTick;
         var dist = distance(this, this.target);
         
       
         for (var i = 0; i < this.game.entities.length; i++) {
+           
             var ent = this.game.entities[i];
+            if (ent.BB && this.BB.collide(ent.BB)) {
+            if(ent instanceof SnowMap||ent instanceof SnowMap2 ||ent instanceof SnowMap3 ||ent instanceof GraveYard|| ent instanceof Column){
+                const collisionDirection = this.BB.checkCollisionSides(ent.BB);
+                var a = 0.5;
+                if(collisionDirection.left){
+                    this.x -= a;
+                }else if(collisionDirection.right) {
+                    this.x += a;
+                }else if(collisionDirection.top) {
+                    this.y -= a;
+                }else if(collisionDirection.bottom) {
+                    this.y += a;
+                }
+             
+            }
+            }
+
             if (ent instanceof MainCharacter && !canSee(this, ent)) {
                 this.state =0;
                 this.chase =false;
@@ -277,7 +304,8 @@ class Skele {
                     if (this.elapsedTime > 0.9) {
                         var damage = 7 + randomInt(4);
                         ent.hitpoints -= damage;
-                       
+                        this.game.addEntity(new CharacterGetDamageScore(this.game, ent.x - this.game.camera.x +  Math.floor(Math.random() * (31 - 20) + 20),   ent.y - this.game.camera.y -  Math.floor(Math.random() * (31 - 20) + 20) , damage));
+
                         // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
                         this.elapsedTime = 0;
                     }
@@ -343,6 +371,9 @@ class Skele {
         }
 
         if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'orange';
+
+            ctx.strokeRect(this.x -40- this.game.camera.x, this.y -40- this.game.camera.y, 90,90);
             ctx.strokeStyle = "Black";
             ctx.beginPath();
             ctx.moveTo(this.initialPoint.x, this.initialPoint.y);
@@ -514,9 +545,12 @@ class Skele2 {
 //     };
 
 
-
      };
+
+    
+
     update() {
+
   //  this.x+=0.5;
         this.elapsedTime += this.game.clockTick;
         var dist = distance(this, this.target);
@@ -611,7 +645,7 @@ class Skele2 {
                this.game.addEntity(new TurretShot(this.game, this.x, this.y, ent, true, true));
 
                         var damage = 7 + randomInt(4);
-                        ent.hitpoints -= damage;
+                    //    ent.hitpoints -= damage;
                        
                         // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
                         this.elapsedTime = 0;

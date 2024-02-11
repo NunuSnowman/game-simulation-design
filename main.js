@@ -64,6 +64,14 @@ ASSET_MANAGER.queueDownload("./sprites/turretshadow.png");
 ASSET_MANAGER.queueDownload("./sprites/guardian.png");
 ASSET_MANAGER.queueDownload("./sprites/props.png");
 
+
+//audio
+ASSET_MANAGER.queueDownload("./audio/slsh2.mp3");
+ASSET_MANAGER.queueDownload("./audio/walk1.mp3");
+//music
+ASSET_MANAGER.queueDownload("./music/bossmusic.mp3");
+ASSET_MANAGER.queueDownload("./music/adventure.mp3");
+
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");

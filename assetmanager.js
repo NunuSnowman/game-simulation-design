@@ -76,14 +76,31 @@ class AssetManager {
     getAsset(path) {
         return this.cache[path];
     };
-
+    playAsset2(path) {
+        let audio = this.cache[path];
+        audio.currentTime = 0;
+        audio.play();
+        audio.playbackRate=1;
+ 
+    };
     playAsset(path) {
         let audio = this.cache[path];
         audio.currentTime = 0;
-        console.log("CURRENT TIME"  + audio.currentTime)
         audio.play();
+        audio.playbackRate=3;
+ 
     };
+    playMusic(path) {
+        let audio = this.cache[path];
+        audio.currentTime = 0;
+        audio.play();
+        document.addEventListener("visibilitychange", function () {
+            if (document.visibilityState !== "visible") {
 
+                audio.pause();
+      
+      };})
+    };
     muteAudio(mute) {
         for (var key in this.cache) {
             let asset = this.cache[key];
@@ -102,6 +119,15 @@ class AssetManager {
         }
     };
 
+    pauseBackgroundMusic() {
+        for (var key in this.cache) {
+            let asset = this.cache[key];
+            if (asset instanceof Audio) {
+                asset.pause();
+                asset.currentTime = 0;
+            }
+        }
+    };
 
 
     autoRepeat(path) {
@@ -109,6 +135,11 @@ class AssetManager {
         aud.addEventListener("ended", function () {
             aud.play();
         });
-    };
-};
-
+         document.addEventListener("visibilitychange", function () {
+                     if (document.visibilityState !== "visible") {
+  
+                         aud.pause();
+               
+               };})
+    
+}}
