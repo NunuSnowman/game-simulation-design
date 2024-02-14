@@ -83,6 +83,14 @@ class AssetManager {
         audio.playbackRate=1;
  
     };
+    //dash
+    playAsset3(path) {
+        let audio = this.cache[path];
+        audio.currentTime = 0;
+        audio.play();
+        audio.playbackRate=2;
+ 
+    };
     playAsset(path) {
         let audio = this.cache[path];
         audio.currentTime = 0;

@@ -9,6 +9,11 @@ class MainCharacter{
         Object.assign(this, { game, x, y });
         this.x = x;
         this.y = y;
+        this.shurikenSoundCount = 0;
+        this.elapsedTimeCounter=0;
+        this.elapsedTimeCounter2=0;
+
+        this.InPortal = false;
         this.spawnX = 700;
         this.spawnY = 700;
         this.height = 48;
@@ -59,7 +64,11 @@ class MainCharacter{
         this.counterForShuriken=0;
         this.characterDeath = false;
         this.dieAtMap1 = false;
-     
+        this.playSnowMap = false;
+        this.playSnowMap2 = false;
+
+        this.playSnowMap3 = false;
+
         //Character Stats
 
         this.fishingAnimation = [];
@@ -95,7 +104,7 @@ class MainCharacter{
         this.game.camera.x = 0;
         this.game.camera.y = 329;
 
-        ASSET_MANAGER.pauseBackgroundMusic();
+     //   ASSET_MANAGER.pauseBackgroundMusic();
 
     }
 
@@ -170,7 +179,27 @@ class MainCharacter{
     //     this.lastBB = this.BB;
     // };
     update(){
+        console.log("Y " + this.y)
+        //HERE IS FOR MAP 1 and 2
+        if(this.y<2200){
+            this.playSnowMap3 = false;
 
+            this.playSnowMap2=false
+            this.playSnowMap = true;
+        }
+        if(this.y>=2200){
+         this.playSnowMap = false;
+
+        }
+        if(this.y>=2200&& this.y<=3300){
+            this.playSnowMap2 = true;
+        }
+
+
+        if(this.y>=3300){
+            this.playSnowMap3 = true;
+        }
+       
         //audio for key moving
         if(!this.game.right&&!this.game.left&&!this.game.up&&!this.game.down){
             ASSET_MANAGER.playAsset("./audio/walk1.mp3");
@@ -185,14 +214,14 @@ class MainCharacter{
          
                
             ASSET_MANAGER.playAsset("./audio/slsh2.mp3");
-                ASSET_MANAGER.autoRepeat("./audio/slsh2.mp3");
+            ASSET_MANAGER.autoRepeat("./audio/slsh2.mp3");
         
             
            
         }
 
 
-
+/////////////////////////////////////////////////
         //RESET CHARACTER and his stuffs
         if( this.game.camera.countDeath==3){
            
@@ -386,11 +415,45 @@ class MainCharacter{
 
             //This part here is for SHURIKEN SKILL LEFT,RIGHT,UP,DOWN (15 secs reset)
             //KEY G skill
+          
+
+            // ... (existing code)
+            
+            // This part here is for SHURIKEN SKILL LEFT, RIGHT, UP, DOWN (15 secs reset)
+            // KEY G skill
+       //    console.log(  this.elapsedTimeCounter)
+           if(this.game.keyG&&this.elapsedTimeCounter<0.04){
+
+            ASSET_MANAGER.playAsset2("./audio/shurikensound.mp3");
+            this.elapsedTimeCounter+=this.game.clockTick;
+
+
+           }
+
+           if(this.elapsedTimeForShuriken2>15){
+            console.log("SHURIKEN " + this.elapsedTimeForShuriken2)
+            this.elapsedTimeCounter = 0
+           }
+
+
+           console.log(  this.elapsedTimeCounter2)
+           if(this.game.keyF&& this.elapsedTimeCounter2<0.1){
+            this.elapsedTimeCounter2+=this.game.clockTick;
+        ASSET_MANAGER.playAsset3("./audio/dash.mp3");
+        
+        
+        }
+        if(this.elapsedTime2>8){
+            this.elapsedTimeCounter2=0;
+        }
+
+
+
+
             if( this.directionFace == Direction.RIGHT){
          
                 if(this.game.keyG){
-
-
+                        this.game.keyG = false;
                    if( this.elapsedTimeForShuriken > 0.5 && this.counterForShuriken<6){
                      this.elapsedTimeForShuriken = 0;
                      this.elapsedTimeForShuriken2=0;
@@ -399,6 +462,7 @@ class MainCharacter{
                     this.game.addEntity(new Shuriken(this.game, this.x-0.1, this.y, this, true, true));
                    }
                    else if(this.elapsedTimeForShuriken2>15){
+                    this.elapsedTimeCounter = 0
                     this.counterForShuriken=0;
                 }
                 }
@@ -406,8 +470,8 @@ class MainCharacter{
            else if( this.directionFace == Direction.LEFT){
          
                 if(this.game.keyG){
-
-
+                    this.game.keyG = false;
+                    
                    if( this.elapsedTimeForShuriken > 0.5 && this.counterForShuriken<6){
                      this.elapsedTimeForShuriken = 0;
                      this.elapsedTimeForShuriken2=0;
@@ -416,6 +480,8 @@ class MainCharacter{
                     this.game.addEntity(new Shuriken(this.game, this.x+0.1, this.y, this, true, true));
                    }
                    else if(this.elapsedTimeForShuriken2>15){
+                    this.elapsedTimeCounter = 0
+
                     this.counterForShuriken=0;
                 }
                 }
@@ -424,7 +490,7 @@ class MainCharacter{
            else if( this.directionFace == Direction.UP){
          
                 if(this.game.keyG){
-
+                    this.game.keyG = false;
 
                    if( this.elapsedTimeForShuriken > 0.5 && this.counterForShuriken<6){
                      this.elapsedTimeForShuriken = 0;
@@ -434,6 +500,8 @@ class MainCharacter{
                     this.game.addEntity(new Shuriken(this.game, this.x, this.y+0.1, this, true, true));
                    }
                    else if(this.elapsedTimeForShuriken2>15){
+                    this.elapsedTimeCounter = 0
+
                     this.counterForShuriken=0;
                 }
                 }
@@ -441,7 +509,7 @@ class MainCharacter{
            else if( this.directionFace == Direction.DOWN){
          
                 if(this.game.keyG){
-
+                    this.game.keyG = false;
 
                    if( this.elapsedTimeForShuriken > 0.5 && this.counterForShuriken<6){
                      this.elapsedTimeForShuriken = 0;
@@ -451,6 +519,8 @@ class MainCharacter{
                     this.game.addEntity(new Shuriken(this.game, this.x, this.y-0.1, this, true, true));
                    }
                    else if(this.elapsedTimeForShuriken2>15){
+                    this.elapsedTimeCounter = 0
+
                     this.counterForShuriken=0;
                 }
                 }
@@ -480,7 +550,7 @@ class MainCharacter{
                     if(this.elapsedTime >= 3){
                        
                         if(this.level >= this.levelToEnter && this.y <= 2200 ){
-                          ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
+                      //    ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
                             this.tempCameraY = this.game.camera.y;
                           //  console.log(this.game.camera.y) ;
                             this.x -= 150;
@@ -489,7 +559,7 @@ class MainCharacter{
                         } 
                         
                         else if( this.y >= 2200 + 1100){
-                           ASSET_MANAGER.pauseBackgroundMusic();
+                        //   ASSET_MANAGER.pauseBackgroundMusic();
 
                                 this.x-=150;
                             this.y  -= (1000 + 1100);
@@ -548,6 +618,7 @@ class MainCharacter{
                 } 
                 if(entity instanceof SnowMap||entity instanceof SnowMap2 ||entity instanceof SnowMap3 ||entity instanceof GraveYard|| entity instanceof Column){
 
+
                     const collisionDirection = this.BB.checkCollisionSides(entity.BB);
                     if(collisionDirection.left){
                         this.x -= this.speed;
@@ -562,7 +633,6 @@ class MainCharacter{
                      
                 } 
                 if(entity instanceof Chest){
-                    console.log("CHEST")
 
                     entity.removeFromWorld = true;
                     this.baseDamage +=1;

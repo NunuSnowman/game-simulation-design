@@ -22,7 +22,7 @@ class SceneManager {
     this.notInGameYet = false;
     this.onetime =false;
     this.character = new MainCharacter(this.game, 800, 525);
-
+    this.InPortal = false;
     this.nextNextCutScene = false;
 
     this.listOfSlime = [];
@@ -950,15 +950,19 @@ class SceneManager {
   }
 
   update() {
-    // console.log("Death " +this.character.countDeath);
-    // if(this.character.countDeath==2){
-    //   this.game.entities.forEach((entity) =>{  
-    //    entity.removeFromWorld = true;
-    //   });
+//  if(this.character.y<2200){
+//   ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
 
-    
-    //   this.loadMap()
-    // }
+//   console.log(" IT IS TRUE")
+//  }
+
+//  if(this.character.y>2200){
+//   ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
+
+//   console.log(" IT IS TRUE")
+//  }
+
+
 
   this.updateAudio();
     
@@ -1030,10 +1034,45 @@ class SceneManager {
     this.onetime = this.character.oneTime;
     this.endgame = this.character.endgame;
 
+    console.log("DEATH " + this.game.camera.countDeath)
+    if(this.game.camera.countDeath==3){
+      ASSET_MANAGER.pauseBackgroundMusic()
+      
+   
+           
+           }
+
     this.game.entities.forEach((entity) =>{  
+      if(entity instanceof Start){
+        if(entity.clickOnStart){
+          ASSET_MANAGER.playMusic("./music/grind.mp3");
+
+        }
+      }
+      if(entity instanceof EndGame){
+        ASSET_MANAGER.pauseBackgroundMusic()
+
+      }
       if(entity instanceof MainCharacter){
      
+   if(!entity.playSnowMap){
+   ASSET_MANAGER.playMusic("./music/grind.mp3");
+
+          }
+   if(!entity.playSnowMap2){
+        ASSET_MANAGER.playMusic("./music/snmusic.mp3");
+          
+          
+       }
+
+    if(!entity.playSnowMap3){
+      ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
       }
+
+      if(this.game.camera.countDeath){
+
+      }
+    }
 
 
 

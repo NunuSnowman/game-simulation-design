@@ -162,7 +162,7 @@ class GameEngine {
                         this.keyF = false;
                 break
                 case "KeyG":
-                    this.keyG = false;
+                    this.keyG = true;
             break
             }
         }
@@ -212,7 +212,7 @@ class GameEngine {
                     this.keyF = true;
                     break;
                     case "KeyG":
-                        this.keyG = true;
+                        this.keyG = false;
                 break
             }
         }

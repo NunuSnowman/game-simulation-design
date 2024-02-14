@@ -149,13 +149,11 @@ class Wizard {
 
         }
     
-        console.log("Y " + this.y)
         if (this.state !== 1) {
             dist = distance(this, this.target);
             this.velocity = { x: (this.target.x - this.x) / dist * this.maxSpeed, y: (this.target.y - this.y) / dist * this.maxSpeed };
   if(!this.chase&& this.x<860 && this.y>2000){
     this.state =0;
-console.log(this.velocity.x)
     this.x += 0.2;
   }
   if(!this.chase && this.x>=860){
@@ -396,6 +394,9 @@ class Wizard2 {
                 this.elapsedTime = 0;
   
                 this.game.addEntity(new FireBall(this.game, this.x, this.y, ent, true, true));
+                if(ent.hitpoints<=0){
+                  ent.isDead();
+                }
                 if(this.x > this.target.x){
                    this.state =3;
                    this.faceleft = true;
@@ -431,47 +432,7 @@ class Wizard2 {
               this.state = 2;
         
             }
-  
-  if (ent instanceof Boar && canSee(this, ent)) {
-                this.target = ent;
-                //character
-  
-                if(this.x > this.target.x){
-                   this.state =3;
-                   this.faceleft = true;
-                }
-                else if(this.x <this.target.x){
-                        this.state =0;
-                        this.faceleft = false;
-                }
-             
-              
-            }
-            if (ent instanceof Boar && collide(this, ent)) {
-             console.log("facelft " + this.faceleft)
-              
           
-  
-  
-                      
-                    this.state = 1;
-                    if (this.elapsedTime > 0.8) {
-                        var damage = 7 + randomInt(4);
-                        ent.hitpoints -= damage;
-                       
-                        // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
-                        this.elapsedTime = 0;
-                    }
-             
-               if(this.state ===3){
-                this.state = 1;
-                this.elapsedTime = 0;
-          
-              }
-                
-        
-            }
-  
   
         }
     
