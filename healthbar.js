@@ -246,6 +246,26 @@ class MessageNotification{
     };
     
 };
+class MessageInteract{
+    constructor(game, x, y, message) {
+        Object.assign(this, { game, x, y});
+        this.velocity = 0;
+        this.elapsed = 0;
+        this.message = message;
+    };
+
+    update() {
+        this.elapsed += this.game.clockTick;
+        if (this.elapsed > 0.5) this.removeFromWorld = true;
+    };
+
+    draw(ctx) {
+        ctx.font = '10px "Press Start 2P"';
+        this.game.ctx.fillStyle = "White";
+        ctx.fillText(this.message, this.x - 48 , this.y );
+    };
+    
+};
 class FishEatTheBait{
     constructor(game, x, y) {
         Object.assign(this, { game, x, y});

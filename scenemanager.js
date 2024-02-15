@@ -14,7 +14,7 @@ class SceneManager {
     //go to line 61, they are set to focus on the main charater.
     this.x = 0;
     this.y = 0;
-
+    this.notInCutScreen = true;
     this.spritesheetFarmLand = ASSET_MANAGER.getAsset("./sprites/farmland.png");
     this.dayNightManager = new DayNightCycle(this.game, 0);
 
@@ -101,14 +101,14 @@ class SceneManager {
       new Slime(this.game, 1050, 1250, [{ x: 1055, y: 555 }])
     );
     this.listOfSlime.push(
-      new Slime(this.game, 1300, 1200, [{ x: 1055, y: 555 }])
+      new Slime(this.game, 1300, 1200, [{ x: 1005, y: 555 }])
     );
 
     this.listOfSlime.push(
-      new Slime(this.game, 1200, 1200, [{ x: 1055, y: 555 }])
+      new Slime(this.game, 1200, 1200, [{ x: 1055, y: 505 }])
     );
     this.listOfSlime.push(
-      new Slime(this.game, 966, 1200, [{ x: 1055, y: 555 }])
+      new Slime(this.game, 966, 1200, [{ x: 1095, y: 585 }])
     );
 
     for (let i = 0; i < this.listOfSlime.length; i++) {
@@ -117,6 +117,7 @@ class SceneManager {
     }
   }
   loadMap() {
+   
     //Loading Bosses
     this.listofNormallBosses = [];
     this.listofNormallBosses.push(
@@ -535,7 +536,6 @@ class SceneManager {
     this.game.addEntity(new WizardSpawn2(this.game, 110, 110));
     this.game.addEntity(new Campfire(this.game, 110, 110));
     this.game.addEntity(new Campfire(this.game, 650, 110));
-    this.loadSlime();
 
     this.game.addEntity(
       new Wizard2(this.game, 950, 2050, [
@@ -727,9 +727,12 @@ class SceneManager {
       this.game.addEntity(this.listOfTree[i]);
     }
     this.game.addEntity(new Boss(this.game,1600, 3700, [{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]))
-    this.dayNightManager.time = 6;
+    this.dayNightManager.time = 12;
     this.dayNightManager.removeFromWorld = false;
     this.game.addEntity(this.dayNightManager);
+
+    this.game.addEntity(new Letter(this.game,0,0));
+
   }
   draw(ctx) {
    
@@ -740,7 +743,7 @@ class SceneManager {
 
       ctx.font = '15px "Press Start 2P"';
       // ctx.strokeStyle = "White";
-      if(!this.notInGameYet&&!this.onetime&&this.game.camera.countDeath!=3&&!this.endgame){
+      if(!this.notInGameYet&&!this.onetime&&this.game.camera.countDeath!=3&&!this.endgame&&this.notInCutScreen){
         if(this.character.y >= 2200 && this.character.y <= 3300 ) this.game.ctx.fillStyle = "Black";
         else  this.game.ctx.fillStyle = "White";
       this.game.ctx.fillText("Day  " + PARAMS.DAYCOUNTER, 10, 20);
@@ -875,7 +878,6 @@ class SceneManager {
       ctx.font = '8px "Press Start 2P"';
       
 
-      this.game.ctx.fillText(this.character.numberOfFish, 290, 15);
 
       ctx.font = '15px "Press Start 2P"';
 
@@ -930,10 +932,11 @@ class SceneManager {
           32,
           32
         );
-        
+        this.game.ctx.fillStyle = "Black";
         ctx.font = '8px "Press Start 2P"';
         this.game.ctx.fillText(6 - this.character.counterForShuriken, 290 + 41, 15);
-
+        this.game.ctx.fillText(this.character.numberOfFish, 290, 15);
+  
         }
         
  
@@ -970,28 +973,34 @@ class SceneManager {
     if (this.startCounting) this.elapsed += this.game.clockTick;
     let midpointX = PARAMS.CANVAS_WIDTH / 2;
     let midpointY = PARAMS.CANVAS_HEIGHT / 2;
+    
     if (this.game.testSleepCutScene ) {
       
+        // this.game.addEntity(new NextDayCutScene(this.game));
+        // this.startCounting = true;
+        // this.elapsed = 0;
+        //this.character.hitpoints = this.character.maxhitpoints;
+      if(Math.abs(this.character.x-600-this.game.camera.x) < 50 && Math.abs(this.character.y - 700 -this.game.camera.x) < 50 && this.dayNightManager.time >= 12){
         this.game.addEntity(new NextDayCutScene(this.game));
         this.startCounting = true;
+        this.notInCutScreen = false;
         this.elapsed = 0;
-        this.character.hitpoints = this.character.maxhitpoints;
-      // if(Math.abs(this.character.x-600-this.game.camera.x) < 50 && Math.abs(this.character.y - 700 -this.game.camera.x) < 50 && this.dayNightManager.time >= 12){
-      //   this.game.addEntity(new NextDayCutScene(this.game));
-      //   this.startCounting = true;
-      //   this.elapsed = 0;
-      // }else if(this.dayNightManager.time < 16){
-      //   console.log("Can not sleep, its too early!");
-      //   this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"Can not sleep, its too early!"));
-      // } else if(this.dayNightManager.time >= 16){
-      //   this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"You are not home!"));
+      }else if(this.dayNightManager.time < 12){
+        console.log("Can not sleep, its too early!");
+        this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"Can not sleep, its too early!"));
+      } else if(this.dayNightManager.time >= 12){
+        this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"You are not home!"));
 
-      // }
+      }
+
+
       
     }
+    if(Math.abs(this.character.x-600-this.game.camera.x) < 50 && Math.abs(this.character.y - 700 -this.game.camera.x) < 50 && this.dayNightManager.time >= 12)
+      this.game.addEntityAtIndex(300,new MessageInteract(this.game, PARAMS.CANVAS_WIDTH*0.9, PARAMS.CANVAS_HEIGHT*0.9, "Press I to Sleep."));
     if (this.elapsed > 3.5) {
       this.dayNightManager.time = 6;
-      this.loadSlime();
+      if(PARAMS.DAYCOUNTER >= 0 ) this.loadSlime();
       
       if (this.listofNormallBosses[0].removeFromWorld) {
         this.listofNormallBosses.shift();
@@ -1009,6 +1018,7 @@ class SceneManager {
         console.log(each);
       })
 
+      this.notInCutScreen = true;
 
       console.log("loaded slime");
     }
