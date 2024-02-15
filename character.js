@@ -20,7 +20,7 @@ class MainCharacter{
         this.width = 48;
         this.game.character = this;
         this.radius = 30; //attack range
-        this.speed = 5.5;
+        this.speed = 1.5;
                 // spritesheet
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/villager1.png");
         this.spritesheetFishing = ASSET_MANAGER.getAsset("./sprites/fishing.png");
@@ -260,8 +260,10 @@ class MainCharacter{
 
 
 
-        
-        if(this.game.keyE == true && Math.abs(this.x  - 1420) < 25 &&  Math.abs(this.y - 409) < 50 ) this.fishingMode = true;
+        if(Math.abs(this.x  - 1420) < 25 &&  Math.abs(this.y - 409) < 50) {
+            this.game.addEntity(new MessageInteract(this.game, PARAMS.CANVAS_WIDTH*0.9, PARAMS.CANVAS_HEIGHT*0.9, "Press E to Fish."));
+        }    
+        if(this.game.keyE == true && Math.abs(this.x  - 1420) < 25 &&  Math.abs(this.y - 409) < 50 ){ this.fishingMode = true};
    
       if(this.fishingMode && this.elapsedTime3 > 2 && this.elapsedTime3 < 3 ){
          //   console.log("up");
