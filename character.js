@@ -94,6 +94,15 @@ class MainCharacter{
         this.farmInventory  = oldCharacter.farmInventory;
         this.numberOfFish = oldCharacter.numberOfFish; 
     }
+    getAward(dmg, hp){
+        this.baseDamage += dmg;
+        this.maxhitpoints += hp;
+        this.hitpoints += hp;
+        this.game.addEntity(new PlusHP(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y - 20, hp))
+        this.game.addEntity(new PlusDMG(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y, dmg))
+
+
+    }
     
     isDead(){
        // console.log("character is dead");
@@ -639,8 +648,8 @@ class MainCharacter{
                     entity.removeFromWorld = true;
                     this.baseDamage +=1;
                     this.maxhitpoints+=5;
-                    this.game.addEntity(new PlusDMG(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y))
-                 this.game.addEntity(new PlusHP(this.game, this.x + - this.game.camera.x, this.y+20- this.game.camera.y))
+                    this.game.addEntity(new PlusDMG(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y, 1))
+                 this.game.addEntity(new PlusHP(this.game, this.x + - this.game.camera.x, this.y+20- this.game.camera.y, 5))
                 }
 
                 if((entity instanceof HPBottle)){
@@ -648,12 +657,12 @@ class MainCharacter{
                     if(this.hitpoints + 30 > this.maxhitpoints ) this.hitpoints = this.maxhitpoints;
                     else this.hitpoints += 30
                     entity.removeFromWorld = true;
-                    this.game.addEntity(new PlusHP(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y))
+                    this.game.addEntity(new PlusHP(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y, 5))
                 }
                 if((entity instanceof DMGBottle)){
                     this.baseDamage += 1;
                     entity.removeFromWorld = true;
-                    this.game.addEntity(new PlusDMG(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y))
+                    this.game.addEntity(new PlusDMG(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y, 1))
                 }
  
             }

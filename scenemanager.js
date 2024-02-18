@@ -25,6 +25,9 @@ class SceneManager {
     this.InPortal = false;
     this.nextNextCutScene = false;
 
+
+    this.listOfQuests = [];
+
     this.listOfSlime = [];
 
     this.listOfTree = [];
@@ -90,11 +93,19 @@ class SceneManager {
 
     this.camp = new Campfire(this.game, 110, 110);
     this.game.addEntity(new Start(this.game));
-    
+    this.loadQuests();
+
   
     //this.loadMap();
     this.elapsed = 0;
   }
+  loadQuests(){
+    this.listOfQuests.push(new FarmQuest(this.game));
+    this.listOfQuests.push(new KillBugQuest(this.game));
+    this.listOfQuests.push(new FishingQuest(this.game));
+    this.listOfQuests.push(new SlimeKills(this.game));
+
+}
   loadSlime() {
     this.listOfSlime = [];
     this.listOfSlime.push(
@@ -729,6 +740,8 @@ class SceneManager {
     this.game.addEntity(new Boss(this.game,1600, 3700, [{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]))
     this.dayNightManager.time = 12;
     this.dayNightManager.removeFromWorld = false;
+    if(this.listOfQuests.length > 0) this.game.addEntity(this.listOfQuests[0]);
+
     this.game.addEntity(this.dayNightManager);
 
     this.game.addEntity(new Letter(this.game,0,0));
@@ -1010,6 +1023,17 @@ class SceneManager {
             this.listofNormallBosses[0]
           );
       }
+
+      if(this.listOfQuests[0].removeFromWorld){
+        this.listOfQuests.shift();
+        if( this.listOfQuests.length > 0 ){
+          this.game.addEntityAtIndex(
+            this.game.entities.length-5,
+            this.listOfQuests[0]
+          );
+        }
+      }
+
       ++PARAMS.DAYCOUNTER;
       this.elapsed = 0;
       this.startCounting = false;
