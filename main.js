@@ -65,20 +65,7 @@ ASSET_MANAGER.queueDownload("./sprites/guardian.png");
 ASSET_MANAGER.queueDownload("./sprites/props.png");
 
 
-//audio
-ASSET_MANAGER.queueDownload("./audio/slsh2.mp3");
-ASSET_MANAGER.queueDownload("./audio/walk1.mp3");
-ASSET_MANAGER.queueDownload("./audio/shurikensound.mp3");
-ASSET_MANAGER.queueDownload("./audio/dash.mp3");
 
-//music
-ASSET_MANAGER.queueDownload("./music/bossmusic.mp3");
-ASSET_MANAGER.queueDownload("./music/snmusic.mp3");
-ASSET_MANAGER.queueDownload("./music/grind.mp3");
-
-ASSET_MANAGER.queueDownload("./music/snowfall.mp3");
-
-ASSET_MANAGER.queueDownload("./music/adventure.mp3");
 
 
 ASSET_MANAGER.downloadAll(() => {
@@ -98,7 +85,6 @@ ASSET_MANAGER.downloadAll(() => {
 	PARAMS.CANVAS_HEIGHT = canvas.height;
 	
 	gameEngine.init(ctx);
-	ASSET_MANAGER.autoRepeat("./music/chill.mp3");
 
 	//gameEngine.addEntity(new SceneManager(gameEngine));
 	new SceneManager(gameEngine);

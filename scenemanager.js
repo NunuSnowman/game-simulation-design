@@ -17,7 +17,7 @@ class SceneManager {
     this.notInCutScreen = true;
     this.spritesheetFarmLand = ASSET_MANAGER.getAsset("./sprites/farmland.png");
     this.dayNightManager = new DayNightCycle(this.game, 0);
-
+    this.inGame = false;
     this.countDeath = 0;
     this.notInGameYet = false;
     this.onetime =false;
@@ -756,7 +756,7 @@ class SceneManager {
 
       ctx.font = '15px "Press Start 2P"';
       // ctx.strokeStyle = "White";
-      if(!this.notInGameYet&&!this.onetime&&this.game.camera.countDeath!=3&&!this.endgame&&this.notInCutScreen){
+      if(this.inGame){
         if(this.character.y >= 2200 && this.character.y <= 3300 ) this.game.ctx.fillStyle = "Black";
         else  this.game.ctx.fillStyle = "White";
       this.game.ctx.fillText("Day  " + PARAMS.DAYCOUNTER, 10, 20);
@@ -957,13 +957,13 @@ class SceneManager {
         
 
   }
-  updateAudio() {
-    var mute = document.getElementById("mute").checked;
-    var volume = document.getElementById("volume").value;
+  // updateAudio() {
+  //   var mute = document.getElementById("mute").checked;
+  //   var volume = document.getElementById("volume").value;
 
-    ASSET_MANAGER.muteAudio(mute);
-   ASSET_MANAGER.adjustVolume(volume);
-  }
+  //   ASSET_MANAGER.muteAudio(mute);
+  //  ASSET_MANAGER.adjustVolume(volume);
+  // }
 
   update() {
 //  if(this.character.y<2200){
@@ -980,7 +980,7 @@ class SceneManager {
 
 
 
-  this.updateAudio();
+ // this.updateAudio();
     
 
     if (this.startCounting) this.elapsed += this.game.clockTick;
@@ -998,6 +998,7 @@ class SceneManager {
         this.startCounting = true;
         this.notInCutScreen = false;
         this.elapsed = 0;
+        this.inGame = false;
       }else if(this.dayNightManager.time < 12){
         console.log("Can not sleep, its too early!");
         this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"Can not sleep, its too early!"));
@@ -1012,6 +1013,7 @@ class SceneManager {
     if(Math.abs(this.character.x-600-this.game.camera.x) < 50 && Math.abs(this.character.y - 700 -this.game.camera.x) < 50 && this.dayNightManager.time >= 12)
       this.game.addEntityAtIndex(300,new MessageInteract(this.game, PARAMS.CANVAS_WIDTH*0.9, PARAMS.CANVAS_HEIGHT*0.9, "Press I to Sleep."));
     if (this.elapsed > 3.5) {
+      this.inGame = true;
       this.dayNightManager.time = 6;
       if(PARAMS.DAYCOUNTER >= 0 ) this.loadSlime();
       
@@ -1065,62 +1067,61 @@ class SceneManager {
       console.log(this.character.y + midpointY);
       this.y = Math.floor(this.character.y - midpointY);
     }
-    this.onetime = this.character.oneTime;
-    this.endgame = this.character.endgame;
+  
 
     console.log("DEATH " + this.game.camera.countDeath)
-    if(this.game.camera.countDeath==3){
-      ASSET_MANAGER.pauseBackgroundMusic()
+    // if(this.game.camera.countDeath==3){
+    //   ASSET_MANAGER.pauseBackgroundMusic()
       
    
            
-           }
+    //        }
 
-    this.game.entities.forEach((entity) =>{  
-      if(entity instanceof Start){
-        if(entity.clickOnStart){
-          ASSET_MANAGER.playMusic("./music/grind.mp3");
+  //   this.game.entities.forEach((entity) =>{  
+  //     if(entity instanceof Start){
+  //       if(entity.clickOnStart){
+  //         ASSET_MANAGER.playMusic("./music/grind.mp3");
 
-        }
-      }
-      if(entity instanceof EndGame){
-        ASSET_MANAGER.pauseBackgroundMusic()
+  //       }
+  //     }
+  //     if(entity instanceof EndGame){
+  //       ASSET_MANAGER.pauseBackgroundMusic()
 
-      }
-      if(entity instanceof MainCharacter){
+  //     }
+  //     if(entity instanceof MainCharacter){
      
-   if(!entity.playSnowMap){
-   ASSET_MANAGER.playMusic("./music/grind.mp3");
+  //  if(!entity.playSnowMap){
+  //  ASSET_MANAGER.playMusic("./music/grind.mp3");
 
-          }
-   if(!entity.playSnowMap2){
-        ASSET_MANAGER.playMusic("./music/snmusic.mp3");
+  //         }
+  //  if(!entity.playSnowMap2){
+  //       ASSET_MANAGER.playMusic("./music/snmusic.mp3");
           
           
-       }
+  //      }
 
-    if(!entity.playSnowMap3){
-      ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
-      }
+  //   if(!entity.playSnowMap3){
+  //     ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
+  //     }
 
-      if(this.game.camera.countDeath){
+  //     if(this.game.camera.countDeath){
 
-      }
-    }
+  //     }
+  //   }
 
 
 
-      if(entity instanceof Start||entity instanceof Credit || entity instanceof About||  entity instanceof EndGame||entity instanceof NextDayCutScene){
+  //     if(entity instanceof Start||entity instanceof Credit || entity instanceof About||  entity instanceof EndGame||entity instanceof NextDayCutScene){
     
-      this.notInGameYet = true;
+  //     this.notInGameYet = true;
     
-  }
+  // }
    
-    else{
-      this.endgame  = false;
-      this.notInGameYet = false;
-    }}
-  );
+  //   else{
+  //     this.endgame  = false;
+  //     this.notInGameYet = false;
+  //   }}
+  // );
 
   const newDay = PARAMS.DAYCOUNTER;
   PARAMS.DEBUG = document.getElementById("debug").checked;

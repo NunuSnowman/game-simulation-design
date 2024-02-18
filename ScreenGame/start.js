@@ -22,6 +22,7 @@ class Start {
                 this.game.camera.loadMap();
                 this.clickOnStart = true;
                 this.removeFromWorld = true;
+                this.game.camera.inGame = true;
             } else if (mouseBB.collide(this.aboutBB) && !this.clickOnAbout) {
                 this.game.addEntity(new About(this.game));
                 this.clickOnAbout = true;

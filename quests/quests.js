@@ -2,7 +2,7 @@ class FarmQuest{
     constructor(game) {
         Object.assign(this, { game});
         this.velocity = 0;
-        this.requireNum = 2;
+        this.requireNum = 30;
         this.currentNum = 0;
         this.dmgAward = 10;
         this.hpAward = 20;
