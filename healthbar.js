@@ -161,44 +161,44 @@ class DMGBottle{
 }
 
 class PlusHP{
-    constructor(game, x, y) {
-        Object.assign(this, { game, x, y});
+    constructor(game, x, y, hp) {
+        Object.assign(this, { game, x, y, hp});
         this.velocity = -32;
         this.elapsed = 0;
     };
 
     update() {
         this.elapsed += this.game.clockTick;
-        if (this.elapsed > 1) this.removeFromWorld = true;
+        if (this.elapsed > 2) this.removeFromWorld = true;
        
         this.y += this.game.clockTick * this.velocity;
     };
 
     draw(ctx) {
         ctx.font = '12px "Press Start 2P"';
-        this.game.ctx.fillStyle = "White";
-        ctx.fillText("+5 HP!", this.x - 48 , this.y + 1 );
+        this.game.ctx.fillStyle = "Red";
+        ctx.fillText("+"+ this.hp+" HP!", this.x - 48 , this.y + 1 );
     };
     
 };
 class PlusDMG{
-    constructor(game, x, y) {
-        Object.assign(this, { game, x, y});
+    constructor(game, x, y, dmg) {
+        Object.assign(this, { game, x, y, dmg});
         this.velocity = -32;
         this.elapsed = 0;
     };
 
     update() {
         this.elapsed += this.game.clockTick;
-        if (this.elapsed > 1) this.removeFromWorld = true;
+        if (this.elapsed > 2) this.removeFromWorld = true;
        
         this.y += this.game.clockTick * this.velocity;
     };
 
     draw(ctx) {
         ctx.font = '12px "Press Start 2P"';
-        this.game.ctx.fillStyle = "White";
-        ctx.fillText("+1 DMG!", this.x - 48 , this.y + 1 );
+        this.game.ctx.fillStyle = "Yellow";
+        ctx.fillText("+" + this.dmg + " DMG!", this.x - 48 , this.y + 1 );
     };
     
 };
@@ -256,7 +256,7 @@ class MessageInteract{
 
     update() {
         this.elapsed += this.game.clockTick;
-        if (this.elapsed > 0.5) this.removeFromWorld = true;
+        if (this.elapsed > 0.1) this.removeFromWorld = true;
     };
 
     draw(ctx) {

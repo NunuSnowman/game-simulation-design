@@ -94,6 +94,15 @@ class MainCharacter{
         this.farmInventory  = oldCharacter.farmInventory;
         this.numberOfFish = oldCharacter.numberOfFish; 
     }
+    getAward(dmg, hp){
+        this.baseDamage += dmg;
+        this.maxhitpoints += hp;
+        this.hitpoints += hp;
+        this.game.addEntity(new PlusHP(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y - 20, hp))
+        this.game.addEntity(new PlusDMG(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y, dmg))
+
+
+    }
     
     isDead(){
        // console.log("character is dead");
@@ -179,46 +188,7 @@ class MainCharacter{
     //     this.lastBB = this.BB;
     // };
     update(){
-        console.log("Y " + this.y)
-        //HERE IS FOR MAP 1 and 2
-        if(this.y<2200){
-            this.playSnowMap3 = false;
-
-            this.playSnowMap2=false
-            this.playSnowMap = true;
-        }
-        if(this.y>=2200){
-         this.playSnowMap = false;
-
-        }
-        if(this.y>=2200&& this.y<=3300){
-            this.playSnowMap2 = true;
-        }
-
-
-        if(this.y>=3300){
-            this.playSnowMap3 = true;
-        }
-       
-        //audio for key moving
-        if(!this.game.right&&!this.game.left&&!this.game.up&&!this.game.down){
-            ASSET_MANAGER.playAsset("./audio/walk1.mp3");
-
-            setTimeout(() => {
-        ASSET_MANAGER.autoRepeat("./audio/walk1.mp3");
-    }, 1000); 
-        }
-
-        //audio for key attacking
-        if(!this.game.spaceKey){
-         
-               
-            ASSET_MANAGER.playAsset("./audio/slsh2.mp3");
-            ASSET_MANAGER.autoRepeat("./audio/slsh2.mp3");
         
-            
-           
-        }
 
 
 /////////////////////////////////////////////////
@@ -240,6 +210,7 @@ class MainCharacter{
             });
            // this.game.addEntity(new Start(this.game,300,400) )
            this.game.addEntity(new GameOver(this.game,500,500))
+           this.game.camera.inGame = false;
         }
 
         let canDash = true;
@@ -258,9 +229,11 @@ class MainCharacter{
             this.elapsedTime3 = 0;
         }
 
+        if(this.fishingMode){
+            this.game.addEntity(new MessageInteract(this.game, PARAMS.CANVAS_WIDTH*0.9, PARAMS.CANVAS_HEIGHT*0.9, "Press Space to Reel."));
+        }
 
-
-        if(Math.abs(this.x  - 1420) < 25 &&  Math.abs(this.y - 409) < 50) {
+        if(Math.abs(this.x  - 1420) < 25 &&  Math.abs(this.y - 409) < 50 && !this.fishingMode ) {
             this.game.addEntity(new MessageInteract(this.game, PARAMS.CANVAS_WIDTH*0.9, PARAMS.CANVAS_HEIGHT*0.9, "Press E to Fish."));
         }    
         if(this.game.keyE == true && Math.abs(this.x  - 1420) < 25 &&  Math.abs(this.y - 409) < 50 ){ this.fishingMode = true};
@@ -424,13 +397,7 @@ class MainCharacter{
             // This part here is for SHURIKEN SKILL LEFT, RIGHT, UP, DOWN (15 secs reset)
             // KEY G skill
        //    console.log(  this.elapsedTimeCounter)
-           if(this.game.keyG&&this.elapsedTimeCounter<0.04){
-
-            ASSET_MANAGER.playAsset2("./audio/shurikensound.mp3");
-            this.elapsedTimeCounter+=this.game.clockTick;
-
-
-           }
+   
 
            if(this.elapsedTimeForShuriken2>15){
             console.log("SHURIKEN " + this.elapsedTimeForShuriken2)
@@ -439,12 +406,7 @@ class MainCharacter{
 
 
            console.log(  this.elapsedTimeCounter2)
-           if(this.game.keyF&& this.elapsedTimeCounter2<0.1){
-            this.elapsedTimeCounter2+=this.game.clockTick;
-        ASSET_MANAGER.playAsset3("./audio/dash.mp3");
-        
-        
-        }
+
         if(this.elapsedTime2>8){
             this.elapsedTimeCounter2=0;
         }
@@ -639,8 +601,8 @@ class MainCharacter{
                     entity.removeFromWorld = true;
                     this.baseDamage +=1;
                     this.maxhitpoints+=5;
-                    this.game.addEntity(new PlusDMG(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y))
-                 this.game.addEntity(new PlusHP(this.game, this.x + - this.game.camera.x, this.y+20- this.game.camera.y))
+                    this.game.addEntity(new PlusDMG(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y, 1))
+                 this.game.addEntity(new PlusHP(this.game, this.x + - this.game.camera.x, this.y+20- this.game.camera.y, 5))
                 }
 
                 if((entity instanceof HPBottle)){
@@ -648,12 +610,12 @@ class MainCharacter{
                     if(this.hitpoints + 30 > this.maxhitpoints ) this.hitpoints = this.maxhitpoints;
                     else this.hitpoints += 30
                     entity.removeFromWorld = true;
-                    this.game.addEntity(new PlusHP(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y))
+                    this.game.addEntity(new PlusHP(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y, 5))
                 }
                 if((entity instanceof DMGBottle)){
                     this.baseDamage += 1;
                     entity.removeFromWorld = true;
-                    this.game.addEntity(new PlusDMG(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y))
+                    this.game.addEntity(new PlusDMG(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y, 1))
                 }
  
             }
