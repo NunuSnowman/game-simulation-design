@@ -953,17 +953,6 @@ class SceneManager {
   }
 
   update() {
-//  if(this.character.y<2200){
-//   ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
-
-//   console.log(" IT IS TRUE")
-//  }
-
-//  if(this.character.y>2200){
-//   ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
-
-//   console.log(" IT IS TRUE")
-//  }
 
 
 
@@ -1055,34 +1044,35 @@ class SceneManager {
     this.game.entities.forEach((entity) =>{  
       if(entity instanceof Start){
         if(entity.clickOnStart){
-          ASSET_MANAGER.playMusic("./music/grind.mp3");
+         // ASSET_MANAGER.playMusic("./music/rel.mp3");
 
-        }
+  }
       }
       if(entity instanceof EndGame){
         ASSET_MANAGER.pauseBackgroundMusic()
 
       }
-      if(entity instanceof MainCharacter){
+  if(entity instanceof MainCharacter){
      
-   if(!entity.playSnowMap){
-   ASSET_MANAGER.playMusic("./music/grind.mp3");
+    if(!entity.playSnowMap){
 
-          }
-   if(!entity.playSnowMap2){
+ ASSET_MANAGER.playMusic("./music/rel.mp3");
+ entity.playSnowMap = true;
+           }
+
+         if(!entity.playSnowMap2){
+
         ASSET_MANAGER.playMusic("./music/snmusic.mp3");
-          
-          
+        entity.playSnowMap2 = true;
        }
 
-    if(!entity.playSnowMap3){
+   if(!entity.playSnowMap3){
       ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
-      }
+      entity.playSnowMap3 = true;
+      } 
 
-      if(this.game.camera.countDeath){
-
-      }
-    }
+   
+   }
 
 
 

@@ -42,7 +42,7 @@ ASSET_MANAGER.queueDownload("./sprites/bossmap.png")
 ASSET_MANAGER.queueDownload("./sprites/skeleton.png")
 ASSET_MANAGER.queueDownload("./sprites/demonslime.png")
 ASSET_MANAGER.queueDownload("./sprites/slash.png")
-ASSET_MANAGER.queueDownload("./music/chill.mp3");
+//ASSET_MANAGER.queueDownload("./music/chill.mp3");
 
 ASSET_MANAGER.queueDownload("./sprites/fishing.png");
 ASSET_MANAGER.queueDownload("./sprites/Bee_Idle.png");
@@ -75,6 +75,7 @@ ASSET_MANAGER.queueDownload("./audio/dash.mp3");
 ASSET_MANAGER.queueDownload("./music/bossmusic.mp3");
 ASSET_MANAGER.queueDownload("./music/snmusic.mp3");
 ASSET_MANAGER.queueDownload("./music/grind.mp3");
+ASSET_MANAGER.queueDownload("./music/rel.mp3");
 
 ASSET_MANAGER.queueDownload("./music/snowfall.mp3");
 
@@ -98,7 +99,6 @@ ASSET_MANAGER.downloadAll(() => {
 	PARAMS.CANVAS_HEIGHT = canvas.height;
 	
 	gameEngine.init(ctx);
-	ASSET_MANAGER.autoRepeat("./music/chill.mp3");
 
 	//gameEngine.addEntity(new SceneManager(gameEngine));
 	new SceneManager(gameEngine);

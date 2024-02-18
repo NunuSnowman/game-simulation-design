@@ -132,6 +132,7 @@ class AssetManager {
             let asset = this.cache[key];
             if (asset instanceof Audio) {
                 asset.pause();
+                
                 asset.currentTime = 0;
             }
         }
@@ -140,9 +141,11 @@ class AssetManager {
 
     autoRepeat(path) {
         var aud = this.cache[path];
-        aud.addEventListener("ended", function () {
-            aud.play();
-        });
+        if (aud instanceof Audio) {
+            aud.addEventListener("ended", function () {
+                aud.play();
+            });
+        } 
          document.addEventListener("visibilitychange", function () {
                      if (document.visibilityState !== "visible") {
   

@@ -84,6 +84,8 @@ class MainCharacter{
 
         this.tempCameraY = 0;
 
+        ASSET_MANAGER.autoRepeat("./audio/walk1.mp3");
+        ASSET_MANAGER.autoRepeat("./audio/slsh2.mp3");
     };
 
     loadCharacterInfor(oldCharacter){
@@ -187,34 +189,33 @@ class MainCharacter{
             this.playSnowMap2=false
             this.playSnowMap = true;
         }
-        if(this.y>=2200){
-         this.playSnowMap = false;
-
-        }
+    
         if(this.y>=2200&& this.y<=3300){
+            this.playSnowMap = false;
+            this.playSnowMap3 = false;            
             this.playSnowMap2 = true;
         }
 
 
         if(this.y>=3300){
+            this.playSnowMap = false;
+            this.playSnowMap2 = false;
+
             this.playSnowMap3 = true;
         }
-       
         //audio for key moving
         if(!this.game.right&&!this.game.left&&!this.game.up&&!this.game.down){
+           
+
             ASSET_MANAGER.playAsset("./audio/walk1.mp3");
 
-            setTimeout(() => {
-        ASSET_MANAGER.autoRepeat("./audio/walk1.mp3");
-    }, 1000); 
         }
 
         //audio for key attacking
         if(!this.game.spaceKey){
          
-               
+
             ASSET_MANAGER.playAsset("./audio/slsh2.mp3");
-            ASSET_MANAGER.autoRepeat("./audio/slsh2.mp3");
         
             
            
@@ -551,8 +552,7 @@ class MainCharacter{
                }
                     if(this.elapsedTime >= 3){
                        
-                        if(this.level >= this.levelToEnter && this.y <= 2200 ){
-                      //    ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
+                        if( this.y <= 2200 ){
                             this.tempCameraY = this.game.camera.y;
                           //  console.log(this.game.camera.y) ;
                             this.x -= 150;
@@ -560,8 +560,7 @@ class MainCharacter{
 
                         } 
                         
-                        else if( this.y >= 2200 + 1100){
-                        //   ASSET_MANAGER.pauseBackgroundMusic();
+                        else if( this.y >= 2300){
 
                                 this.x-=150;
                             this.y  -= (1000 + 1100);
