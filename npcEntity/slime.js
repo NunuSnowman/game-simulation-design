@@ -21,8 +21,8 @@ class Slime{
         
         //healthbar information
         this.healthbar= new HealthBar(this, this.game);
-        this.hitpoints = 100;
-        this.maxhitpoints = 100;
+        this.hitpoints = 250;
+        this.maxhitpoints = 250;
        // this.game.slime = this;
         this.speed = 1;
         // spritesheet

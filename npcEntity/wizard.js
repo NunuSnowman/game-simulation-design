@@ -6,8 +6,8 @@ class Wizard {
         this.faceleft = false;
         this.counter=0;
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 100;
-        this.maxhitpoints = 100;
+        this.hitpoints = 500;
+        this.maxhitpoints = 500;
 
         this.visualRadius = 200;
         this.condition = false;
@@ -257,8 +257,8 @@ class Wizard2 {
         this.fireRate = 1;
   
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 100;
-        this.maxhitpoints = 100;
+        this.hitpoints = 500;
+        this.maxhitpoints = 500;
   
         this.visualRadius = 200;
   

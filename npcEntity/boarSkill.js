@@ -18,8 +18,8 @@ const DirectionBoarSkill = {
         this.radius = 40;
         this.faceleft = false;
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 200;
-        this.maxhitpoints = 200;
+        this.hitpoints = 400;
+        this.maxhitpoints = 400;
         this.condition = false;
         this.maxSpeed = 100;
       

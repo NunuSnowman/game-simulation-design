@@ -3,9 +3,9 @@ class Start {
         this.game = game;
 
         // Adjusted bounding box positions based on PARAMS.CANVAS_WIDTH and PARAMS.CANVAS_HEIGHT
-        this.startBB = new BoundingBox(548+200, 248, 304, 54);
-        this.aboutBB = new BoundingBox(548+200, 348, 304, 54);
-        this.creditBB = new BoundingBox(548+200, 448, 304, 54);
+        this.startBB = new BoundingBox(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2 - 100, 304, 54);
+        this.aboutBB = new BoundingBox(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2, 304, 54);
+        this.creditBB = new BoundingBox(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2 + 100, 304 , 54);
         this.mouseBB = new BoundingBox(0, 0, 1, 1);
 
         this.clickOnStart = false;
@@ -49,31 +49,31 @@ class Start {
 
 
         ctx.fillStyle = 'white';
-        ctx.fillRect(548+200, 248, 304, 54);
-        ctx.fillRect(548+200, 348, 304, 54);
-        ctx.fillRect(548+200, 448, 304, 54);
+        ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2 - 100, 304, 54);
+        ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2, 304, 54);
+        ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2 + 100, 304, 54);
         
         ctx.fillStyle = "green";
-        ctx.fillRect(550+200, 250, 300, 50);
+        ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2 - 100, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("Start", 650+200, 390 * 0.75);
+        ctx.fillText("Start", PARAMS.CANVAS_WIDTH/2 + 304/3 - 304/2, PARAMS.CANVAS_HEIGHT/2 - 100 + 35);
 
         ctx.fillStyle = "green";
-        ctx.fillRect(550+200, 350, 300, 50);
+        ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("About", 650+200, 525 * 0.75);
+        ctx.fillText("About", PARAMS.CANVAS_WIDTH/2 + 304/3 - 304/2, PARAMS.CANVAS_HEIGHT/2 + 35);
 
         ctx.fillStyle = "green";
-        ctx.fillRect(550+200, 450, 300, 50);
+        ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2 + 100, 300, 50);
         ctx.fillStyle = 'white';
-        ctx.fillText("Credit", 650+200, 650 * 0.75);
+        ctx.fillText("Credit", PARAMS.CANVAS_WIDTH/2 + 304/3 - 304/2, PARAMS.CANVAS_HEIGHT/2 + 100  + 35);
 
        
 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'red';
             ctx.strokeRect(548+200, 248, 304, 54);
-            ctx.strokeRect(548+200, 348, 304, 54);
+            ctx.strokeRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2, 304, 54);
             ctx.strokeRect(548+200, 448, 304, 54);
         }
      
@@ -86,40 +86,40 @@ class Start {
             
              if(  this.mouseBB.collide(this.startBB)){
                 ctx.fillStyle = "Blue";
-                ctx.fillRect(550+200, 250, 300, 50);
+                ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2 , PARAMS.CANVAS_HEIGHT/2 - 100, 300, 50);
                 ctx.fillStyle = 'white';
-                ctx.fillText("Start", 650+200, 390 * 0.75);
+                ctx.fillText("Start", PARAMS.CANVAS_WIDTH/2 + 304/3 - 304/2, PARAMS.CANVAS_HEIGHT/2 - 100 + 35);
                 }
                 if(this.mouseBB.collide(this.aboutBB)){
                     ctx.fillStyle = "Blue";
-        ctx.fillRect(550+200, 350, 300, 50);
-        ctx.fillStyle = 'white';
-        ctx.fillText("About", 650+200, 525 * 0.75);
+                    ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2, 300, 50);
+                    ctx.fillStyle = 'white';
+                    ctx.fillText("About", PARAMS.CANVAS_WIDTH/2 + 304/3 - 304/2, PARAMS.CANVAS_HEIGHT/2 + 35);
                     }
 
                 if(  this.mouseBB.collide(this.creditBB)){
                     ctx.fillStyle = "Blue";
-                    ctx.fillRect(550+200, 450, 300, 50);
+                    ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2 + 100, 300, 50);
                     ctx.fillStyle = 'white';
-                    ctx.fillText("Credit", 650+200, 650 * 0.75);
+                    ctx.fillText("Credit", PARAMS.CANVAS_WIDTH/2 + 304/3 - 304/2, PARAMS.CANVAS_HEIGHT/2 + 100  + 35);
                     }
 
             } else {
                 ctx.fillStyle = 'white'; // Reset fill style to original color
                 ctx.fillStyle = "green";
-        ctx.fillRect(550+200, 250, 300, 50);
-        ctx.fillStyle = 'white';
-        ctx.fillText("Start", 650+200, 390 * 0.75);
+                ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2 - 100, 300, 50);
+                ctx.fillStyle = 'white';
+                ctx.fillText("Start", PARAMS.CANVAS_WIDTH/2 + 304/3 - 304/2, PARAMS.CANVAS_HEIGHT/2 - 100 + 35);
 
-        ctx.fillStyle = "green";
-        ctx.fillRect(550+200, 450, 300, 50);
-        ctx.fillStyle = 'white';
-        ctx.fillText("Credit", 650+200, 650 * 0.75);
+                ctx.fillStyle = "green";
+                ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2 + 100, 300, 50);
+                ctx.fillStyle = 'white';
+                ctx.fillText("Credit", PARAMS.CANVAS_WIDTH/2 + 304/3 - 304/2, PARAMS.CANVAS_HEIGHT/2 + 100  + 35);
 
-        ctx.fillStyle = "green";
-        ctx.fillRect(550+200, 350, 300, 50);
-        ctx.fillStyle = 'white';
-        ctx.fillText("About", 650+200, 525 * 0.75);
+                ctx.fillStyle = "green";
+                ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2, 300, 50);
+                ctx.fillStyle = 'white';
+                ctx.fillText("About", PARAMS.CANVAS_WIDTH/2  + 304/3 - 304/2, PARAMS.CANVAS_HEIGHT/2 + 35);
             }
 
    

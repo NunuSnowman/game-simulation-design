@@ -370,7 +370,9 @@ class MainCharacter{
                     }
                     for (var i = 0; i < this.game.entities.length; i++){
                         var entity = this.game.entities[i];
-                        if ((entity instanceof Slime || entity instanceof Boar ||entity instanceof BoarSkill|| entity instanceof GreenGoblin) && collide(this,  entity)) {
+                        if ((entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin ||entity instanceof BoarSkill|| 
+                            entity instanceof Wizard|| entity instanceof Wizard2|| entity instanceof Skele || entity instanceof Guardian ||
+                            entity instanceof Skeleton || entity instanceof DemonSlime) && collide(this,  entity)) {
                                 if (this.elapsedTime > 0.001) {
                                 var damage = this.baseDamage/2 + randomInt(4);
                                 if(entity.hitpoints - damage < 0) {
