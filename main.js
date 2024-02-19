@@ -42,7 +42,6 @@ ASSET_MANAGER.queueDownload("./sprites/bossmap.png")
 ASSET_MANAGER.queueDownload("./sprites/skeleton.png")
 ASSET_MANAGER.queueDownload("./sprites/demonslime.png")
 ASSET_MANAGER.queueDownload("./sprites/slash.png")
-ASSET_MANAGER.queueDownload("./music/chill.mp3");
 
 ASSET_MANAGER.queueDownload("./sprites/fishing.png");
 ASSET_MANAGER.queueDownload("./sprites/Bee_Idle.png");
@@ -64,9 +63,15 @@ ASSET_MANAGER.queueDownload("./sprites/turretshadow.png");
 ASSET_MANAGER.queueDownload("./sprites/guardian.png");
 ASSET_MANAGER.queueDownload("./sprites/props.png");
 
-
-
-
+//music
+ASSET_MANAGER.queueDownload("./music/CornfieldChaseShort.mp3");
+ASSET_MANAGER.queueDownload("./music/bossmusic.mp3");
+ASSET_MANAGER.queueDownload("./music/snmusic.mp3");
+//audio
+ASSET_MANAGER.queueDownload("./audio/walk1.mp3");
+ASSET_MANAGER.queueDownload("./audio/slsh2.mp3");
+ASSET_MANAGER.queueDownload("./audio/dash.mp3");
+ 
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
@@ -85,6 +90,9 @@ ASSET_MANAGER.downloadAll(() => {
 	PARAMS.CANVAS_HEIGHT = canvas.height;
 	
 	gameEngine.init(ctx);
+	ASSET_MANAGER.autoRepeat("./music/CornfieldChaseShort.mp3");
+	ASSET_MANAGER.autoRepeat("./music/bossmusic.mp3");
+	ASSET_MANAGER.autoRepeat("./music/snmusic.mp3");
 
 	//gameEngine.addEntity(new SceneManager(gameEngine));
 	new SceneManager(gameEngine);

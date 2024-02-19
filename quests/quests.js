@@ -33,7 +33,7 @@ class FarmQuest{
     draw(ctx) {
         ctx.font = '15px "Press Start 2P"';
         this.game.ctx.fillStyle = "White";
-        ctx.fillText("Plant Seed: " + this.currentNum + "/" + this.requireNum , 30 , PARAMS.CANVAS_HEIGHT*0.95);
+        ctx.fillText("Plant Seeds: " + this.currentNum + "/" + this.requireNum , 30 , PARAMS.CANVAS_HEIGHT*0.95);
     };
     
 };

@@ -79,11 +79,13 @@ class MainCharacter{
         this.getFish = false;
 
         //Final Boss information
-        this.levelToEnter = 2;
+        this.levelToEnter = 0;
         
 
         this.tempCameraY = 0;
-
+       ASSET_MANAGER.autoRepeat("./audio/walk1.mp3");
+     //   ASSET_MANAGER.autoRepeat("./audio/slsh2.mp3");
+        
     };
 
     loadCharacterInfor(oldCharacter){
@@ -112,8 +114,9 @@ class MainCharacter{
         this.game.camera.countDeath += 1;
         this.game.camera.x = 0;
         this.game.camera.y = 329;
-
-     //   ASSET_MANAGER.pauseBackgroundMusic();
+        ASSET_MANAGER.pauseBackgroundMusic();
+        ASSET_MANAGER.playMusic("./music/CornfieldChaseShort.mp3");
+        //   ASSET_MANAGER.pauseBackgroundMusic();
 
     }
 
@@ -189,8 +192,16 @@ class MainCharacter{
     // };
     update(){
         
+        if(!this.game.right&&!this.game.left&&!this.game.up&&!this.game.down && this.state === 0){
+           
 
+            ASSET_MANAGER.playAsset("./audio/walk1.mp3");
 
+        }
+        if(this.state === 1){
+             ASSET_MANAGER.playAsset2("./audio/slsh2.mp3");
+           
+         }
 /////////////////////////////////////////////////
         //RESET CHARACTER and his stuffs
         if( this.game.camera.countDeath==3){
@@ -272,45 +283,45 @@ class MainCharacter{
             this.x -= this.speed/ Math.sqrt(2);
             this.y -= this.speed/ Math.sqrt(2);
             this.directionFace = Direction.LEFT;
-            this.fishingMode = false
+            this.fishingMode = false;
         } else if (this.game.right && this.game.up&& this.x -  this.width/2 > 0 && this.x +  this.width/2 < 2000 ) {
             // Move diagonally to the top-right
             this.x += this.speed/ Math.sqrt(2);
             this.y -= this.speed/ Math.sqrt(2);
             this.directionFace = Direction.RIGHT;
-            this.fishingMode = false
+            this.fishingMode = false;
         } else if (this.game.left && this.game.down&& this.x -  this.width/2 > 0 && this.x +  this.width/2 < 2000) {
             // Move diagonally to the bottom-left
             this.x -= this.speed/ Math.sqrt(2);
             this.y += this.speed/ Math.sqrt(2);
             this.directionFace = Direction.LEFT;
-            this.fishingMode = false
+            this.fishingMode = false;
         } else if (this.game.right && this.game.down && this.x -  this.width/2 > 0 && this.x +  this.width/2 < 2000) {
             // Move diagonally to the bottom-right
             this.x += this.speed/ Math.sqrt(2);
             this.y += this.speed/ Math.sqrt(2);
             this.directionFace = Direction.RIGHT;
-            this.fishingMode = false
+            this.fishingMode = false;
         } else if (this.game.left && this.x -  this.width/2 > 0 ) {
             this.x -= this.speed;
             this.directionFace = Direction.LEFT;
-            this.fishingMode = false
+            this.fishingMode = false;
 
         } else if (this.game.right && this.x +  this.width/2 < 2000) {
             this.x += this.speed;
             this.directionFace = Direction.RIGHT;
-            this.fishingMode = false
+            this.fishingMode = false;
 
         } else if (this.game.up) {
             this.y -= this.speed;
             this.directionFace = Direction.UP;
-            this.fishingMode = false
+            this.fishingMode = false;
 
         }else if (this.game.down) {
             this.y += this.speed;
             this.directionFace = Direction.DOWN;
-            this.fishingMode = false
-
+            this.fishingMode = false;
+ 
         }
 
         if(this.game.keyF ){
@@ -322,17 +333,17 @@ class MainCharacter{
                         if(entity instanceof LakeAndOtherSide ||entity instanceof InvisibleLakeBlocker ){
                             const collisionDirection1 = this.BBDASHHorizonTal.checkCollisionSides(entity.BB);                       
                             if(this.directionFace == Direction.RIGHT && collisionDirection1.left) {
-                                console.log("Collision on right with " + entity.constructor.name);
+                         //       console.log("Collision on right with " + entity.constructor.name);
 
                                 canDash = false;
                             }else if(this.directionFace == Direction.LEFT && collisionDirection1.right){
-                                console.log("Collision on Left with " + entity.constructor.name);
+                         //       console.log("Collision on Left with " + entity.constructor.name);
                                 canDash = false;
                             } else if(this.directionFace == Direction.UP && collisionDirection1.bottom ){
-                                console.log("Collision on UP with " + entity.constructor.name);
+                         //       console.log("Collision on UP with " + entity.constructor.name);
                                 canDash = false;
                             } else if(this.directionFace == Direction.DOWN && collisionDirection1.top ){
-                                console.log("Collision on DOWN with " + entity.constructor.name);
+                        //        console.log("Collision on DOWN with " + entity.constructor.name);
                                 canDash = false;
                             }
                         }
@@ -379,6 +390,8 @@ class MainCharacter{
                     this.elapsedTime = 0;
                   
                     this.elapsedTime2=0;
+                    ASSET_MANAGER.playAsset3("./audio/dash.mp3");
+
          
             }
             if(this.elapsedTime2>8){
@@ -397,15 +410,16 @@ class MainCharacter{
             // This part here is for SHURIKEN SKILL LEFT, RIGHT, UP, DOWN (15 secs reset)
             // KEY G skill
        //    console.log(  this.elapsedTimeCounter)
-   
+        
+ 
 
            if(this.elapsedTimeForShuriken2>15){
-            console.log("SHURIKEN " + this.elapsedTimeForShuriken2)
+        //    console.log("SHURIKEN " + this.elapsedTimeForShuriken2)
             this.elapsedTimeCounter = 0
            }
 
 
-           console.log(  this.elapsedTimeCounter2)
+       //    console.log(  this.elapsedTimeCounter2)
 
         if(this.elapsedTime2>8){
             this.elapsedTimeCounter2=0;
@@ -440,6 +454,7 @@ class MainCharacter{
                      this.elapsedTimeForShuriken = 0;
                      this.elapsedTimeForShuriken2=0;
                      this.counterForShuriken++;
+                        
 
                     this.game.addEntity(new Shuriken(this.game, this.x+0.1, this.y, this, true, true));
                    }
@@ -497,7 +512,22 @@ class MainCharacter{
           
             if (entity.BB && this.BB.collide(entity.BB)) {
               //  console.log(this.elapsedTime);
-                if(entity instanceof Portal){
+              if(entity instanceof InvisibleSnowMapDoor){
+                const dir = this.BB.checkCollisionSides(entity.BB);
+                if(this.elapsedTime >= 0.05){
+                    if(dir.bottom){
+                        ASSET_MANAGER.pauseBackgroundMusic();
+                        ASSET_MANAGER.playMusic("./music/snmusic.mp3");
+                        this.elapsedTime = 0;
+                    } else if(dir.top){
+                        ASSET_MANAGER.pauseBackgroundMusic();
+                        ASSET_MANAGER.playMusic("./music/CornfieldChaseShort.mp3");
+                                                this.elapsedTime = 0;
+
+                    }
+                }
+                
+              }else if(entity instanceof Portal){
                   
 
                if(this.elapsedTime<=1){
@@ -510,20 +540,20 @@ class MainCharacter{
                 }, 500);
 
 
-               }
-                    if(this.elapsedTime >= 3){
+               }if(this.elapsedTime >= 3){
                        
                         if(this.level >= this.levelToEnter && this.y <= 2200 ){
-                      //    ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
+                            ASSET_MANAGER.pauseBackgroundMusic();
+
+                            ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
                             this.tempCameraY = this.game.camera.y;
                           //  console.log(this.game.camera.y) ;
                             this.x -= 150;
                             this.y += (1000 + 1100);
 
-                        } 
-                        
-                        else if( this.y >= 2200 + 1100){
-                        //   ASSET_MANAGER.pauseBackgroundMusic();
+                        }else if( this.y >= 2200 + 1100){
+                           ASSET_MANAGER.pauseBackgroundMusic();
+                           ASSET_MANAGER.playMusic("./music/CornfieldChaseShort.mp3");
 
                                 this.x-=150;
                             this.y  -= (1000 + 1100);
@@ -816,7 +846,7 @@ class MainCharacter{
             this.farmInventory[PLANTNAMES.STRAWBERRY] = this.farmInventory[PLANTNAMES.STRAWBERRY] - requiredPlants[PLANTNAMES.STRAWBERRY];
             this.farmInventory[PLANTNAMES.RICE] =  this.farmInventory[PLANTNAMES.RICE] - requiredPlants[PLANTNAMES.RICE];
             this.game.addEntity(new LevelUp(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y));
-            console.log("Congratulations! You've leveled up to level " + this.level + "!");
+            //console.log("Congratulations! You've leveled up to level " + this.level + "!");
         }
     }
 

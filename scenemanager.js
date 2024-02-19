@@ -523,7 +523,7 @@ class SceneManager {
 
     //  this.game.addEntity(this.gob);
     this.normalBossesIndexEntity = this.game.entities.length;
-    console.log(this.normalBossesIndexEntity);
+   // console.log(this.normalBossesIndexEntity);
     // this.normalBossesIndexEntity[0].removeFromWorld = false;
     // this.game.addEntity(this.normalBossesIndexEntity[0]);
 
@@ -621,6 +621,7 @@ class SceneManager {
     this.listOfBuildingsBlOCKCharacter.push(
       new InvisibleFenceBlocker(this.game, 64 * 22 + 40, 370, 500, 80)
     );
+
 
     //Final boss map bounds.
     //top
@@ -741,6 +742,7 @@ class SceneManager {
     this.dayNightManager.time = 12;
     this.dayNightManager.removeFromWorld = false;
     if(this.listOfQuests.length > 0) this.game.addEntity(this.listOfQuests[0]);
+    this.game.addEntity(new InvisibleSnowMapDoor(this.game, 800, 2200, 100, 20));
 
     this.game.addEntity(this.dayNightManager);
 
@@ -957,13 +959,13 @@ class SceneManager {
         
 
   }
-  // updateAudio() {
-  //   var mute = document.getElementById("mute").checked;
-  //   var volume = document.getElementById("volume").value;
+  updateAudio() {
+    var mute = document.getElementById("mute").checked;
+    var volume = document.getElementById("volume").value;
 
-  //   ASSET_MANAGER.muteAudio(mute);
-  //  ASSET_MANAGER.adjustVolume(volume);
-  // }
+    ASSET_MANAGER.muteAudio(mute);
+   ASSET_MANAGER.adjustVolume(volume);
+  }
 
   update() {
 //  if(this.character.y<2200){
@@ -980,7 +982,7 @@ class SceneManager {
 
 
 
- // this.updateAudio();
+  this.updateAudio();
     
 
     if (this.startCounting) this.elapsed += this.game.clockTick;
@@ -1000,7 +1002,7 @@ class SceneManager {
         this.elapsed = 0;
         this.inGame = false;
       }else if(this.dayNightManager.time < 12){
-        console.log("Can not sleep, its too early!");
+      //  console.log("Can not sleep, its too early!");
         this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"Can not sleep, its too early!"));
       } else if(this.dayNightManager.time >= 12){
         this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"You are not home!"));
@@ -1041,12 +1043,12 @@ class SceneManager {
       this.startCounting = false;
       this.listOfTrippleSoil.forEach((each)=>{
         each.generateListOfBugs();
-        console.log(each);
+      //  console.log(each);
       })
 
       this.notInCutScreen = true;
 
-      console.log("loaded slime");
+    //  console.log("loaded slime");
     }
 
     if (
@@ -1064,12 +1066,12 @@ class SceneManager {
     }
                  //adj character camera bottom to top
     else if( (this.character.y > 2400 + 1350) && 2200 < this.character.y - midpointY ){
-      console.log(this.character.y + midpointY);
+     // console.log(this.character.y + midpointY);
       this.y = Math.floor(this.character.y - midpointY);
     }
   
 
-    console.log("DEATH " + this.game.camera.countDeath)
+    //console.log("DEATH " + this.game.camera.countDeath)
     // if(this.game.camera.countDeath==3){
     //   ASSET_MANAGER.pauseBackgroundMusic()
       
