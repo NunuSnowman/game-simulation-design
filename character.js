@@ -514,7 +514,7 @@ class MainCharacter{
               //  console.log(this.elapsedTime);
               if(entity instanceof InvisibleSnowMapDoor){
                 const dir = this.BB.checkCollisionSides(entity.BB);
-                if(this.elapsedTime >= 0.1){
+                if(this.elapsedTime >= 0.05){
                     if(dir.bottom){
                         ASSET_MANAGER.pauseBackgroundMusic();
                         ASSET_MANAGER.playMusic("./music/snmusic.mp3");
