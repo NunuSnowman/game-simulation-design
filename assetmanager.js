@@ -80,10 +80,16 @@ class AssetManager {
         let audio = this.cache[path];
         audio.currentTime = 0;
         audio.play();
-        audio.playbackRate=1;
- 
+        audio.playbackRate=4;
+        document.addEventListener("visibilitychange", function () {
+            if (document.visibilityState !== "visible") {
+
+                audio.pause();
+      
+      };
+    })
     };
-    //dash
+    // //dash
     playAsset3(path) {
         let audio = this.cache[path];
         audio.currentTime = 0;
@@ -96,18 +102,26 @@ class AssetManager {
         audio.currentTime = 0;
         audio.play();
         audio.playbackRate=3;
- 
-    };
-    playMusic(path) {
-        let audio = this.cache[path];
-        audio.currentTime = 0;
-        audio.play();
         document.addEventListener("visibilitychange", function () {
             if (document.visibilityState !== "visible") {
 
                 audio.pause();
       
-      };})
+      }
+    })
+    };
+    playMusic(path) {
+        let audio = this.cache[path];
+        audio.currentTime = 0;
+        audio.play();
+    //     document.addEventListener("visibilitychange", function () {
+    //         if (document.visibilityState !== "visible") {
+
+    //             audio.pause();
+      
+    //   }else audio.play();
+    // })
+      
     };
     muteAudio(mute) {
         for (var key in this.cache) {
@@ -143,11 +157,5 @@ class AssetManager {
         aud.addEventListener("ended", function () {
             aud.play();
         });
-         document.addEventListener("visibilitychange", function () {
-                     if (document.visibilityState !== "visible") {
-  
-                         aud.pause();
-               
-               };})
-    
-}}
+    };
+}

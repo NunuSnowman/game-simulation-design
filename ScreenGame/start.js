@@ -23,6 +23,7 @@ class Start {
                 this.clickOnStart = true;
                 this.removeFromWorld = true;
                 this.game.camera.inGame = true;
+                ASSET_MANAGER.playMusic("./music/CornfieldChaseShort.mp3");
             } else if (mouseBB.collide(this.aboutBB) && !this.clickOnAbout) {
                 this.game.addEntity(new About(this.game));
                 this.clickOnAbout = true;

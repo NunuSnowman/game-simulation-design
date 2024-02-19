@@ -7,7 +7,7 @@ class Letter {
         this.clickOnExit = false;
     }
     update() {
-        console.log(this.game.camera.enities);
+       // console.log(this.game.camera.enities);
         if (this.game.click) {
             const mouseBB = new BoundingBox(this.game.click.x, this.game.click.y, 1, 1);
 
