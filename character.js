@@ -79,7 +79,7 @@ class MainCharacter{
         this.getFish = false;
 
         //Final Boss information
-        this.levelToEnter = 0;
+        this.levelToEnter = 4;
         
 
         this.tempCameraY = 0;

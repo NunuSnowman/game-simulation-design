@@ -37,7 +37,7 @@ class BossZone {
         ctx.fillRect(0, 0, 2500, 2500);
          ctx.fillStyle = 'White';
 
-        ctx.fillText("Requirement for this final boss is lv 30...", 340 , 500 * 0.75);
+        ctx.fillText("Requirement for this final boss is lv " + this.game.character.levelToEnter, 340 , 500 * 0.75);
         ctx.fillStyle = "purple";
         ctx.fillRect(500, 400, 500, 50);
     }

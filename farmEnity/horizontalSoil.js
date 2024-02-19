@@ -21,13 +21,13 @@ class HorizontalSoil{
         this.radius = 10;
         this.visualRadius = 50;
 
-        this.plants.push(new StrawberryPlant(this.game,this.x + (92/3)*0,this.y, PARAMS.DAYCOUNTER));
-        this.plants.push(new RicePlant(this.game,this.x + (92/3)*1,this.y, PARAMS.DAYCOUNTER));
-        this.plants.push(new CornPlant(this.game,this.x + (92/3)*2,this.y, PARAMS.DAYCOUNTER));
-        //For Prototype Showcase.
-        this.plants.forEach(plant =>{
-            plant.startDay = -4;
-        });
+        // this.plants.push(new StrawberryPlant(this.game,this.x + (92/3)*0,this.y, PARAMS.DAYCOUNTER));
+        // this.plants.push(new RicePlant(this.game,this.x + (92/3)*1,this.y, PARAMS.DAYCOUNTER));
+        // this.plants.push(new CornPlant(this.game,this.x + (92/3)*2,this.y, PARAMS.DAYCOUNTER));
+        // //For Prototype Showcase.
+        // this.plants.forEach(plant =>{
+        //     plant.startDay = -4;
+        // });
         // spritesheet
          this.spritesheet = ASSET_MANAGER.getAsset("./sprites/farmland.png");
        //  this.removeFromWorld = false;
