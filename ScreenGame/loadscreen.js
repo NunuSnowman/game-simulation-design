@@ -49,7 +49,10 @@ class GameOver {
         this.game = game;
        // this.BB = new BoundingBox(x, y, 1, 1);
        this.back = false;
-       this.exitBB = new BoundingBox(570+200, 680, 150, 40);
+       this.exitBB = new BoundingBox(570+200, 680, 150, 40); 
+       ASSET_MANAGER.pauseBackgroundMusic();
+       ASSET_MANAGER.playMusic("./music/CornfieldChaseShort.mp3");
+
     }
 
     update() {
