@@ -24,8 +24,7 @@ class SceneManager {
     this.character = new MainCharacter(this.game, 800, 525);
     this.InPortal = false;
     this.nextNextCutScene = false;
-
-
+    this.bed = new Bed(this.game, 550, 600, 300, 200 );
     this.listOfQuests = [];
 
     this.listOfSlime = [];
@@ -128,6 +127,7 @@ class SceneManager {
     }
   }
   loadMap() {
+   
    
     //Loading Bosses
     this.listofNormallBosses = [];
@@ -585,8 +585,21 @@ class SceneManager {
     //  this.dog.removeFromWorld = false;
     // BLOCK THE CHARACTER
 
-    //House
-
+    //Normal Boss House Blocking
+    this.listOfBuildingsBlOCKCharacter.push(
+      new InvisibleFenceBlocker(this.game, 1344, 925, 20, 250)
+    );
+   
+    this.listOfBuildingsBlOCKCharacter.push(
+      new InvisibleFenceBlocker(this.game, 1344, 1400, 20, 350)
+    ); 
+    this.listOfBuildingsBlOCKCharacter.push(
+      new InvisibleFenceBlocker(this.game, 1344, 925 + 850, 656, 20)
+    ); 
+    //Normal Boss House Blocking
+    this.listOfBuildingsBlOCKCharacter.push(
+      new FarmLandFencedHouse(this.game, houseX + 180, houseY)
+    );
     this.listOfBuildingsBlOCKCharacter.push(
       new FarmLandFencedHouse(this.game, houseX + 180, houseY)
     );
@@ -643,6 +656,8 @@ class SceneManager {
     this.listOfBuildingsBlOCKCharacter.push(
       new InvisibleMonsterBlocker(this.game, 300, 840, 55, 20)
     );
+   
+   
 
     for (let i = 0; i < this.listOfBuildingsBlOCKCharacter.length; i++) {
       this.game.addEntity(this.listOfBuildingsBlOCKCharacter[i]);
@@ -742,6 +757,8 @@ class SceneManager {
     this.dayNightManager.time = 12;
     this.dayNightManager.removeFromWorld = false;
     if(this.listOfQuests.length > 0) this.game.addEntity(this.listOfQuests[0]);
+     //BED
+     this.game.addEntity(this.bed)
     this.game.addEntity(new InvisibleSnowMapDoor(this.game, 800, 2200, 100, 20));
 
     this.game.addEntity(this.dayNightManager);
@@ -995,7 +1012,7 @@ class SceneManager {
         // this.startCounting = true;
         // this.elapsed = 0;
         //this.character.hitpoints = this.character.maxhitpoints;
-      if(Math.abs(this.character.x-600-this.game.camera.x) < 50 && Math.abs(this.character.y - 700 -this.game.camera.x) < 50 && this.dayNightManager.time >= 12){
+      if((this.character.BB.collide(this.bed.BB) ) && (this.dayNightManager.time >= 12 || this.dayNightManager.time <= 4 )){
         this.game.addEntity(new NextDayCutScene(this.game));
         this.startCounting = true;
         this.notInCutScreen = false;
@@ -1004,20 +1021,19 @@ class SceneManager {
       }else if(this.dayNightManager.time < 12){
       //  console.log("Can not sleep, its too early!");
         this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"Can not sleep, its too early!"));
-      } else if(this.dayNightManager.time >= 12){
-        this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"You are not home!"));
-
       }
 
 
       
-    }
-    if(Math.abs(this.character.x-600-this.game.camera.x) < 50 && Math.abs(this.character.y - 700 -this.game.camera.x) < 50 && this.dayNightManager.time >= 12)
+    }// 550, 565, 320, 120
+    if((this.character.BB.collide(this.bed.BB) ) && (this.dayNightManager.time >= 12 || this.dayNightManager.time <= 4 ))
       this.game.addEntityAtIndex(300,new MessageInteract(this.game, PARAMS.CANVAS_WIDTH*0.9, PARAMS.CANVAS_HEIGHT*0.9, "Press I to Sleep."));
     if (this.elapsed > 3.5) {
       this.inGame = true;
+      if(!(this.dayNightManager.time >= 0 && this.dayNightManager.time <= 4 )) ++PARAMS.DAYCOUNTER;
+      
       this.dayNightManager.time = 6;
-      if(PARAMS.DAYCOUNTER >= 0 ) this.loadSlime();
+      if(PARAMS.DAYCOUNTER >= 3 ) this.loadSlime();
       
       if (this.listofNormallBosses[0].removeFromWorld) {
         this.listofNormallBosses.shift();
@@ -1038,7 +1054,7 @@ class SceneManager {
         }
       }
 
-      ++PARAMS.DAYCOUNTER;
+      
       this.elapsed = 0;
       this.startCounting = false;
       this.listOfTrippleSoil.forEach((each)=>{

@@ -262,7 +262,7 @@ class MessageInteract{
     draw(ctx) {
         ctx.font = '10px "Press Start 2P"';
         this.game.ctx.fillStyle = "White";
-        ctx.fillText(this.message, this.x - 48 , this.y );
+        ctx.fillText(this.message, PARAMS.CANVAS_WIDTH - 20 - ctx.measureText(this.message).width , PARAMS.CANVAS_HEIGHT*0.95 );
     };
     
 };
