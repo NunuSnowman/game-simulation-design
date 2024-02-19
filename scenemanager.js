@@ -101,8 +101,8 @@ class SceneManager {
   loadQuests(){
     this.listOfQuests.push(new FarmQuest(this.game));
     this.listOfQuests.push(new KillBugQuest(this.game));
-    this.listOfQuests.push(new FishingQuest(this.game));
     this.listOfQuests.push(new SlimeKills(this.game));
+    this.listOfQuests.push(new FishingQuest(this.game));
 
 }
   loadSlime() {
