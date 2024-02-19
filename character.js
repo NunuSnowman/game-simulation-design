@@ -192,7 +192,7 @@ class MainCharacter{
     // };
     update(){
         
-        if(!this.game.right&&!this.game.left&&!this.game.up&&!this.game.down && this.state === 0){
+        if(!this.game.right&&!this.game.left&&!this.game.up&&!this.game.down && !this.removeFromWorld){
            
 
             ASSET_MANAGER.playAsset("./audio/walk1.mp3");
