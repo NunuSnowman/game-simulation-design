@@ -202,6 +202,27 @@ class PlusDMG{
     };
     
 };
+class PlusPlant{
+    constructor(game, x, y, message) {
+        Object.assign(this, { game, x, y, message});
+        this.velocity = -32;
+        this.elapsed = 0;
+    };
+
+    update() {
+        this.elapsed += this.game.clockTick;
+        if (this.elapsed > 2) this.removeFromWorld = true;
+       
+        this.y += this.game.clockTick * this.velocity;
+    };
+
+    draw(ctx) {
+        ctx.font = '12px "Press Start 2P"';
+        this.game.ctx.fillStyle = "White";
+        ctx.fillText(this.message, this.x  , this.y - 20 );
+    };
+    
+};
 
 class GoToSleepMessage{
     constructor(game, x, y) {
