@@ -1105,6 +1105,25 @@ class CharacterClone{
             that.characterlast = false;
        for (var i = 0; i < this.game.entities.length; i++) {
            var ent = this.game.entities[i];
+           if (ent.BB && this.BB.collide(ent.BB)) {
+           if(ent instanceof CharacterClone){
+
+
+            const collisionDirection = this.BB.checkCollisionSides(ent.BB);
+            if(collisionDirection.left){
+                this.x -= this.speed;
+            }else if(collisionDirection.right) {
+                this.x += this.speed;
+            }else if(collisionDirection.top) {
+                this.y -= this.speed;
+            }else if(collisionDirection.bottom) {
+                this.y += this.speed;
+            }
+        }
+             
+        }
+
+
            if (ent instanceof Boss){
              if(ent.hitpoints<=0){
                this.removeFromWorld =true;
@@ -1165,7 +1184,10 @@ class CharacterClone{
                        var damage = 10 + randomInt(4);
                        ent.hitpoints -= damage;
                        this.game.addEntity(new CharacterGetDamageScore(this.game, ent.x - this.game.camera.x +  Math.floor(Math.random() * (31 - 20) + 20),   ent.y - this.game.camera.y -  Math.floor(Math.random() * (31 - 20) + 20) , damage));
- 
+                       if(ent.hitpoints<=0){
+                        ent.removeFromWorld = true;
+                       }
+    
                        // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
                        this.elapsedTime = 0;
                    }
@@ -1177,10 +1199,7 @@ class CharacterClone{
                    }
 
 
-                   if(ent.hitpoints<=0){
-                    ent.removeFromWorld = true;
-                   }
-
+                
          
                
        
