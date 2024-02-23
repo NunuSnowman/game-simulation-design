@@ -161,3 +161,45 @@ class SlimeKills{
     };
     
 };
+class MantisKill{
+    constructor(game) {
+        Object.assign(this, { game});
+        this.velocity = 0;
+        this.requireNum = 3;
+        this.currentNum = 0;
+        this.dmgAward = 30;
+        this.hpAward = 50;
+        this.current = 0;
+        this.temp = 0;
+        this.finished = false;
+
+    };
+
+    update() {
+        this.current =  0;
+        this.game.camera.listOfMantis.forEach(e=>{
+            if(e.removeFromWorld == true) {
+                this.current += 1;
+            
+            }
+        })
+        
+        this.temp = this.current;
+
+        if(this.current === this.requireNum ){
+            this.game.character.getAward(this.dmgAward, this.hpAward);
+            this.requireNum  = -1;
+            this.removeFromWorld = true;
+            this.finished = true;
+
+        }
+        this.currentNum = this.current;
+    };
+
+    draw(ctx) {
+        ctx.font = '15px "Press Start 2P"';
+        this.game.ctx.fillStyle = "White";
+        ctx.fillText("Mantis Kills: " + this.currentNum + "/" + this.requireNum , 30 , PARAMS.CANVAS_HEIGHT*0.95);
+    };
+    
+};

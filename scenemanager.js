@@ -93,6 +93,7 @@ class SceneManager {
     this.camp = new Campfire(this.game, 110, 110);
     this.game.addEntity(new Start(this.game));
     this.loadQuests();
+    this.listOfMantis = [];
 
   
     //this.loadMap();
@@ -103,8 +104,23 @@ class SceneManager {
     this.listOfQuests.push(new KillBugQuest(this.game));
     this.listOfQuests.push(new SlimeKills(this.game));
     this.listOfQuests.push(new FishingQuest(this.game));
+    this.listOfQuests.push(new MantisKill(this.game));
+} 
+  loadMantis() {
+    this.listOfMantis.push(
+      new Mantis(this.game, 0, 1200, [{ x: 100, y: 1200 }]) 
+    );
+    this.listOfMantis.push(
+      new Mantis(this.game, 0, 300, [{ x: 100, y: 400 }]) 
+    );
+    this.listOfMantis.push(
+      new Mantis(this.game, 1700, 2000, [{ x: 1700, y: 2000 }]) 
+    );
+    this.listOfMantis.forEach(mantis =>{
+      this.game.addEntityAtIndex(this.normalBossesIndexEntity, mantis);
+    })
+  }
 
-}
   loadSlime() {
     this.listOfSlime = [];
     this.listOfSlime.push(
@@ -131,6 +147,9 @@ class SceneManager {
    
     //Loading Bosses
     this.listofNormallBosses = [];
+    this.listofNormallBosses.push(
+      new Mantis(this.game, 700, 1200, [{ x: 1720, y: 1322 }])
+    );
     this.listofNormallBosses.push(
       new BoarSkill(this.game, 700, 1200, [{ x: 1720, y: 1322 }])
     );
@@ -767,6 +786,7 @@ class SceneManager {
     this.game.addEntity(this.dayNightManager);
 
     this.game.addEntity(new Letter(this.game,0,0));
+    
 
   }
   draw(ctx) {
@@ -1062,9 +1082,9 @@ class SceneManager {
       this.inGame = true;
       if(!(this.dayNightManager.time >= 0 && this.dayNightManager.time <= 4 )) ++PARAMS.DAYCOUNTER;
       
-      this.dayNightManager.time = 6;
+      this.dayNightManager.time = 12;
       if(PARAMS.DAYCOUNTER >= 3 ) this.loadSlime();
-      
+      if(PARAMS.DAYCOUNTER == 5) this.loadMantis();
       if (this.listofNormallBosses[0].removeFromWorld) {
         this.listofNormallBosses.shift();
         if (this.listofNormallBosses.length > 0)

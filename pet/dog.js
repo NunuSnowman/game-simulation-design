@@ -139,7 +139,7 @@ class Dog {
 
         if ((entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin ||entity instanceof BoarSkill|| 
             entity instanceof Wizard|| entity instanceof Wizard2|| entity instanceof Skele || entity instanceof Guardian ||
-            entity instanceof Skeleton || entity instanceof DemonSlime)  && canSee(this, entity)
+            entity instanceof Skeleton || entity instanceof DemonSlime || entity instanceof Mantis)  && canSee(this, entity)
                 || ent instanceof GreenGoblin && canSee(this, entity)) {
             this.target = entity;
             this.attackTarget = entity;
@@ -183,7 +183,7 @@ class Dog {
             }
 
             if (this.elapsedTime > 0.5) {
-                var damage = this.game.character.baseDamage/4 + randomInt(4);
+                var damage = Math.floor(this.game.character.baseDamage/4 + randomInt(4)) ;
                 this.attackTarget.hitpoints -= damage;
                 this.game.addEntity(new Score(this.game, this.attackTarget.x - this.game.camera.x, this.attackTarget.y - this.game.camera.y, damage));
                 this.elapsedTime = 0;
