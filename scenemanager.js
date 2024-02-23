@@ -26,7 +26,7 @@ class SceneManager {
     this.nextNextCutScene = false;
     this.bed = new Bed(this.game, 550, 600, 300, 200 );
     this.listOfQuests = [];
-
+    this.characterIndex ;
     this.listOfSlime = [];
 
     this.listOfTree = [];
@@ -583,6 +583,7 @@ class SceneManager {
     ////////////////////////
     //DO NOT BLOCK THE CHARACTER
     /////////////////////////////////////
+    this.characterIndex = this.game.entities.length;
     this.game.addEntity(this.character);
     //////////////////////////////////////
     this.game.addEntity(this.dog);
@@ -972,6 +973,33 @@ class SceneManager {
         ctx.font = '8px "Press Start 2P"';
         this.game.ctx.fillText(6 - this.character.counterForShuriken, 290 + 41, 15);
         this.game.ctx.fillText(this.character.numberOfFish, 290, 15);
+        
+        if (this.character.guide && (!this.character.shadow || !this.character.shadow)  )
+        this.game.ctx.drawImage(
+          this.spritesheetFarmLand,
+          0,
+          1210,
+          32,
+          32,
+          290 + 40 + 40,
+          5,
+          32,
+          32
+        );
+      else
+        this.game.ctx.drawImage(
+          this.spritesheetFarmLand,
+          0,
+          1210+32,
+          32,
+          32,
+          290 + 40 + 40,
+          5,
+          32,
+          32
+        );
+
+
   
         }
         
