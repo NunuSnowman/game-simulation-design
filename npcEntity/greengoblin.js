@@ -105,7 +105,7 @@ class GreenGoblin {
         for (var i = 0; i < this.game.entities.length; i++) {
             var ent = this.game.entities[i];
 
-            if (ent instanceof MainCharacter && canSee(this, ent) || ent instanceof Dog && canSee(this, ent)) {
+            if (ent instanceof CharacterClone && canSee(this,  ent)||ent instanceof MainCharacter && canSee(this, ent) || ent instanceof Dog && canSee(this, ent)) {
                 if(this.elapsedTime1 >= 4 + Math.floor(Math.random() * 6) ){
                     this.state = 3;
                     this.game.addEntity(new PlantKiller(this.game, ent.x,ent.y));

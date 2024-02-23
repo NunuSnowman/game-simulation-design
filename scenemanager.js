@@ -561,7 +561,9 @@ class SceneManager {
      this.game.addEntity(new Portal(this.game, 1800, 3000 + 1100));
      this.game.addEntity(new Skele(this.game,530, 2650, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]));
      this.game.addEntity(new Guardian(this.game,1200, 3170, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]));
-    this.game.addEntity(new WizardSpawn(this.game, 110, 110));
+
+   
+     this.game.addEntity(new WizardSpawn(this.game, 110, 110));
     this.game.addEntity(new WizardSpawn2(this.game, 650, 110));
     this.game.addEntity(new WizardSpawn2(this.game, 110, 110));
     this.game.addEntity(new Campfire(this.game, 110, 110));

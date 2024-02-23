@@ -112,7 +112,7 @@ class Boar {
         for (var i = 0; i < this.game.entities.length; i++) {
             var ent = this.game.entities[i];
 
-            if (ent instanceof CharacterClone && cansee(this,  ent)||ent instanceof MainCharacter && canSee(this, ent) || ent instanceof Dog && canSee(this, ent)) {
+            if (ent instanceof CharacterClone && canSee(this,  ent)||ent instanceof MainCharacter && canSee(this, ent) || ent instanceof Dog && canSee(this, ent)) {
                 this.target = ent;
                 this.attackTarget = ent;
 

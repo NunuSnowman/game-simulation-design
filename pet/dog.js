@@ -183,8 +183,10 @@ class Dog {
             }
 
             if (this.elapsedTime > 0.5) {
+
                 var damage = Math.floor(this.game.character.baseDamage/4 + randomInt(4)) ;
                 this.attackTarget.hitpoints -= damage;
+
                 this.game.addEntity(new Score(this.game, this.attackTarget.x - this.game.camera.x, this.attackTarget.y - this.game.camera.y, damage));
                 this.elapsedTime = 0;
 
