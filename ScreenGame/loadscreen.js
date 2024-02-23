@@ -152,7 +152,7 @@ class Guide {
     constructor(game, x, y) {
         this.game = game;
         this.exit = false;
-        this.exitBB = new BoundingBox(670, 830, 100, 40);
+        this.exitBB = new BoundingBox(680, PARAMS.CANVAS_HEIGHT * 0.9, 100, 40);
     }
 
     update() {
@@ -174,21 +174,28 @@ class Guide {
     draw(ctx) {
      
 
-        ctx.font = '20px "Press Start 2P"'
-     ctx.fillStyle = 'rgba(0, 96, 126, 0.5)';
-        ctx.fillRect(0, 700, 1900, 400);
+    //     ctx.font = '20px "Press Start 2P"'
+    //  ctx.fillStyle = 'rgba(0, 96, 126, 0.5)';
+    //     ctx.fillRect(0, 700, 1900, 400);
 
 
 
-       ctx.fillStyle = 'white';
-        ctx.fillText("There is a skill that you can obtain by defeat a boss in snowmap.", 80, 990 * 0.75);
-        ctx.fillText("The boss can one shot you if you are too weak.", 80, 1050 * 0.75);
-        ctx.fillText("Okay", 680, 1150 * 0.75);
+    //    ctx.fillStyle = 'white';
+    //     ctx.fillText("There is a skill that you can obtain by defeat a boss in snowmap.", 80, 990 * 0.75);
+    //     ctx.fillText("The boss can one shot you if you are too weak.", 80, 1050 * 0.75);
+    //     ctx.fillText("Okay", 680, 1150 * 0.75);
+    ctx.font = '20px "Press Start 2P"';
+    ctx.fillStyle = 'rgba(0, 96, 126, 0.5)';
+    ctx.fillRect(0, PARAMS.CANVAS_HEIGHT * 0.7, 1900, 400);
 
+    ctx.fillStyle = 'white';
+    ctx.fillText("There is a skill that you can obtain by defeating a boss in the snowmap.", 80, PARAMS.CANVAS_HEIGHT * 0.75);
+    ctx.fillText("The boss can one-shot you if you are too weak.", 80, PARAMS.CANVAS_HEIGHT * 0.8);
+    ctx.fillText("Okay", 680, PARAMS.CANVAS_HEIGHT * 0.9 + 20);
 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'red';
-            ctx.strokeRect(670, 830, 100, 40);
+            ctx.strokeRect(680, PARAMS.CANVAS_HEIGHT * 0.9, 100, 40);
            
             
         }

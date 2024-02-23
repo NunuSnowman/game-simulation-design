@@ -333,8 +333,8 @@ console.log("GUIDE " + this.guide)
             if(this.game.keyT&&!this.shadow2){
             
                // setTimeout(() => {
-                    this.game.addEntity( new CharacterClone(this.game, this.x+150, this.y+50,[{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]));
-                    this.game.addEntity( new CharacterClone(this.game, this.x+120, this.y+50,[{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]));
+                    this.game.addEntityAtIndex(this.game.camera.characterIndex,new CharacterClone(this.game, this.x+150, this.y+50,[{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]));
+                    this.game.addEntityAtIndex(this.game.camera.characterIndex,new CharacterClone(this.game, this.x+120, this.y+50,[{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]));
             
             //}, 200);
             this.shadow2 = true;
