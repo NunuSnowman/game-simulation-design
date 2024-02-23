@@ -30,6 +30,7 @@ ASSET_MANAGER.queueDownload("./sprites/house.png");
 ASSET_MANAGER.queueDownload("./sprites/enemyhouse.png");
 ASSET_MANAGER.queueDownload("./sprites/plantkiller.png");
 ASSET_MANAGER.queueDownload("./sprites/boarSkill.png");
+ASSET_MANAGER.queueDownload("./sprites/mantis.png");
 
  
 ASSET_MANAGER.queueDownload("./sprites/wolfsheet1.png");
