@@ -1139,8 +1139,8 @@ class CharacterClone{
         //    }
       
     
-           if ((ent instanceof Wizard2|| ent instanceof Wizard||ent instanceof Skele|| ent instanceof BoarSkill|| ent instanceof Boar|| ent instanceof Skeleton||ent instanceof DemonSlime
-            ||ent instanceof Boss|| ent instanceof Slime|| ent instanceof Guardian) && canSee(this, ent)) {
+           if ((ent instanceof Wizard2|| ent instanceof Wizard||ent instanceof Skele|| ent instanceof BoarSkill|| ent instanceof Boar|| ent instanceof Skeleton||ent instanceof DemonSlime||
+            ent instanceof GreenGoblin ||ent instanceof Boss|| ent instanceof Slime|| ent instanceof Guardian) && canSee(this, ent)) {
             that.characterlast = true;
 
                this.target = ent;
@@ -1171,7 +1171,7 @@ class CharacterClone{
            if (ent instanceof MainCharacter && collide(this, ent)) {
             this.state = 2;
         }
-          if ((ent instanceof Wizard2|| ent instanceof Wizard||ent instanceof Skele|| ent instanceof BoarSkill|| ent instanceof Boar|| ent instanceof Skeleton||ent instanceof DemonSlime
+          if ((ent instanceof Wizard2|| ent instanceof Wizard||ent instanceof Skele|| ent instanceof BoarSkill|| ent instanceof Boar|| ent instanceof Skeleton||ent instanceof DemonSlime||   ent instanceof GreenGoblin 
             ||ent instanceof Boss|| ent instanceof Slime|| ent instanceof Guardian) && collide(this, ent)) {
          //   console.log("facelft " + this.faceleft)
              

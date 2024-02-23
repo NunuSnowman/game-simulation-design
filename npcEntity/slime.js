@@ -192,23 +192,28 @@ class Slime{
             if (collide(this, this.attackTarget)) {
             
                     this.state = 1;
-                    if (this.attackTarget && this.attackTarget instanceof MainCharacter  ){
+                    if (this.attackTarget && this.attackTarget instanceof MainCharacter || this.attackTarget && this.attackTarget instanceof CharacterClone ){
                         console.log("this");
                    
+                     
             
                         if (this.elapsedTime > 1 ) {
                             var damage = this.damageBase + randomInt(4);
                             this.attackTarget.hitpoints -= damage;
                             this.game.addEntity(new CharacterGetDamageScore(this.game, this.game.character.x - this.game.camera.x +  Math.floor(Math.random() * (31 - 20) + 20),   this.game.character.y - this.game.camera.y -  Math.floor(Math.random() * (31 - 20) + 20) , damage));
+                          
+                          if( this.attackTarget instanceof MainCharacter){
                             if( this.attackTarget.hitpoints<=0){
                                   //ent.removeFromWorld = true;
                                   //this.game.countDeath += 1;
                                   this.attackTarget.isDead();
                               }
+                            }
                               this.elapsedTime = 0;
 
                         }
                     }
+           
                 
             //     if (this.elapsedTime > 0.5) {
             //     //var damage = this.damageBase + randomInt(4);
