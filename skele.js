@@ -6,8 +6,8 @@ class Skele {
         this.faceleft = false;
 
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 5100;
-        this.maxhitpoints = 5100;
+        this.hitpoints = 500;
+        this.maxhitpoints = 500;
 
         this.visualRadius = 400;
         this.chase = true;
@@ -182,7 +182,7 @@ this.updateBB()
                 this.chase =false;
                }
 
-            if (ent instanceof MainCharacter && canSee(this, ent)) {
+            if ((ent instanceof MainCharacter||ent instanceof CharacterClone)&& canSee(this, ent)) {
                 this.chase = true;
                 this.target = ent;
                 //character
@@ -246,7 +246,7 @@ this.updateBB()
              
 
             }
-            if (ent instanceof MainCharacter && collide(this, ent) ) {
+            if ((ent instanceof MainCharacter||ent instanceof CharacterClone) && collide(this, ent) ) {
       //       console.log("facelft " + this.faceleft)
               
          
@@ -309,13 +309,14 @@ this.updateBB()
                         // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
                         this.elapsedTime = 0;
                     }
+                    if(ent instanceof MainCharacter){
                     if(ent.hitpoints<=0){
                       
                  
                         ent.isDead();
                       
                      
-                     }
+                     }}
              
                 
         

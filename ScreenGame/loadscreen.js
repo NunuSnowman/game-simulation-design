@@ -146,3 +146,51 @@ class EndGame {
         }
     }
 }
+
+
+class Guide {
+    constructor(game, x, y) {
+        this.game = game;
+        this.exit = false;
+        this.exitBB = new BoundingBox(670, 830, 100, 40);
+    }
+
+    update() {
+        if (this.game.click) {
+            console.log(this.game.click)
+            const mouseBB = new BoundingBox(this.game.click.x, this.game.click.y, 1, 1);
+
+            if (mouseBB.collide(this.exitBB)) {
+                this.exit = true;
+            } else{
+                this.exit = false;
+            }
+
+            // Reset click
+            this.game.click = null;
+        }
+    }
+
+    draw(ctx) {
+     
+
+        ctx.font = '20px "Press Start 2P"'
+     ctx.fillStyle = 'rgba(0, 96, 126, 0.5)';
+        ctx.fillRect(0, 700, 1900, 400);
+
+
+
+       ctx.fillStyle = 'white';
+        ctx.fillText("There is a skill that you can obtain by defeat a boss in snowmap.", 80, 990 * 0.75);
+        ctx.fillText("The boss can one shot you if you are too weak.", 80, 1050 * 0.75);
+        ctx.fillText("Okay", 680, 1150 * 0.75);
+
+
+        if (PARAMS.DEBUG) {
+            ctx.strokeStyle = 'red';
+            ctx.strokeRect(670, 830, 100, 40);
+           
+            
+        }
+    }
+}

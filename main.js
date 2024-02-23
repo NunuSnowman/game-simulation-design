@@ -46,6 +46,9 @@ ASSET_MANAGER.queueDownload("./sprites/slash.png")
 ASSET_MANAGER.queueDownload("./sprites/fishing.png");
 ASSET_MANAGER.queueDownload("./sprites/Bee_Idle.png");
 ASSET_MANAGER.queueDownload("./sprites/Bee_Walk.png");
+ASSET_MANAGER.queueDownload("./sprites/ghost2.png");
+ASSET_MANAGER.queueDownload("./sprites/mark.png");
+ASSET_MANAGER.queueDownload("./sprites/lightning.png");
 
 ASSET_MANAGER.queueDownload("./sprites/enemy/skeletondownattack.png");
  ASSET_MANAGER.queueDownload("./sprites/enemy/skeletonhitright.png");

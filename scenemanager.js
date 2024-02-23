@@ -576,6 +576,8 @@ class SceneManager {
         { x: 0, y: 0 },
       ])
     );
+    this.game.addEntity(new myNPC(this.game,400, 1030, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]));
+
     ////////////////////////
     //DO NOT BLOCK THE CHARACTER
     /////////////////////////////////////
@@ -775,7 +777,7 @@ class SceneManager {
 
       ctx.font = '15px "Press Start 2P"';
       // ctx.strokeStyle = "White";
-      if(this.inGame){
+      if(!this.notInGameYet&&!this.onetime&&this.game.camera.countDeath!=3&&!this.endgame&&this.notInCutScreen){
         if(this.character.y >= 2200 && this.character.y <= 3300 ) this.game.ctx.fillStyle = "Black";
         else  this.game.ctx.fillStyle = "White";
       this.game.ctx.fillText("Day  " + PARAMS.DAYCOUNTER, 10, 20);
@@ -1094,52 +1096,24 @@ class SceneManager {
    
            
     //        }
-
-  //   this.game.entities.forEach((entity) =>{  
-  //     if(entity instanceof Start){
-  //       if(entity.clickOnStart){
-  //         ASSET_MANAGER.playMusic("./music/grind.mp3");
-
-  //       }
-  //     }
-  //     if(entity instanceof EndGame){
-  //       ASSET_MANAGER.pauseBackgroundMusic()
-
-  //     }
-  //     if(entity instanceof MainCharacter){
-     
-  //  if(!entity.playSnowMap){
-  //  ASSET_MANAGER.playMusic("./music/grind.mp3");
-
-  //         }
-  //  if(!entity.playSnowMap2){
-  //       ASSET_MANAGER.playMusic("./music/snmusic.mp3");
-          
-          
-  //      }
-
-  //   if(!entity.playSnowMap3){
-  //     ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
-  //     }
-
-  //     if(this.game.camera.countDeath){
-
-  //     }
-  //   }
+    this.onetime = this.character.oneTime;
+    this.endgame = this.character.endgame;
+    this.game.entities.forEach((entity) =>{  
+      
 
 
 
-  //     if(entity instanceof Start||entity instanceof Credit || entity instanceof About||  entity instanceof EndGame||entity instanceof NextDayCutScene){
+      if(entity instanceof Start||entity instanceof Credit || entity instanceof About||  entity instanceof EndGame||entity instanceof NextDayCutScene){
     
-  //     this.notInGameYet = true;
+      this.notInGameYet = true;
     
-  // }
+  }
    
-  //   else{
-  //     this.endgame  = false;
-  //     this.notInGameYet = false;
-  //   }}
-  // );
+    else{
+      this.endgame  = false;
+      this.notInGameYet = false;
+    }}
+  );
 
   const newDay = PARAMS.DAYCOUNTER;
   PARAMS.DEBUG = document.getElementById("debug").checked;

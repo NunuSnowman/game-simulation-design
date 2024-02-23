@@ -32,6 +32,7 @@ class GameEngine {
         this.keyE = false;
         this.keyR = false;
         this.keyQ = false;
+        this.keyT = false;
 
         this.spaceKey = false;
         // Options and the Details
@@ -164,6 +165,9 @@ class GameEngine {
                 case "KeyG":
                     this.keyG = true;
             break
+            case "KeyT":
+                this.keyT = false;
+        break
             }
         }
 
@@ -214,6 +218,9 @@ class GameEngine {
                     case "KeyG":
                         this.keyG = false;
                 break
+                case "KeyT":
+                    this.keyT = true;
+            break
             }
         }
 

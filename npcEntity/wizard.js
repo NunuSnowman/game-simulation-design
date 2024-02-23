@@ -97,7 +97,7 @@ class Wizard {
        
       
 
-       if (ent instanceof MainCharacter && canSee(this, ent)) {
+       if ((ent instanceof MainCharacter|| ent instanceof CharacterClone) && canSee(this, ent)) {
                 this.target = ent;
                 this.chase = true;
                 //character
@@ -113,7 +113,7 @@ class Wizard {
              
               
             }
-            if (ent instanceof MainCharacter && collide(this, ent)) {
+            if ((ent instanceof MainCharacter|| ent instanceof CharacterClone) && collide(this, ent)) {
              console.log("facelft " + this.faceleft)
           
 
@@ -124,11 +124,13 @@ class Wizard {
                     if (this.elapsedTime > 0.8) {
                         var damage = 7 + randomInt(4);
                         ent.hitpoints -= damage;
+                        if(ent instanceof MainCharacter){
                         if( ent.hitpoints<=0){
                  
                             ent.isDead();
                             this.state =0;
                          }
+                        }
                          else{
                         //this.state = 1;
                          }
@@ -388,15 +390,25 @@ class Wizard2 {
             //     this.state = 2;
             // }
 
-            if (ent instanceof MainCharacter && canSee(this, ent) && this.elapsedTime > this.fireRate &&  ent.y < 2200) {
+            if ((ent instanceof MainCharacter|| ent instanceof CharacterClone) && canSee(this, ent) && this.elapsedTime > this.fireRate &&  ent.y < 2200) {
                 this.target = ent;
                 //character
                 this.elapsedTime = 0;
   
                 this.game.addEntity(new FireBall(this.game, this.x, this.y, ent, true, true));
-                if(ent.hitpoints<=0){
-                  ent.isDead();
-                }
+                if(ent instanceof MainCharacter){
+                  if(ent instanceof MainCharacter){
+                    if( ent.hitpoints<=0){
+             
+                        ent.isDead();
+                        this.state =0;
+                     }
+                    }
+              }
+              if(ent.hitpoints <=0){
+                ent.removeFromWorld = true;
+              }
+
                 if(this.x > this.target.x){
                    this.state =3;
                    this.faceleft = true;
@@ -408,7 +420,7 @@ class Wizard2 {
                 this.state = 1;
               
             }
-            if (ent instanceof MainCharacter && !canSee(this, ent) && this.elapsedTime > this.fireRate) {
+            if ((ent instanceof MainCharacter|| ent instanceof CharacterClone) && !canSee(this, ent) && this.elapsedTime > this.fireRate) {
           //   console.log("facelft " + this.faceleft)
               
           
