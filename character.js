@@ -328,6 +328,12 @@ class MainCharacter{
  
         }
 console.log("GUIDE " + this.guide)
+if(this.level>=3){
+    this.guide = true;
+}
+if(this.level<=1){
+    this.guide = false;
+}
         //clone skill
         if(this.guide){
             if(this.game.keyT&&!this.shadow2){
@@ -734,13 +740,16 @@ console.log("GUIDE " + this.guide)
                         if (this.elapsedTime > 0.2) {
                             var damage = this.baseDamage + randomInt(4);
                             if(entity.hitpoints - damage < 0) {
+                              
+                                    entity.isDead();
+                                
                                 const dropX = entity.x;
                                 const dropY = entity.y;
                              //   this.game.addEntity(new HPBottle(this.game, dropX , dropY));
                                 if(Math.random() < 0.5) this.game.addEntity(new DMGBottle(this.game, dropX , dropY))
                                 else this.game.addEntity(new HPBottle(this.game, dropX , dropY))
                                 entity.removeFromWorld = true;
-                                this.guide = true;
+                            //    this.guide = true;
 
                             }
                             entity.hitpoints -= damage;
@@ -771,12 +780,15 @@ console.log("GUIDE " + this.guide)
 
  
             if ((entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin ||entity instanceof BoarSkill|| 
-                entity instanceof Wizard|| entity instanceof Wizard2|| entity instanceof Skele||
+                entity instanceof Wizard|| entity instanceof Wizard2|| entity instanceof Wizard3|| entity instanceof Skele||
                 entity instanceof Skeleton || entity instanceof DemonSlime|| entity instanceof Mantis) && collide(this,  entity)) {
                         if(this.state === 1){
                         if (this.elapsedTime > 0.2) {
                             var damage = this.baseDamage + randomInt(4);
                             if(entity.hitpoints - damage < 0) {
+                                if(entity instanceof Wizard3|| entity instanceof Skele|| entity instanceof Wizard2|| entity instanceof Wizard){
+                                    entity.isDead();
+                                }
                                 const dropX = entity.x;
                                 const dropY = entity.y;
                              //   this.game.addEntity(new HPBottle(this.game, dropX , dropY));

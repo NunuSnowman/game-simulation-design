@@ -578,7 +578,7 @@ class SceneManager {
       ])
     );
     this.game.addEntity(
-      new Wizard2(this.game, 450, 2050, [
+      new Wizard3(this.game, 320, 2050, [
         { x: randomInt(3800), y: randomInt(3800) },
         { x: randomInt(3800), y: randomInt(3800) },
         { x: randomInt(3800), y: randomInt(3800) },

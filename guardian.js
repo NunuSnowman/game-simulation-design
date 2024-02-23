@@ -75,7 +75,15 @@ class Guardian {
     this.BB = new BoundingBox(this.x -40- this.game.camera.x, this.y -80- this.game.camera.y, 90,90);
   
   };
+  isDead(){
+    setTimeout(()=> {
+    
+    
+      this.game.addEntity(new Guardian(this.game,1200, 3170, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]));
 
+    }, 2200);
+
+  }
   // };
   update() {
     this.updateBB();

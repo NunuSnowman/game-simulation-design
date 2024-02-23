@@ -152,7 +152,7 @@ class Guide {
     constructor(game, x, y) {
         this.game = game;
         this.exit = false;
-        this.exitBB = new BoundingBox(680, PARAMS.CANVAS_HEIGHT * 0.9, 100, 40);
+        this.exitBB = new BoundingBox(PARAMS.CANVAS_WIDTH/2.2, PARAMS.CANVAS_HEIGHT * 0.9, 100, 40);
     }
 
     update() {
@@ -189,13 +189,12 @@ class Guide {
     ctx.fillRect(0, PARAMS.CANVAS_HEIGHT * 0.7, 1900, 400);
 
     ctx.fillStyle = 'white';
-    ctx.fillText("There is a skill that you can obtain by defeating a boss in the snowmap.", 80, PARAMS.CANVAS_HEIGHT * 0.75);
-    ctx.fillText("The boss can one-shot you if you are too weak.", 80, PARAMS.CANVAS_HEIGHT * 0.8);
-    ctx.fillText("Okay", 680, PARAMS.CANVAS_HEIGHT * 0.9 + 20);
+    ctx.fillText("U need to be at least level 3 to unlock T skill", PARAMS.CANVAS_WIDTH/4, PARAMS.CANVAS_HEIGHT * 0.75);
+    ctx.fillText("Okay", PARAMS.CANVAS_WIDTH/2.2, PARAMS.CANVAS_HEIGHT * 0.9 + 20);
 
         if (PARAMS.DEBUG) {
             ctx.strokeStyle = 'red';
-            ctx.strokeRect(680, PARAMS.CANVAS_HEIGHT * 0.9, 100, 40);
+            ctx.strokeRect(PARAMS.CANVAS_WIDTH/2.2, PARAMS.CANVAS_HEIGHT * 0.9, 100, 40);
            
             
         }

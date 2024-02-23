@@ -148,7 +148,15 @@ this.updateBB()
         this.BB = new BoundingBox(this.x -40- this.game.camera.x, this.y -40- this.game.camera.y, 90,90);
       
       };
-     
+      isDead(){
+        setTimeout(()=> {
+        
+        
+            this.game.addEntity(new Skele(this.game,530, 2650, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]));
+
+        }, 3000);
+    
+      }
     update() {
   //  this.x+=0.5;
   this.updateBB()
