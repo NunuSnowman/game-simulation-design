@@ -20,7 +20,7 @@ class MainCharacter{
         this.width = 48;
         this.game.character = this;
         this.radius = 30; //attack range
-        this.speed = 1.5;
+        this.speed = 5.5;
                 // spritesheet
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/villager1.png");
         this.spritesheetFishing = ASSET_MANAGER.getAsset("./sprites/fishing.png");
@@ -28,7 +28,7 @@ class MainCharacter{
         //healthbar information
         this.healthbar= new HealthBar(this);
         this.hitpoints = 100;
-        this.level = 1;
+        this.level = 5;
         this.maxhitpoints = 100 ;
         this.baseDamage = 20 ;
         this.farmInventory = [];
@@ -431,6 +431,7 @@ if(this.level<=1){
                     } else if(this.directionFace == Direction.DOWN){
                         this.y+=10;
                         this.counter++;
+                        this.game.addEntity(new Smoke(this.game, this.x-15, this.y-46, this, true, true));
                     }
                     for (var i = 0; i < this.game.entities.length; i++){
                         var entity = this.game.entities[i];
@@ -455,6 +456,8 @@ if(this.level<=1){
                             }
 
                             }
+                            
+
                        
 
                     }
@@ -833,8 +836,9 @@ if(this.level<=1){
             
     if(entity instanceof Boss){
         if(entity.hitpoints<=0){
-            this.guide = false;
             that.endgame = true;
+
+            this.guide = false;
             this.isDead();
             this.hitpoints =100;
             this.baseDamage= 10;
@@ -847,8 +851,11 @@ if(this.level<=1){
             this.level=1;
           
             this.game.entities.forEach((entity) =>{  
+                that.endgame = true;
+
                         entity.removeFromWorld = true;
             });
+
             this.game.addEntity(new EndGame(this.game,500,500))
         }
 
@@ -870,6 +877,8 @@ if(this.level<=1){
                 this.level=1;
               
                 this.game.entities.forEach((entity) =>{  
+                    that.endgame = true;
+
                             entity.removeFromWorld = true;
                 });
                 this.game.addEntity(new EndGame(this.game,500,500))
