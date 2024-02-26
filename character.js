@@ -642,7 +642,7 @@ if(this.level<=1){
 
                }if(this.elapsedTime >= 3){
                        
-                        if(this.level >= 1 && this.y <= 2200 ){
+                        if(this.level >= this.levelToEnter && this.y <= 2200 ){
                             ASSET_MANAGER.pauseBackgroundMusic();
 
                             ASSET_MANAGER.playMusic("./music/bossmusic.mp3");

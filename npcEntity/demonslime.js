@@ -6,8 +6,8 @@ class DemonSlime {
       this.faceleft = false;
 
       this.healthbar= new HealthBar(this);
-      this.hitpoints = 100;
-      this.maxhitpoints = 100;
+      this.hitpoints = 1000;
+      this.maxhitpoints = 1000;
 
       this.visualRadius = 1000;
 

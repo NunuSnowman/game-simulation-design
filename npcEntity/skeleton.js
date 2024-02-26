@@ -6,8 +6,8 @@ class Skeleton {
       this.faceleft = false;
 
       this.healthbar= new HealthBar(this);
-      this.hitpoints = 100;
-      this.maxhitpoints = 100;
+      this.hitpoints = 900;
+      this.maxhitpoints = 900;
 
       this.visualRadius = 1400;
 

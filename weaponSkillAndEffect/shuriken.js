@@ -55,8 +55,15 @@ class Shuriken {
                 var damage = this.game.character.baseDamage + randomInt(6);
                 entity.hitpoints -= damage;
                 this.game.addEntity(new Score(this.game, entity.x - this.game.camera.x, entity.y- this.game.camera.y, damage));
+                if(entity instanceof Boss){
+                    if(entity.hitpoints<=0){
+                    }
+                }
+
+                   else{
                     if(entity.hitpoints<=0){
                         entity.removeFromWorld = true;
+                    }
                     }
                 this.removeFromWorld = true;
              }

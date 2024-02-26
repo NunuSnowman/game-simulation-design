@@ -6,8 +6,8 @@ class Skele {
         this.faceleft = false;
 
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 500;
-        this.maxhitpoints = 500;
+        this.hitpoints = 850;
+        this.maxhitpoints = 850;
 
         this.visualRadius = 400;
         this.chase = true;
