@@ -147,9 +147,7 @@ class SceneManager {
    
     //Loading Bosses
     this.listofNormallBosses = [];
-    this.listofNormallBosses.push(
-      new Mantis(this.game, 700, 1200, [{ x: 1720, y: 1322 }])
-    );
+ 
     this.listofNormallBosses.push(
       new BoarSkill(this.game, 700, 1200, [{ x: 1720, y: 1322 }])
     );
@@ -1084,7 +1082,7 @@ class SceneManager {
       this.inGame = true;
       if(!(this.dayNightManager.time >= 0 && this.dayNightManager.time <= 4 )) ++PARAMS.DAYCOUNTER;
       
-      this.dayNightManager.time = 12;
+      this.dayNightManager.time = 6;
       if(PARAMS.DAYCOUNTER >= 3 ) this.loadSlime();
       if(PARAMS.DAYCOUNTER == 5) this.loadMantis();
       if (this.listofNormallBosses[0].removeFromWorld) {
@@ -1096,7 +1094,7 @@ class SceneManager {
           );
       }
 
-      if(this.listOfQuests[0].removeFromWorld){
+      if(this.listOfQuests.length > 0 && this.listOfQuests[0].removeFromWorld){
         this.listOfQuests.shift();
         if( this.listOfQuests.length > 0 ){
           this.game.addEntityAtIndex(

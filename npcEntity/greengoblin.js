@@ -13,9 +13,9 @@ class GreenGoblin {
 
 
       this.healthbar= new HealthBar(this);
-      this.hitpoints = 2000;
-      this.maxhitpoints = 2000;
-      this.damageBase = 50;
+      this.hitpoints = 3000;
+      this.maxhitpoints = 3000;
+      this.damageBase = 60;
 
 
 
