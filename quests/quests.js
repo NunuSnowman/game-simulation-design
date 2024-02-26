@@ -89,7 +89,7 @@ class FishingQuest{
     constructor(game) {
         Object.assign(this, { game});
         this.velocity = 0;
-        this.requireNum = 10;
+        this.requireNum = 4;
         this.currentNum = 0;
         this.dmgAward = 10;
         this.hpAward = 20;

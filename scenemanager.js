@@ -92,7 +92,6 @@ class SceneManager {
 
     this.camp = new Campfire(this.game, 110, 110);
     this.game.addEntity(new Start(this.game));
-    this.loadQuests();
     this.listOfMantis = [];
 
   
@@ -100,6 +99,7 @@ class SceneManager {
     this.elapsed = 0;
   }
   loadQuests(){
+    this.listOfQuests = [];
     this.listOfQuests.push(new FarmQuest(this.game));
     this.listOfQuests.push(new KillBugQuest(this.game));
     this.listOfQuests.push(new SlimeKills(this.game));
@@ -142,10 +142,8 @@ class SceneManager {
       this.game.addEntity(this.listOfSlime[i]);
     }
   }
-  loadMap() {
-   
-   
-    //Loading Bosses
+
+  loadNormalBoss(){
     this.listofNormallBosses = [];
  
     this.listofNormallBosses.push(
@@ -157,6 +155,15 @@ class SceneManager {
     this.listofNormallBosses.push(
       new GreenGoblin(this.game, 600, 1200, [{ x: 1720, y: 1322 }])
     );
+  }
+
+  loadMap() {
+   
+   
+    //Loading Bosses
+    this.loadNormalBoss();
+    this.loadQuests();
+
     //Reset for new gameplay.
     this.listOfTrippleSoil = [];
 
@@ -780,7 +787,7 @@ class SceneManager {
     this.dayNightManager.removeFromWorld = false;
     if(this.listOfQuests.length > 0) this.game.addEntity(this.listOfQuests[0]);
      //BED
-     this.game.addEntity(this.bed)
+    this.game.addEntity(this.bed)
     this.game.addEntity(new InvisibleSnowMapDoor(this.game, 800, 2200, 100, 20));
 
     this.game.addEntity(this.dayNightManager);
@@ -1082,10 +1089,10 @@ class SceneManager {
       this.inGame = true;
       if(!(this.dayNightManager.time >= 0 && this.dayNightManager.time <= 4 )) ++PARAMS.DAYCOUNTER;
       
-      this.dayNightManager.time = 6;
+      this.dayNightManager.time = 12;
       if(PARAMS.DAYCOUNTER >= 3 ) this.loadSlime();
-      if(PARAMS.DAYCOUNTER == 5) this.loadMantis();
-      if (this.listofNormallBosses[0].removeFromWorld) {
+      if(PARAMS.DAYCOUNTER >= 4) this.loadMantis();
+      if (this.listofNormallBosses.length > 0 && this.listofNormallBosses[0].removeFromWorld) {
         this.listofNormallBosses.shift();
         if (this.listofNormallBosses.length > 0)
           this.game.addEntityAtIndex(
