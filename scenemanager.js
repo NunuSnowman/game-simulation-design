@@ -1089,7 +1089,7 @@ class SceneManager {
       this.inGame = true;
       if(!(this.dayNightManager.time >= 0 && this.dayNightManager.time <= 4 )) ++PARAMS.DAYCOUNTER;
       
-      this.dayNightManager.time = 12;
+      this.dayNightManager.time = 9;
       if(PARAMS.DAYCOUNTER >= 3 ) this.loadSlime();
       if (this.listofNormallBosses.length > 0 && this.listofNormallBosses[0].removeFromWorld) {
         this.listofNormallBosses.shift();
