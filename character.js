@@ -435,11 +435,14 @@ if(this.level<=1){
                     for (var i = 0; i < this.game.entities.length; i++){
                         var entity = this.game.entities[i];
                         if ((entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin ||entity instanceof BoarSkill|| 
-                            entity instanceof Wizard|| entity instanceof Wizard2|| entity instanceof Skele  ||
+                            entity instanceof Wizard|| entity instanceof Wizard2|| entity instanceof Wizard3|| entity instanceof Skele  ||
                             entity instanceof Skeleton || entity instanceof DemonSlime|| entity instanceof Guardian||  entity instanceof Mantis ) && collide(this,  entity)) {
                                 if (this.elapsedTime > 0.001) {
                                 var damage = this.baseDamage/2 + randomInt(4);
                                 if(entity.hitpoints - damage < 0) {
+                                    if(entity instanceof Wizard3|| entity instanceof Skele|| entity instanceof Wizard2|| entity instanceof Wizard){
+                                        entity.isDead();
+                                    }
                                     const dropX = entity.x;
                                     const dropY = entity.y;
                                 //   this.game.addEntity(new HPBottle(this.game, dropX , dropY));
@@ -642,7 +645,7 @@ if(this.level<=1){
 
                }if(this.elapsedTime >= 3){
                        
-                        if(this.level >= this.levelToEnter && this.y <= 2200 ){
+                        if(this.level >= 4 && this.y <= 2200 ){
                             ASSET_MANAGER.pauseBackgroundMusic();
 
                             ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
@@ -1033,8 +1036,8 @@ class CharacterClone{
         
         //healthbar information
         this.healthbar= new HealthBar(this, this.game);
-        this.hitpoints = 100;
-        this.maxhitpoints = 100;
+        this.hitpoints = 250;
+        this.maxhitpoints = 250;
        // this.game.slime = this;
         this.speed = 1;
         // spritesheet
@@ -1197,7 +1200,7 @@ class CharacterClone{
                      
                    this.state = 1;
                    if (this.elapsedTime > 0.9) {
-                       var damage = 10 + randomInt(4);
+                       var damage = 19 + randomInt(4);
                        ent.hitpoints -= damage;
                        this.game.addEntity(new CharacterGetDamageScore(this.game, ent.x - this.game.camera.x +  Math.floor(Math.random() * (31 - 20) + 20),   ent.y - this.game.camera.y -  Math.floor(Math.random() * (31 - 20) + 20) , damage));
                        if(ent.hitpoints<=0){

@@ -50,7 +50,7 @@ class Shuriken {
              var entity = this.game.entities[i];
        
              if ( (entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin ||entity instanceof BoarSkill|| 
-                entity instanceof Wizard|| entity instanceof Wizard2|| entity instanceof Skele || entity instanceof Guardian ||
+                entity instanceof Wizard|| entity instanceof Wizard2|| entity instanceof Wizard3|| entity instanceof Skele || entity instanceof Guardian ||
                 entity instanceof Skeleton || entity instanceof DemonSlime||entity instanceof Boss || entity instanceof Mantis) && collide(this, entity)) {
                 var damage = this.game.character.baseDamage + randomInt(6);
                 entity.hitpoints -= damage;
