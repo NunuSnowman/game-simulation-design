@@ -1091,7 +1091,6 @@ class SceneManager {
       
       this.dayNightManager.time = 12;
       if(PARAMS.DAYCOUNTER >= 3 ) this.loadSlime();
-      if(PARAMS.DAYCOUNTER >= 4) this.loadMantis();
       if (this.listofNormallBosses.length > 0 && this.listofNormallBosses[0].removeFromWorld) {
         this.listofNormallBosses.shift();
         if (this.listofNormallBosses.length > 0)
@@ -1108,6 +1107,7 @@ class SceneManager {
             this.game.entities.length-5,
             this.listOfQuests[0]
           );
+          if(  this.listOfQuests[0] instanceof MantisKill) this.loadMantis();
         }
       }
 
