@@ -13,8 +13,8 @@ class Mantis {
   
   
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 1000;
-        this.maxhitpoints = 1000;
+        this.hitpoints = 2000;
+        this.maxhitpoints = 2000;
         this.damageBase = 50;
   
   

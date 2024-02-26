@@ -110,7 +110,7 @@ class Dog {
         this.monsterMode = 1.5;
         this.elapsedTimeMonster = 20;
         this.game.character.numberOfFish -= 1;
-        this.damageBase *= this.monsterMode;
+        this.damageBase = 20;
         this.maxSpeed *= this.monsterMode;
     }
 
@@ -184,7 +184,9 @@ class Dog {
 
             if (this.elapsedTime > 0.5) {
 
+
                 var damage = Math.floor(this.game.character.baseDamage/4 + randomInt(4)) ;
+
                 this.attackTarget.hitpoints -= damage;
 
                 this.game.addEntity(new Score(this.game, this.attackTarget.x - this.game.camera.x, this.attackTarget.y - this.game.camera.y, damage));
