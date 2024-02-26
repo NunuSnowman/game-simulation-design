@@ -434,7 +434,7 @@ if(this.level<=1){
                     }
                     for (var i = 0; i < this.game.entities.length; i++){
                         var entity = this.game.entities[i];
-                        if ((entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin ||entity instanceof BoarSkill|| 
+                        if ((entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin ||entity instanceof BoarSkill||  entity instanceof Boss||
                             entity instanceof Wizard|| entity instanceof Wizard2|| entity instanceof Wizard3|| entity instanceof Skele  ||
                             entity instanceof Skeleton || entity instanceof DemonSlime|| entity instanceof Guardian||  entity instanceof Mantis ) && collide(this,  entity)) {
                                 if (this.elapsedTime > 0.001) {
@@ -1155,8 +1155,8 @@ class CharacterClone{
       
     
 
-           if ((ent instanceof Wizard2|| ent instanceof Wizard||ent instanceof Skele|| ent instanceof BoarSkill|| ent instanceof Boar|| ent instanceof Skeleton||ent instanceof DemonSlime||
-            ent instanceof GreenGoblin ||ent instanceof Boss|| ent instanceof Slime|| ent instanceof Guardian || ent instanceof Mantis  ) && canSee(this, ent)) {
+           if ((ent instanceof Wizard2|| ent instanceof Wizard||  ent instanceof Wizard3||ent instanceof Skele|| ent instanceof BoarSkill|| ent instanceof Boar|| ent instanceof Skeleton||ent instanceof DemonSlime||
+            ent instanceof Boss||  ent instanceof GreenGoblin ||ent instanceof Boss|| ent instanceof Slime|| ent instanceof Guardian || ent instanceof Mantis  ) && canSee(this, ent)) {
 
             that.characterlast = true;
 
