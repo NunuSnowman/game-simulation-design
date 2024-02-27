@@ -27,10 +27,10 @@ class MainCharacter{
 
         //healthbar information
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 100;
+        this.hitpoints = 600;
         this.level = 5;
-        this.maxhitpoints = 100 ;
-        this.baseDamage = 20 ;
+        this.maxhitpoints = 600 ;
+        this.baseDamage = 150 ;
         this.farmInventory = [];
         this.numberOfFish = 5;
         // MainCharacter's state variables
@@ -448,7 +448,12 @@ if(this.level<=1){
                                     const dropY = entity.y;
                                 //   this.game.addEntity(new HPBottle(this.game, dropX , dropY));
                                     this.game.addEntity(new DMGBottle(this.game, dropX , dropY));
+                                    if(entity instanceof Boss){
+
+                                    }
+                                    else{
                                     entity.removeFromWorld = true;
+                                    }
                                 }
                                 entity.hitpoints -= damage;
                                 this.game.addEntity(new Score(this.game, entity.x - this.game.camera.x +  Math.floor(Math.random() * (31 - 20) + 20), entity.y - Math.floor(Math.random() * (31 - 20) + 20)- this.game.camera.y, damage));
@@ -1109,7 +1114,9 @@ class CharacterClone{
 
     };
     
-  
+  isDead(){
+
+  }
 
     updateBB() {
         

@@ -102,7 +102,7 @@ class DemonSlime {
               this.removeFromWorld =true;
             }
           }
-          if (ent instanceof MainCharacter && canSee(this, ent)) {
+          if (ent instanceof CharacterClone && canSee(this,  ent)|| ent instanceof MainCharacter && canSee(this, ent)) {
               this.target = ent;
               //character
 
@@ -117,7 +117,7 @@ class DemonSlime {
            
             
           }
-          if (ent instanceof MainCharacter && collide(this, ent)) {
+          if (ent instanceof CharacterClone && collide(this,  ent)|| ent instanceof MainCharacter && collide(this, ent)) {
            console.log("facelft " + this.faceleft)
             
         

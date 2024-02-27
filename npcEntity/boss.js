@@ -281,7 +281,7 @@ class Boss {
          //   this.removeFromWorld = true;
            
         //  }
-          if (ent instanceof MainCharacter && collide(this, ent)) {
+          if (ent instanceof CharacterClone && collide(this, ent)||ent instanceof MainCharacter && collide(this, ent)) {
       //     console.log("facelft " + this.faceleft)
                 
          
