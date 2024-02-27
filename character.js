@@ -20,17 +20,17 @@ class MainCharacter{
         this.width = 48;
         this.game.character = this;
         this.radius = 30; //attack range
-        this.speed = 5.5;
+        this.speed = 1.5;
                 // spritesheet
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/villager1.png");
         this.spritesheetFishing = ASSET_MANAGER.getAsset("./sprites/fishing.png");
 
         //healthbar information
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 600;
-        this.level = 5;
-        this.maxhitpoints = 600 ;
-        this.baseDamage = 150 ;
+        this.hitpoints = 100;
+        this.level = 1;
+        this.maxhitpoints = 100 ;
+        this.baseDamage = 20 ;
         this.farmInventory = [];
         this.numberOfFish = 5;
         // MainCharacter's state variables
