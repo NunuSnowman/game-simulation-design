@@ -44,7 +44,7 @@ class Tornado {
         for (var i = 0; i < this.game.entities.length; i++) {
             var ent = this.game.entities[i];
             if ( (ent instanceof MainCharacter || ent instanceof CharacterClone) && collide(this, ent)) {
-                var damage = 10 + randomInt(6);
+                var damage = 1 + randomInt(1);
                 ent.hitpoints -= damage;
                 // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
                 if(ent instanceof MainCharacter){

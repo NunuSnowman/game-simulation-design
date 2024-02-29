@@ -55,7 +55,32 @@ class Start {
         
         ctx.fillStyle = "green";
         ctx.fillRect(PARAMS.CANVAS_WIDTH/2 - 304/2, PARAMS.CANVAS_HEIGHT/2 - 100, 300, 50);
+        ctx.save();
+        ctx.scale(1.1, 2);
+
+        ctx.font = '33px  "Press Start 2P"'
+        
         ctx.fillStyle = 'white';
+// Assuming ctx is your canvas context
+var gradient = ctx.createLinearGradient(1, 1, PARAMS.CANVAS_WIDTH, 1);
+gradient.addColorStop(0, 'yellow');    // Starting color
+gradient.addColorStop(0.5, 'blue');   // Ending color
+gradient.addColorStop(0.7, '#6633ff'); // Middle color
+ctx.shadowColor = 'rgba(255, 51, 102, 0.8)';  // Glow color with alpha
+ctx.shadowBlur = 10;  // Adjust the blur radius for a softer or sharper glow
+ctx.fillStyle = gradient;
+
+    ctx.fillText("The Harvest's Secret: A CS Graduate's Return", PARAMS.CANVAS_WIDTH/11 + 304/3 - 304/2, PARAMS.CANVAS_HEIGHT/3 - 200 + 35);
+        ctx.lineWidth = 1;
+ctx.strokeStyle = 'yellow';
+        ctx.strokeText("The Harvest's Secret: A CS Graduate's Return", PARAMS.CANVAS_WIDTH/11 + 304/3 - 304/2, PARAMS.CANVAS_HEIGHT/3 - 200 + 35);
+        ctx.shadowBlur = 0;  // Adjust the blur radius for a softer or sharper glow
+        ctx.restore();
+
+        ctx.fillStyle = 'white';
+
+
+
         ctx.fillText("Start", PARAMS.CANVAS_WIDTH/2 + 304/3 - 304/2, PARAMS.CANVAS_HEIGHT/2 - 100 + 35);
 
         ctx.fillStyle = "green";
