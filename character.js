@@ -653,7 +653,7 @@ if(this.level<=1){
 
                }if(this.elapsedTime >= 3){
                        
-                        if(this.level >= 4 && this.y <= 2200 ){
+                        if(this.level >= this.levelToEnter && this.y <= 2200 ){
                             ASSET_MANAGER.pauseBackgroundMusic();
 
                             ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
@@ -662,6 +662,8 @@ if(this.level<=1){
                             this.x -= 150;
                             this.y += (1000 + 1100);
 
+                            this.game.camera.dog.x = this.x - 50;
+                            this.game.camera.dog.y = this.y - 50;
                         }else if( this.y >= 2200 + 1100){
                            ASSET_MANAGER.pauseBackgroundMusic();
                            ASSET_MANAGER.playMusic("./music/CornfieldChaseShort.mp3");
@@ -669,6 +671,11 @@ if(this.level<=1){
                                 this.x-=150;
                             this.y  -= (1000 + 1100);
                             this.game.camera.y =  this.tempCameraY;
+
+                            this.game.camera.dog.x = this.x - 50;
+                            this.game.camera.dog.y = this.y - 50;
+
+
                      
                     }                          
                         this.elapsedTime=0;
