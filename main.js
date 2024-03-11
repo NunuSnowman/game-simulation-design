@@ -35,6 +35,8 @@ ASSET_MANAGER.queueDownload("./sprites/mantis.png");
  
 ASSET_MANAGER.queueDownload("./sprites/wolfsheet1.png");
 ASSET_MANAGER.queueDownload("./sprites/towers.png");
+ASSET_MANAGER.queueDownload("./sprites/cat.png");
+
 
 ASSET_MANAGER.queueDownload("./sprites/shuriken.png");
 ASSET_MANAGER.queueDownload("./sprites/endportal.png");
@@ -75,6 +77,8 @@ ASSET_MANAGER.queueDownload("./music/snmusic.mp3");
 ASSET_MANAGER.queueDownload("./audio/walk1.mp3");
 ASSET_MANAGER.queueDownload("./audio/slsh2.mp3");
 ASSET_MANAGER.queueDownload("./audio/dash.mp3");
+ASSET_MANAGER.queueDownload("./audio/cat-meow.mp3");
+
  
 
 ASSET_MANAGER.downloadAll(() => {
